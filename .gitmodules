@@ -1,0 +1,3 @@
+[submodule "Callisto/vendor/spdlog"]
+	path = Callisto/vendor/spdlog
+	url = https://github.com/gabime/spdlog
