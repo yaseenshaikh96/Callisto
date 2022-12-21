@@ -17,6 +17,9 @@ project "Callisto"
 	targetdir ( "bin/" .. outputdir .. "/%{prj.name}")
 	objdir ( "bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "CallistoPCH.h"
+	pchsource "Callisto/src/CallistoPCH.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",

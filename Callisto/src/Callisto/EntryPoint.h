@@ -1,5 +1,6 @@
 #pragma once
 
+
 #ifdef CALLISTO_PLATFORM_WINDOWS
 
 extern Callisto::Application* Callisto::CreateApplication();

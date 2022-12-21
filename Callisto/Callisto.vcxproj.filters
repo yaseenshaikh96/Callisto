@@ -34,6 +34,7 @@
     <ClInclude Include="src\Callisto\Log.h">
       <Filter>Callisto</Filter>
     </ClInclude>
+    <ClInclude Include="src\CallistoPCH.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Application.cpp">
@@ -42,5 +43,6 @@
     <ClCompile Include="src\Callisto\Log.cpp">
       <Filter>Callisto</Filter>
     </ClCompile>
+    <ClCompile Include="src\CallistoPCH.cpp" />
   </ItemGroup>
 </Project>

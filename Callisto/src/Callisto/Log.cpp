@@ -1,3 +1,5 @@
+#include "CallistoPCH.h"
+
 #include "Log.h"
 
 namespace Callisto

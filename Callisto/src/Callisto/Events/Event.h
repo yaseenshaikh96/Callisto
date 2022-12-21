@@ -1,10 +1,8 @@
 #pragma once
 
-#include "Callisto/Core.h"
+#include "CallistoPCH.h"
 
-#include <string>
-#include <sstream>
-#include <functional>
+#include "Callisto/Core.h"
 
 namespace Callisto
 {

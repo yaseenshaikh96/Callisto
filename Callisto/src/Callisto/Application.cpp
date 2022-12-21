@@ -1,6 +1,9 @@
+#include "CallistoPCH.h"
+
 #include "Application.h"
 #include "Events/ApplicationEvent.h"
 #include "Callisto/Log.h"
+
 
 namespace Callisto
 {
@@ -28,6 +31,7 @@ namespace Callisto
 		{
 			CALLISTO_CORE_WARN(e);
 		}
+
 
 		while (true)
 		{
