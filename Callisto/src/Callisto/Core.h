@@ -10,3 +10,5 @@
 #else
 	#error Callisto only support windwos
 #endif // CALLISTO_PLATFORM_WINDOWS
+
+#define BIT(x) (1 << x)

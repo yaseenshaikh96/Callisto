@@ -4,6 +4,9 @@
     <Filter Include="Callisto">
       <UniqueIdentifier>{C00C8A7F-ACD9-E48A-D5F2-D232C11E1A19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Callisto\Events">
+      <UniqueIdentifier>{A4E01973-106C-8737-197D-0A2C8587E337}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Callisto.h" />
@@ -15,6 +18,18 @@
     </ClInclude>
     <ClInclude Include="src\Callisto\EntryPoint.h">
       <Filter>Callisto</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Events\ApplicationEvent.h">
+      <Filter>Callisto\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Events\Event.h">
+      <Filter>Callisto\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Events\KeyEvent.h">
+      <Filter>Callisto\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Events\MouseEvent.h">
+      <Filter>Callisto\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Log.h">
       <Filter>Callisto</Filter>
