@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Window.h"
+#include "Events/ApplicationEvent.h"
 
 namespace Callisto
 {
@@ -11,8 +12,11 @@ namespace Callisto
 	public:
 		Application();
 		virtual ~Application();
-
+	public:
 		void Run();
+		void OnEvent(Event& e);
+	private:
+		bool OnWindowClose(WindowCloseEvent& e);
 	private:
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;

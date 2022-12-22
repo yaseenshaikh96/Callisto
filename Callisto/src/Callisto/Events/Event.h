@@ -36,6 +36,7 @@ namespace Callisto
 	// Events are blocking, processed instantly
 	class CALLISTO_API Event
 	{
+		friend class EventDispatcher;
 	public:
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0; // should be in debug only
@@ -47,8 +48,8 @@ namespace Callisto
 			// GetFlag() == 100100, category = 000100 => return = 000100, that is greater than 0 so casted to true
 			return GetCategoryFlags() & category; 
 		}
-	protected:
-		bool m_handled{ false };
+	public: // TODO: make this rotected without breaking EventDispatcher
+		bool m_Handled{ false };
 	};
 
 	class EventDispacther
@@ -65,7 +66,7 @@ namespace Callisto
 		{
 			if (m_Event.GetEventType() == t_EventType::GetStaticType())
 			{
-				m_Event.m_handled = func(*(t_EventType*)&m_Event);
+				m_Event.m_Handled = func(*(t_EventType*)&m_Event);
 				return true;
 			}
 			return false;

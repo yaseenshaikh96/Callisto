@@ -22,6 +22,7 @@ namespace Callisto
 		{
 			std::stringstream ss;
 			ss << "MouseMoved: " << GetX() << ", " << GetY();
+			return ss.str();
 		}
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY( EventCategoryMouse | EventCategoryInput )
@@ -47,6 +48,7 @@ namespace Callisto
 		{
 			std::stringstream ss;
 			ss << "MouseScrolled: " << GetOffsetX() << ", " << GetOffsetY();
+			return ss.str();
 		}
 		EVENT_CLASS_TYPE(MouseScrolled)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
@@ -61,7 +63,7 @@ namespace Callisto
 			: m_Button{ button }
 		{}
 	public:
-		inline float GetButton() const
+		inline int GetButton() const
 		{
 			return m_Button;
 		}
@@ -80,6 +82,7 @@ namespace Callisto
 		{
 			std::stringstream ss;
 			ss << "MouseButtonPressed: " << GetButton();
+			return ss.str();
 		}
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
@@ -94,6 +97,7 @@ namespace Callisto
 		{
 			std::stringstream ss;
 			ss << "MouseButtonReleased: " << GetButton();
+			return ss.str();
 		}
 		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
