@@ -65,14 +65,17 @@ project "Callisto"
 
 	filter "configurations:Debug"
 		defines "CALLISTO_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CALLISTO_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CALLISTO_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 
@@ -116,12 +119,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "CALLISTO_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CALLISTO_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CALLISTO_DIST"
+		buildoptions "/MD"
 		optimize "On"

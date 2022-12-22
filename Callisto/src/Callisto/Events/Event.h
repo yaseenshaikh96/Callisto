@@ -49,7 +49,7 @@ namespace Callisto
 			return GetCategoryFlags() & category; 
 		}
 	public: // TODO: make this rotected without breaking EventDispatcher
-		bool m_Handled{ false };
+		bool Handled{ false };
 	};
 
 	class EventDispacther
@@ -66,7 +66,7 @@ namespace Callisto
 		{
 			if (m_Event.GetEventType() == t_EventType::GetStaticType())
 			{
-				m_Event.m_Handled = func(*(t_EventType*)&m_Event);
+				m_Event.Handled = func(*(t_EventType*)&m_Event);
 				return true;
 			}
 			return false;

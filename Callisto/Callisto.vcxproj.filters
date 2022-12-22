@@ -7,6 +7,12 @@
     <Filter Include="Callisto\Events">
       <UniqueIdentifier>{A4E01973-106C-8737-197D-0A2C8587E337}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Callisto\Platforms">
+      <UniqueIdentifier>{07C48663-F3A7-47B9-5C08-420C480B323B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Callisto\Platforms\Windows">
+      <UniqueIdentifier>{41857F85-2D95-2B56-964E-9074827D1AEF}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Callisto.h" />
@@ -31,21 +37,39 @@
     <ClInclude Include="src\Callisto\Events\MouseEvent.h">
       <Filter>Callisto\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Callisto\Layer.h">
+      <Filter>Callisto</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\LayerStack.h">
+      <Filter>Callisto</Filter>
+    </ClInclude>
     <ClInclude Include="src\Callisto\Log.h">
       <Filter>Callisto</Filter>
     </ClInclude>
+    <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h">
+      <Filter>Callisto\Platforms\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Window.h">
+      <Filter>Callisto</Filter>
+    </ClInclude>
     <ClInclude Include="src\CallistoPCH.h" />
-    <ClInclude Include="src\Callisto\Window.h" />
-    <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Application.cpp">
       <Filter>Callisto</Filter>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Layer.cpp">
+      <Filter>Callisto</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\LayerStack.cpp">
+      <Filter>Callisto</Filter>
+    </ClCompile>
     <ClCompile Include="src\Callisto\Log.cpp">
       <Filter>Callisto</Filter>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Platforms\Windows\WindowsWindow.cpp">
+      <Filter>Callisto\Platforms\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\CallistoPCH.cpp" />
-    <ClCompile Include="src\Callisto\Platforms\Windows\WindowsWindow.cpp" />
   </ItemGroup>
 </Project>

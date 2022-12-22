@@ -84,6 +84,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -110,6 +111,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -137,6 +139,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -160,18 +163,22 @@
     <ClInclude Include="src\Callisto\Events\Event.h" />
     <ClInclude Include="src\Callisto\Events\KeyEvent.h" />
     <ClInclude Include="src\Callisto\Events\MouseEvent.h" />
+    <ClInclude Include="src\Callisto\Layer.h" />
+    <ClInclude Include="src\Callisto\LayerStack.h" />
     <ClInclude Include="src\Callisto\Log.h" />
-    <ClInclude Include="src\CallistoPCH.h" />
-    <ClInclude Include="src\Callisto\Window.h" />
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Callisto\Window.h" />
+    <ClInclude Include="src\CallistoPCH.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Application.cpp" />
+    <ClCompile Include="src\Callisto\Layer.cpp" />
+    <ClCompile Include="src\Callisto\LayerStack.cpp" />
     <ClCompile Include="src\Callisto\Log.cpp" />
+    <ClCompile Include="src\Callisto\Platforms\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\CallistoPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Callisto\Platforms\Windows\WindowsWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
