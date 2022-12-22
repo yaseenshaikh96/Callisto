@@ -35,6 +35,8 @@
       <Filter>Callisto</Filter>
     </ClInclude>
     <ClInclude Include="src\CallistoPCH.h" />
+    <ClInclude Include="src\Callisto\Window.h" />
+    <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Application.cpp">
@@ -44,5 +46,6 @@
       <Filter>Callisto</Filter>
     </ClCompile>
     <ClCompile Include="src\CallistoPCH.cpp" />
+    <ClCompile Include="src\Callisto\Platforms\Windows\WindowsWindow.cpp" />
   </ItemGroup>
 </Project>

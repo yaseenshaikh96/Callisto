@@ -6,9 +6,7 @@
 
 namespace Callisto
 {
-	/*
-	* Events are blocking, processed instantly
-	*/
+	// Every single event represented by an enum value
 	enum class EventType
 	{
 		None = 0,
@@ -18,6 +16,7 @@ namespace Callisto
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled 
 	};
 
+	// Used for efficient filtering of events
 	enum EventCategory
 	{
 		None = 0,
@@ -34,6 +33,7 @@ namespace Callisto
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
+	// Events are blocking, processed instantly
 	class CALLISTO_API Event
 	{
 	public:
@@ -53,8 +53,9 @@ namespace Callisto
 
 	class EventDispacther
 	{
+		// function that returns a bool and takes a t_EventType&
 		template <typename t_EventType>
-		using EventFn = std::function<bool(t_EventType&)>; // function that returns a bool and takes a t_EventType&
+		using EventFn = std::function<bool(t_EventType&)>; 
 	public:
 		EventDispacther(Event& e)
 			: m_Event{ e }

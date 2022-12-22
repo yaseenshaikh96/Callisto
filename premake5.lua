@@ -10,6 +10,11 @@ workspace "Callisto"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludedDirs = {}
+IncludedDirs["GLFW"] = "Callisto/vendor/GLFW/include"
+
+include "Callisto/vendor/GLFW"
+
 project "Callisto"
 	location "Callisto"
 	kind "SharedLib"
@@ -29,7 +34,14 @@ project "Callisto"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludedDirs.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

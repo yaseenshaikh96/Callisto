@@ -2,14 +2,14 @@
 
 #include "Application.h"
 #include "Events/ApplicationEvent.h"
-#include "Callisto/Log.h"
 
+#include "GLFW/glfw3.h"
 
 namespace Callisto
 {
 	Application::Application()
 	{
-
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 
 
@@ -21,20 +21,11 @@ namespace Callisto
 
 	void Application::Run()
 	{
-		WindowResizeEvent e{ 1280, 720 };
-
-		if (e.IsInCategory(EventCategoryApplication))
+		while (m_Running)
 		{
-			CALLISTO_CORE_TRACE(e);
-		}
-		if (e.IsInCategory(EventCategoryInput))
-		{
-			CALLISTO_CORE_WARN(e);
-		}
-
-
-		while (true)
-		{
+			glClearColor(0.4, 0.01, 0.5, 1.0); // GOOD PURPLE
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_Window->OnUpdate();
 		}
 	}
 
