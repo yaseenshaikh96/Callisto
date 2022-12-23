@@ -2,8 +2,8 @@
 
 #include "Core.h"
 #include "Window.h"
-#include "Callisto/LayerStack.h"
-#include "Events/ApplicationEvent.h"
+#include <Callisto/LayerStack.h>
+#include <Callisto/Events/ApplicationEvent.h>
 
 namespace Callisto
 {

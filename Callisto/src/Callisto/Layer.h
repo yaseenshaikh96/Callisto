@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Callisto/Core.h"
-#include "Events/Event.h"
+#include <Callisto/Core.h>
+#include <Callisto/Events/Event.h>
 
 namespace Callisto{
 	
