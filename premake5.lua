@@ -12,8 +12,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludedDirs = {}
 IncludedDirs["GLFW"] = "Callisto/vendor/GLFW/include"
+IncludedDirs["Glad"] = "Callisto/vendor/Glad/include"
 
 include "Callisto/vendor/GLFW"
+include "Callisto/vendor/Glad"
 
 project "Callisto"
 	location "Callisto"
@@ -35,12 +37,14 @@ project "Callisto"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludedDirs.GLFW}"
+		"%{IncludedDirs.GLFW}",
+		"%{IncludedDirs.Glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -53,6 +57,7 @@ project "Callisto"
 		{
 			"CALLISTO_PLATFORM_WINDOWS",
 			"CALLISTO_BUILD_DLL",
+			"GLFW_INCLUDE_NONE",
 			"_WINDLL",
 			"_UNICODE",
 			"UNICODE"

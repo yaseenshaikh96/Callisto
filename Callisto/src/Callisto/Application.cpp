@@ -1,7 +1,9 @@
 #include "CallistoPCH.h"
 
 #include "Application.h"
-#include "GLFW/glfw3.h"
+#include <Callisto/Log.h>
+
+#include <glad/glad.h>
 
 namespace Callisto
 {
@@ -12,6 +14,10 @@ namespace Callisto
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
+
+		unsigned int id;
+		glGenVertexArrays(1, &id);
+		CALLISTO_CORE_INFO("break");
 	}
 
 	Application::~Application()
