@@ -4,3 +4,6 @@
 [submodule "Callisto/vendor/GLFW"]
 	path = Callisto/vendor/GLFW
 	url = https://github.com/TheCherno/glfw.git
+[submodule "Callisto/vendor/Imgui"]
+	path = Callisto/vendor/Imgui
+	url = https://github.com/TheCherno/imgui.git
