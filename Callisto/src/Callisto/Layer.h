@@ -2,6 +2,9 @@
 
 #include <Callisto/Core.h>
 #include <Callisto/Events/Event.h>
+#include <Callisto/Events/ApplicationEvent.h>
+#include <Callisto/Events/KeyEvent.h>
+#include <Callisto/Events/MouseEvent.h>
 
 namespace Callisto{
 	

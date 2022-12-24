@@ -117,11 +117,16 @@ namespace Callisto
 				{
 					KeyPressedEvent e{ key, 1 };
 					data.EventCallback(e);
-					break;
+					break; 
 				}
 				}
 			});
-
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int charCode)
+			{
+				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+				KeyTypedEvent e{ (int)charCode };
+				data.EventCallback(e);
+			});
 		glfwSetMouseButtonCallback(m_Window,
 			[](GLFWwindow* window, int button, int action, int mode)
 			{

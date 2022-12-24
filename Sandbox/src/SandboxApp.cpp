@@ -11,7 +11,7 @@ public:
 
 	void OnUpdate() override
 	{
-		CALLISTO_INFO("ExampleLayer::OnUpdate");
+		//CALLISTO_INFO("ExampleLayer::OnUpdate");
 	}
 	void OnEvent(Callisto::Event& e) override
 	{
@@ -25,6 +25,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Callisto::ImguiLayer());
 	}
 
 	~Sandbox()

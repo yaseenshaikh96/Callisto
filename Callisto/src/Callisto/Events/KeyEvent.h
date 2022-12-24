@@ -11,7 +11,7 @@ namespace Callisto
 			: m_KeyCode(keyCode)
 		{}
 	public:
-		inline int GeyKeyCode() const
+		inline int GetKeyCode() const
 		{
 			return m_KeyCode;
 		}	
@@ -54,5 +54,20 @@ namespace Callisto
 			return ss.str();
 		}
 		EVENT_CLASS_TYPE(KeyPressed)
+	};
+
+	class CALLISTO_API KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int keyCode)
+			: KeyEvent{ keyCode }
+		{}
+		std::string ToString() const override
+		{
+			std::stringstream ss{};
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+		EVENT_CLASS_TYPE(KeyTyped)
 	};
 }
