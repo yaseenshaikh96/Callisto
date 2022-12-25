@@ -13,7 +13,7 @@ namespace Callisto
 {
 
 	ImguiLayer::ImguiLayer()
-		: Layer("DebugLayer")
+		: Layer("DebugLayer") 
 	{}
 	ImguiLayer::~ImguiLayer()
 	{}
@@ -153,7 +153,7 @@ namespace Callisto
 	{
 		ImGuiIO& io{ ImGui::GetIO() };
 		io.DisplaySize = ImVec2{(float)e.GetWidth(), (float)e.GetHeight()};
-		io.DisplayFramebufferScale = ImVec2(1.0, 1.0);
+		io.DisplayFramebufferScale = ImVec2{ 1.0, 1.0 };
 		glViewport(0, 0, e.GetWidth(), e.GetHeight());
 		return false;
 	}

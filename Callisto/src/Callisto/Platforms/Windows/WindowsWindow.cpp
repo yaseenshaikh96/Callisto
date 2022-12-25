@@ -1,7 +1,6 @@
 #include "CallistoPCH.h"
 #include "WindowsWindow.h"
 
-#include <glad/glad.h>
 
 #include <Callisto/Events/ApplicationEvent.h>
 #include <Callisto/Events/MouseEvent.h>
@@ -109,7 +108,7 @@ namespace Callisto
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent e{ key };
+					KeyReleasedEvent e{ key }; 
 					data.EventCallback(e);
 					break;
 				}

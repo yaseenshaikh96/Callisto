@@ -1,5 +1,6 @@
 workspace "Callisto"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -23,6 +24,8 @@ project "Callisto"
 	location "Callisto"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "Off"
+
 	targetdir ( "bin/" .. outputdir .. "/%{prj.name}")
 	objdir ( "bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -54,7 +57,6 @@ project "Callisto"
 
 	filter "system:windows"
 		cppdialect "C++20"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -69,22 +71,22 @@ project "Callisto"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"
 		defines "CALLISTO_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CALLISTO_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CALLISTO_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 
@@ -92,6 +94,8 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "Off"
+	
 	targetdir ( "bin/" .. outputdir .. "/%{prj.name}")
 	objdir ( "bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -101,8 +105,7 @@ project "Sandbox"
 		"%{prj.name}/src/**.cpp"
 	}
 
-		includedirs
-
+	includedirs
 	{
 		"Callisto/vendor/spdlog/include",
 		"Callisto/src"
@@ -115,7 +118,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++20"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -128,15 +130,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "CALLISTO_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug" 
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CALLISTO_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CALLISTO_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"

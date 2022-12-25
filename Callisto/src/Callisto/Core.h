@@ -12,6 +12,10 @@
 	#error Callisto only support windwos
 #endif // CALLISTO_PLATFORM_WINDOWS
 
+#ifdef CALLISTO_DEBUG
+	#define CALLISTO_ENABLE_ASSERTS
+#endif
+
 #ifdef CALLISTO_ENABLE_ASSERTS
 	#define CALLISTO_ASSERT(x, ...) { if(!(x)) { CALLISTO_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define CALLISTO_CORE_ASSERT(x, ...) { if(!(x)) { CALLISTO_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }

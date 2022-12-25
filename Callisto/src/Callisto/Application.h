@@ -14,7 +14,7 @@ namespace Callisto
 		Application();
 		virtual ~Application();
 	public:
-		void Run();
+		void Run(); 
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
