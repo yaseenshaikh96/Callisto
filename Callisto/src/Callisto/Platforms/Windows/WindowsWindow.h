@@ -12,6 +12,8 @@ namespace Callisto
 		WindowsWindow(const WindowProps& props);
 		virtual ~WindowsWindow() override;
 
+		inline virtual void* GetNativeWindow() const override { return (void*)m_Window; }
+
 		void OnUpdate() override;
 		
 		inline unsigned int GetWidth() const override { return m_Data.Width; }

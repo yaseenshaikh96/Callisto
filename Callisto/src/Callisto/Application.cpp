@@ -5,6 +5,8 @@
 
 #include <glad/glad.h>
 
+#include <Callisto/Input.h>
+
 namespace Callisto
 {
 
@@ -46,7 +48,7 @@ namespace Callisto
 		EventDispacther dispatcher{ e };
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 	
-		CALLISTO_CORE_TRACE("e: {0}", e);
+		//CALLISTO_CORE_TRACE("e: {0}", e);
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -63,6 +65,8 @@ namespace Callisto
 			glClearColor(0.4, 0.01, 0.5, 1.0); // GOOD PURPLE
 			glClear(GL_COLOR_BUFFER_BIT);
 			
+			CALLISTO_CORE_INFO("{0}, {1}", Input::GetMouseX(), Input::GetMouseY());
+
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 			
