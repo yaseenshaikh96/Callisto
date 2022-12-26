@@ -1,5 +1,5 @@
 #include <Callisto.h>
-
+#include <Imgui/imgui.h>
 
 class ExampleLayer : public Callisto::Layer
 {
@@ -7,7 +7,15 @@ public:
 	ExampleLayer()
 		:
 		Layer("Example")
-	{}
+	{
+	}
+
+	void OnImGuiRender() override
+	{
+		ImGui::Begin("Test!");
+		ImGui::Text("Hello ImGui!!");
+		ImGui::End();
+	}
 
 	void OnUpdate() override
 	{
@@ -28,7 +36,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Callisto::ImguiLayer());
 	}
 
 	~Sandbox()

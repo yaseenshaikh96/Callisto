@@ -22,9 +22,8 @@ namespace Callisto
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
 
-		unsigned int id;
-		glGenVertexArrays(1, &id);
-		CALLISTO_CORE_INFO("break");
+		m_ImGuiLayer = new ImguiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -65,11 +64,14 @@ namespace Callisto
 			glClearColor(0.4, 0.01, 0.5, 1.0); // GOOD PURPLE
 			glClear(GL_COLOR_BUFFER_BIT);
 			
-			//CALLISTO_CORE_INFO("{0}, {1}", Input::GetMouseX(), Input::GetMouseY());
-
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
-			
+
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
+
 			m_Window->OnUpdate();
 		}
 	}

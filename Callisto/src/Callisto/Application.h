@@ -5,6 +5,8 @@
 #include <Callisto/LayerStack.h>
 #include <Callisto/Events/ApplicationEvent.h>
 
+#include <Callisto/Imgui/ImguiLayer.h>
+
 namespace Callisto
 {
 	// This object represents the entire application
@@ -27,6 +29,7 @@ namespace Callisto
 		bool OnWindowClose(WindowCloseEvent& e);
 	private:
 		std::unique_ptr<Window> m_Window;
+		ImguiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	private:

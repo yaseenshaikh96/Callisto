@@ -15,6 +15,7 @@ IncludedDirs = {}
 IncludedDirs["GLFW"] = "Callisto/vendor/GLFW/include"
 IncludedDirs["Glad"] = "Callisto/vendor/Glad/include"
 IncludedDirs["Imgui"] = "Callisto/vendor/Imgui"
+IncludedDirs["glm"] = "Callisto/vendor/glm"
 
 include "Callisto/vendor/GLFW"
 include "Callisto/vendor/Glad"
@@ -35,7 +36,10 @@ project "Callisto"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -44,7 +48,8 @@ project "Callisto"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludedDirs.GLFW}",
 		"%{IncludedDirs.Glad}",
-		"%{IncludedDirs.Imgui}"
+		"%{IncludedDirs.Imgui}",
+		"%{IncludedDirs.glm}"
 	}
 
 	links
@@ -108,7 +113,9 @@ project "Sandbox"
 	includedirs
 	{
 		"Callisto/vendor/spdlog/include",
-		"Callisto/src"
+		"Callisto/src",
+		"Callisto/vendor",
+		"%{IncludedDirs.glm}"
 	}
 
 	links
