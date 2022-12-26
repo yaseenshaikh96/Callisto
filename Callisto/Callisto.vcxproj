@@ -162,9 +162,11 @@
     <ClInclude Include="src\Callisto\Events\MouseEvent.h" />
     <ClInclude Include="src\Callisto\Imgui\ImguiLayer.h" />
     <ClInclude Include="src\Callisto\Input.h" />
+    <ClInclude Include="src\Callisto\KeyCodes.h" />
     <ClInclude Include="src\Callisto\Layer.h" />
     <ClInclude Include="src\Callisto\LayerStack.h" />
     <ClInclude Include="src\Callisto\Log.h" />
+    <ClInclude Include="src\Callisto\MouseButtonCodes.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\ImguiOpenGLRenderer.h" />
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Callisto\Window.h" />

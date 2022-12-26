@@ -11,11 +11,14 @@ public:
 
 	void OnUpdate() override
 	{
+		if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_E))
+			CALLISTO_CORE_TRACE("E is Pressed");
+
 		//CALLISTO_INFO("ExampleLayer::OnUpdate");
 	}
 	void OnEvent(Callisto::Event& e) override
 	{
-		CALLISTO_INFO("Event: {0}", e);
+		// CALLISTO_INFO("Event: {0}", e);
 	}
 };
 

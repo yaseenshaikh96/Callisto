@@ -67,6 +67,8 @@
     <ClInclude Include="src\CallistoPCH.h" />
     <ClInclude Include="src\Callisto\Input.h" />
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Callisto\KeyCodes.h" />
+    <ClInclude Include="src\Callisto\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Application.cpp">

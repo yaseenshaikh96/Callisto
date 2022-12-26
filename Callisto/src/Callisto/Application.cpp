@@ -65,7 +65,7 @@ namespace Callisto
 			glClearColor(0.4, 0.01, 0.5, 1.0); // GOOD PURPLE
 			glClear(GL_COLOR_BUFFER_BIT);
 			
-			CALLISTO_CORE_INFO("{0}, {1}", Input::GetMouseX(), Input::GetMouseY());
+			//CALLISTO_CORE_INFO("{0}, {1}", Input::GetMouseX(), Input::GetMouseY());
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
