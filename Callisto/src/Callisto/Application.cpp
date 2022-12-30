@@ -61,7 +61,7 @@ namespace Callisto
 	{
 		while (m_Running)
 		{
-			glClearColor(0.4, 0.01, 0.5, 1.0); // GOOD PURPLE
+			glClearColor(0.4f, 0.01f, 0.5f, 1.0f); // GOOD PURPLE
 			glClear(GL_COLOR_BUFFER_BIT);
 			
 			for (Layer* layer : m_LayerStack)

@@ -23,9 +23,10 @@ include "Callisto/vendor/Imgui"
 
 project "Callisto"
 	location "Callisto"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++20"
+	staticruntime "on"
 
 	targetdir ( "bin/" .. outputdir .. "/%{prj.name}")
 	objdir ( "bin-int/" .. outputdir .. "/%{prj.name}")
@@ -40,6 +41,11 @@ project "Callisto"
 
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs
@@ -61,7 +67,6 @@ project "Callisto"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
 		systemversion "latest"
 
 		defines
@@ -74,32 +79,28 @@ project "Callisto"
 			"UNICODE"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		}
-
 	filter "configurations:Debug"
 		defines "CALLISTO_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "CALLISTO_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "CALLISTO_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++20"
+	staticruntime "on"
 	
 	targetdir ( "bin/" .. outputdir .. "/%{prj.name}")
 	objdir ( "bin-int/" .. outputdir .. "/%{prj.name}")
@@ -124,7 +125,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
 		systemversion "latest"
 
 		defines
@@ -138,14 +138,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "CALLISTO_DEBUG"
 		runtime "Debug" 
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "CALLISTO_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "CALLISTO_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
