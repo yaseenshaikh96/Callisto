@@ -162,6 +162,7 @@
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsInput.h" />
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Callisto\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Callisto\Renderer\Shader.h" />
     <ClInclude Include="src\Callisto\Window.h" />
     <ClInclude Include="src\CallistoPCH.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -594,6 +595,7 @@
     <ClCompile Include="src\CallistoPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

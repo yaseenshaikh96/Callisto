@@ -7,6 +7,8 @@
 
 #include <Callisto/Imgui/ImguiLayer.h>
 
+#include "Callisto/Renderer/Shader.h"
+
 namespace Callisto
 {
 	// This object represents the entire application
@@ -34,6 +36,7 @@ namespace Callisto
 		LayerStack m_LayerStack;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 
 	private:
 		static Application* s_Instance;
