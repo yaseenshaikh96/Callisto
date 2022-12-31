@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Callisto/Window.h"
-#include <glad/glad.h>
+#include <Callisto/Renderer/GraphicsContext.h>
+
 #include <GLFW/glfw3.h>
 
 namespace Callisto
@@ -29,7 +30,7 @@ namespace Callisto
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
-
+		GraphicsContext* m_Context;
 		// Holds a MSWindows Window's property along with a callback
 		struct WindowData
 		{
