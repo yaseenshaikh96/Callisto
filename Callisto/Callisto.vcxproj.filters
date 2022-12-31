@@ -1350,6 +1350,9 @@
     <ClInclude Include="src\Callisto\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Callisto\Renderer\Shader.h" />
+    <ClInclude Include="src\Callisto\Renderer\Buffer.h" />
+    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Callisto\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Application.cpp">
@@ -1381,5 +1384,8 @@
     </ClCompile>
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Callisto\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Callisto\Renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>

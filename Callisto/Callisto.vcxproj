@@ -158,10 +158,13 @@
     <ClInclude Include="src\Callisto\LayerStack.h" />
     <ClInclude Include="src\Callisto\Log.h" />
     <ClInclude Include="src\Callisto\MouseButtonCodes.h" />
+    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsInput.h" />
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Callisto\Renderer\Buffer.h" />
     <ClInclude Include="src\Callisto\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Callisto\Renderer\Renderer.h" />
     <ClInclude Include="src\Callisto\Renderer\Shader.h" />
     <ClInclude Include="src\Callisto\Window.h" />
     <ClInclude Include="src\CallistoPCH.h" />
@@ -589,12 +592,15 @@
     <ClCompile Include="src\Callisto\Layer.cpp" />
     <ClCompile Include="src\Callisto\LayerStack.cpp" />
     <ClCompile Include="src\Callisto\Log.cpp" />
+    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Callisto\Platforms\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Callisto\Platforms\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\CallistoPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Callisto\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
