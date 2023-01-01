@@ -3,11 +3,9 @@
 #include "Application.h"
 #include <Callisto/Log.h>
 
-#include <glad/glad.h>
+#include <Callisto/Renderer/Renderer.h>
 
 #include <Callisto/Input.h>
-
-//#include <Callisto/Renderer/Shader.h>
 
 namespace Callisto
 {
@@ -164,16 +162,18 @@ namespace Callisto
 	{
 		while (m_Running)
 		{
-			glClearColor(0.4f, 0.01f, 0.5f, 1.0f); // GOOD PURPLE
-			glClear(GL_COLOR_BUFFER_BIT);
-			
-			m_ShaderSquare->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
+			RenderCommand::Clear();
+
+			Renderer::BeginScene();
+
+			m_ShaderSquare->Bind();	
+			Renderer::Submit(m_SquareVA);
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+		
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

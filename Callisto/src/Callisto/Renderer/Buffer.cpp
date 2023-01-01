@@ -25,10 +25,10 @@ namespace Callisto
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::NONE: 
+		case RendererAPI::API::NONE: 
 			CALLISTO_CORE_ASSERT(false, "RenderAPI::NONE not supported!");
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLVertexBuffer(vertices, size);
 		}
 		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
@@ -42,10 +42,10 @@ namespace Callisto
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::NONE:
+		case RendererAPI::API::NONE:
 			CALLISTO_CORE_ASSERT(false, "RenderAPI::NONE not supported!");
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLIndexBuffer(indices, size);
 		}
 		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
