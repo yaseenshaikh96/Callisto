@@ -34,7 +34,7 @@ namespace Callisto
 
 			// Use the infoLog as you see fit.
 			CALLISTO_CORE_ERROR("{0}", infoLog.data());
-			CALLISTO_ASSERT(false, "Vertex Shader Compilation Error!");
+			CALLISTO_CORE_ASSERT(false, "Vertex Shader Compilation Error!");
 			// In this simple program, we'll just leave
 			return;
 		}
@@ -67,7 +67,7 @@ namespace Callisto
 
 			// Use the infoLog as you see fit.
 			CALLISTO_CORE_ERROR("{0}", infoLog.data());
-			CALLISTO_ASSERT(false, "Fragment Shader Compilation Error!");
+			CALLISTO_CORE_ASSERT(false, "Fragment Shader Compilation Error!");
 			// In this simple program, we'll just leave
 			return;
 		}
@@ -105,7 +105,7 @@ namespace Callisto
 
 			// Use the infoLog as you see fit.
 			CALLISTO_CORE_ERROR("{0}", infoLog.data());
-			CALLISTO_ASSERT(false, "Shader Linking Error!");
+			CALLISTO_CORE_ASSERT(false, "Shader Linking Error!");
 			// In this simple program, we'll just leave
 			return;
 		}

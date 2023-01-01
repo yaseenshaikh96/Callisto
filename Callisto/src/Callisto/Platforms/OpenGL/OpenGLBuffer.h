@@ -14,10 +14,14 @@ namespace Callisto
 	public:
 		virtual ~OpenGLVertexBuffer();
 	public:
-		virtual void Bind() const;
-		virtual void UnBind() const;
+		virtual void Bind() const override;
+		virtual void UnBind() const override;
+
+		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
 	private:
 		uint32_t m_RendererID;
+		BufferLayout m_Layout;
 	};
 
 	/**************************************************************************************************************************************************/
@@ -31,8 +35,8 @@ namespace Callisto
 		virtual ~OpenGLIndexBuffer();
 	public:
 
-		virtual void Bind() const;
-		virtual void UnBind() const;
+		virtual void Bind() const override;
+		virtual void UnBind() const override;
 
 		virtual uint32_t GetCount() const { return m_Count; };
 
