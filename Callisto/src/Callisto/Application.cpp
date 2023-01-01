@@ -16,26 +16,7 @@ namespace Callisto
 	
 	Application* Application::s_Instance = nullptr;
 	 
-	static GLenum ShaderDataTypeToOpenGlType(ShaderDataType type)
-	{
-		switch (type)
-		{
-		case Callisto::ShaderDataType::None:	return GL_FLOAT;
-		case Callisto::ShaderDataType::Float:	return GL_FLOAT;
-		case Callisto::ShaderDataType::Float2:	return GL_FLOAT;
-		case Callisto::ShaderDataType::Float3:	return GL_FLOAT;
-		case Callisto::ShaderDataType::Float4:	return GL_FLOAT;
-		case Callisto::ShaderDataType::Mat3:	return GL_FLOAT;
-		case Callisto::ShaderDataType::Mat4:	return GL_FLOAT;
-		case Callisto::ShaderDataType::Int:		return GL_INT;
-		case Callisto::ShaderDataType::Int2:	return GL_INT;
-		case Callisto::ShaderDataType::Int3:	return GL_INT;
-		case Callisto::ShaderDataType::Int4:	return GL_INT;
-		case Callisto::ShaderDataType::Bool:	return GL_BOOL;
-		}
-		CALLISTO_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
+
 
 	Application::Application()
 	{
@@ -48,9 +29,7 @@ namespace Callisto
 		m_ImGuiLayer = new ImguiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[]
 		{
@@ -58,33 +37,37 @@ namespace Callisto
 			 0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 			 0.0f,  0.5f,  0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		};
-
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		std::shared_ptr<VertexBuffer> vertexBuffer1{ VertexBuffer::Create(vertices, sizeof(vertices)) };
+		BufferLayout layout
 		{
-			BufferLayout layout
-			{
-				{ShaderDataType::Float3, "a_Position"},
-				{ShaderDataType::Float4, "a_Color"}
-			};
-			m_VertexBuffer->SetLayout(layout);
-		}
-
-		uint32_t index{ 0 };
-		for (const auto& element : m_VertexBuffer->GetLayout())
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, 
-				element.GetComponentCount(), 
-				ShaderDataTypeToOpenGlType(element.Type), 
-				element.Normalized ? GL_TRUE: GL_FALSE,
-				m_VertexBuffer->GetLayout().GetStride(),
-				(const void*)element.Offset);
-			index++;
-		}
-
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float4, "a_Color"}
+		};
+		vertexBuffer1->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer1);
 		unsigned int indices[] { 0, 1, 2 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, 3));
-		
+		std::shared_ptr<IndexBuffer> indexBuffer1{ IndexBuffer::Create(indices, 3) };
+		m_VertexArray->SetIndexBuffer(indexBuffer1);
+
+
+		m_SquareVA.reset(VertexArray::Create());
+		float vertices2[]
+		{
+			-0.75f, -0.75f,  0.0f,
+			 0.75f, -0.75f,  0.0f,
+			 0.75f,  0.75f,  0.0f,
+			-0.75f,  0.75f,  0.0f
+		};
+		std::shared_ptr<VertexBuffer> SquareVB{ VertexBuffer::Create(vertices2, 12 * sizeof(float) ) };
+		BufferLayout layout2
+		{
+			{ShaderDataType::Float3, "a_Position"}
+		};
+		SquareVB->SetLayout(layout2);
+		m_SquareVA->AddVertexBuffer(SquareVB);
+		unsigned int indices2[6]{ 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer> SquareVI{ IndexBuffer::Create(indices2, 6) };
+		m_SquareVA->SetIndexBuffer(SquareVI);
 
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -116,8 +99,34 @@ namespace Callisto
 				color = v_Color;
 			}	
 		)";
-
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+
+		std::string vertexSrc2 = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);
+			}	
+		)";
+		std::string fragmentSrc2 = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main()
+			{
+				color = vec4(1.0, 1.0, 0.0, 1.0);
+			}	
+		)";
+		m_ShaderSquare.reset(new Shader(vertexSrc2, fragmentSrc2));
 	}
 
 	Application::~Application()
@@ -158,10 +167,13 @@ namespace Callisto
 			glClearColor(0.4f, 0.01f, 0.5f, 1.0f); // GOOD PURPLE
 			glClear(GL_COLOR_BUFFER_BIT);
 			
+			m_ShaderSquare->Bind();
+			m_SquareVA->Bind();
+			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
 			m_Shader->Bind();
-			
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			m_VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
