@@ -11,6 +11,9 @@
 #include <Callisto/Renderer/Buffer.h>
 #include <Callisto/Renderer/VertexArray.h>
 
+#include <Callisto/Renderer/Camera.h>
+
+
 namespace Callisto
 {
 	// This object represents the entire application
@@ -42,6 +45,8 @@ namespace Callisto
 		std::shared_ptr<VertexArray> m_VertexArray;
 		std::shared_ptr<VertexArray> m_SquareVA;
 
+		OrthographicCamera m_Camera;
+		float myRotation{ 0 };
 	private:
 		static Application* s_Instance;
 	};
