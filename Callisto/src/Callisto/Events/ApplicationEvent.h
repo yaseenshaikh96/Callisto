@@ -8,7 +8,7 @@ namespace Callisto
 	{
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
-			: m_Width{width}, m_Height{height}
+			: m_Width(width), m_Height(height)
 		{}
 		inline unsigned int GetWidth() const
 		{
@@ -20,7 +20,7 @@ namespace Callisto
 		}
 		std::string ToString() const
 		{
-			std::stringstream ss{};
+			std::stringstream ss;
 			ss << "WindowResizeEvent: " << GetWidth() << ", " << GetHeight();
 			return ss.str();
 		}
@@ -35,7 +35,7 @@ namespace Callisto
 	{
 	public:
 		WindowMovedEvent(float offsetX, float offsetY)
-			: m_OffsetX{ offsetX }, m_OffsetY{ offsetY }
+			: m_OffsetX(offsetX), m_OffsetY(offsetY)
 		{}
 		inline float GetOffsetX() const
 		{
@@ -47,7 +47,7 @@ namespace Callisto
 		}
 		std::string ToString() const
 		{
-			std::stringstream ss{};
+			std::stringstream ss;
 			ss << "WindowMovedEvent: " << GetOffsetX() << ", " << GetOffsetY();
 			return ss.str();
 		}

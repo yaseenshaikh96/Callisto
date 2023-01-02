@@ -15,8 +15,7 @@ namespace Callisto
 {
 
 	ImguiLayer::ImguiLayer()
-		: Layer("DebugLayer"),
-		m_Time{}
+		: Layer("DebugLayer")
 	{}
 	ImguiLayer::~ImguiLayer()
 	{}

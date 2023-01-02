@@ -23,7 +23,7 @@ namespace Callisto
 	}
 	void LayerStack::PopLayer(Layer* layer)
 	{
-		auto it{std::find(m_Layers.begin(), m_Layers.end(), layer)};
+		auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
 		if (it != m_Layers.end())
 		{
 			m_Layers.erase(it);
@@ -32,7 +32,7 @@ namespace Callisto
 	}
 	void LayerStack::PopOverlay(Layer* overlay)
 	{
-		auto it{ std::find(m_Layers.begin(), m_Layers.end(), overlay) };
+		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end())
 			m_Layers.erase(it);
 	}

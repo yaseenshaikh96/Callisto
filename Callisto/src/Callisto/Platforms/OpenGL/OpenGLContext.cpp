@@ -9,7 +9,7 @@
 namespace Callisto
 {
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
-		: m_WindowHandle{ windowHandle }
+		: m_WindowHandle(windowHandle)
 	{
 		CALLISTO_CORE_ASSERT(windowHandle, "Window Handle is null");
 	}

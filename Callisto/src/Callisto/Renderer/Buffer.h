@@ -37,11 +37,11 @@ namespace Callisto
 	public:
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
 			:
-			Name{ name }, 
-			Type{ type }, 
-			Size{ ShaderDataTypeSize(type) }, 
-			Offset{ 0 }, 
-			Normalized{ normalized }
+			Name(name), 
+			Type(type), 
+			Size(ShaderDataTypeSize(type)), 
+			Offset(0), 
+			Normalized(normalized)
 		{}
 	public:
 		uint32_t GetComponentCount() const
@@ -78,7 +78,7 @@ namespace Callisto
 		BufferLayout() {}
 	public:
 		BufferLayout(const std::initializer_list<BufferElement>& elements)
-			:m_Elements{ elements }
+			:m_Elements(elements)
 		{
 			CalculateOffsetAndStride();
 		}
@@ -96,7 +96,7 @@ namespace Callisto
 		void CalculateOffsetAndStride();
 	private:
 		std::vector<BufferElement> m_Elements;
-		uint32_t m_Stride{ 0 };
+		uint32_t m_Stride = 0;
 	};
 
 	/**************************************************************************************************************************************************/

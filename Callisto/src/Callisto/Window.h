@@ -14,7 +14,7 @@ namespace Callisto
 		WindowProps(const std::string& title = "Callisto",
 			unsigned int width = 1280,
 			unsigned int height = 720)
-			: Title{ title }, Width{ width }, Height{ height }
+			: Title(title), Width(width), Height(height)
 		{}
 
 		std::string Title;

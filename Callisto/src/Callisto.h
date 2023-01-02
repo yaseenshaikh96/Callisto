@@ -13,6 +13,18 @@
 #include "Callisto/Layer.h"
 #include "Callisto/Imgui/ImguiLayer.h"
 
+/**************************************Renderer**************************************/
+#include "Callisto/Renderer/Renderer.h"
+#include "Callisto/Renderer/RenderCommand.h"
+
+#include "Callisto/Renderer/Shader.h"
+#include "Callisto/Renderer/Buffer.h"
+#include "Callisto/Renderer/VertexArray.h"
+
+#include "Callisto/Renderer/Camera.h"
+/************************************************************************************/
+
+
 /**************************************EntryPoint************************************/
 #include "Callisto/EntryPoint.h"
 /************************************************************************************/

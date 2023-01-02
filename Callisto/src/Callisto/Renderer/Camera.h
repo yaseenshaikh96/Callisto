@@ -27,6 +27,6 @@ namespace Callisto
 		glm::mat4 m_ViewProjectionMatrix;
 		
 		glm::vec3 m_Position;
-		float m_Rotation{ 0.0f };
+		float m_Rotation;
 	};
 }

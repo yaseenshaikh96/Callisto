@@ -20,8 +20,6 @@ namespace Callisto
 
 		void Begin();
 		void End();
-	private:
-		float m_Time;
 	};
 }
 

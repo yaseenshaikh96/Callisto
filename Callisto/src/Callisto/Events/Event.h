@@ -49,7 +49,7 @@ namespace Callisto
 			return GetCategoryFlags() & category; 
 		}
 	public: // TODO: make this rotected without breaking EventDispatcher
-		bool Handled{ false };
+		bool Handled = false;
 	};
 
 	class EventDispacther
@@ -59,7 +59,7 @@ namespace Callisto
 		using EventFn = std::function<bool(t_EventType&)>; 
 	public:
 		EventDispacther(Event& e)
-			: m_Event{ e }
+			: m_Event(e)
 		{}
 		template <typename t_EventType>
 		bool Dispatch(EventFn<t_EventType> func)

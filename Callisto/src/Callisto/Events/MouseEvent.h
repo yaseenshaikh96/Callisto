@@ -8,7 +8,7 @@ namespace Callisto
 	{
 	public:
 		MouseMovedEvent(float x, float y)
-			: m_MouseX{ x }, m_MouseY{ y }
+			: m_MouseX(x), m_MouseY(y)
 		{}
 		inline float GetX() const 
 		{ 
@@ -34,7 +34,7 @@ namespace Callisto
 	{
 	public:
 		MouseScrollEvent(float offsetX, float offsetY)
-			: m_OffsetX{ offsetX }, m_OffsetY{ offsetY }
+			: m_OffsetX(offsetX), m_OffsetY(offsetY)
 		{}
 		inline float GetOffsetX() const
 		{
@@ -60,7 +60,7 @@ namespace Callisto
 	{
 	protected:
 		MouseButtonEvent(int button)
-			: m_Button{ button }
+			: m_Button(button)
 		{}
 	public:
 		inline int GetButton() const
@@ -76,7 +76,7 @@ namespace Callisto
 	{
 	public:
 		MouseButtonPressedEvent(int button)
-			: MouseButtonEvent{ button }
+			: MouseButtonEvent(button)
 		{}
 		std::string ToString() const override
 		{
@@ -91,7 +91,7 @@ namespace Callisto
 	{
 	public:
 		MouseButtonReleasedEvent(int button)
-			: MouseButtonEvent{ button }
+			: MouseButtonEvent(button)
 		{}
 		std::string ToString() const override
 		{

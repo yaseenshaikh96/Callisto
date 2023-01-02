@@ -32,7 +32,7 @@ namespace Callisto
 		}
 		std::string ToString() const override
 		{
-			std::stringstream ss{};
+			std::stringstream ss;
 			ss << "KeyPressedEvent: " << m_KeyCode << "( " << m_RepeatKey << " repeats)";
 			return ss.str();
 		}
@@ -49,7 +49,7 @@ namespace Callisto
 		{}
 		std::string ToString() const override
 		{
-			std::stringstream ss{};
+			std::stringstream ss;
 			ss << "KeyReleaseEvent: " << m_KeyCode;
 			return ss.str();
 		}
@@ -60,11 +60,11 @@ namespace Callisto
 	{
 	public:
 		KeyTypedEvent(int keyCode)
-			: KeyEvent{ keyCode }
+			: KeyEvent(keyCode)
 		{}
 		std::string ToString() const override
 		{
-			std::stringstream ss{};
+			std::stringstream ss;
 			ss << "KeyTypedEvent: " << m_KeyCode;
 			return ss.str();
 		}

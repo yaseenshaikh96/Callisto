@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 	CALLISTO_INFO("Initialized logger");
 
 
-	auto app{ Callisto::CreateApplication() };
+	auto app = Callisto::CreateApplication();
 	app->Run();
 	delete app;
 }

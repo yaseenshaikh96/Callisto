@@ -8,7 +8,7 @@ namespace Callisto
 {
 	void BufferLayout::CalculateOffsetAndStride()
 	{
-		int32_t offset{ 0 };
+		int32_t offset = 0;
 		m_Stride = 0;
 		for (auto& element : m_Elements)
 		{

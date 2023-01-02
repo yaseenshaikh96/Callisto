@@ -92,7 +92,7 @@ namespace Callisto
 			[](GLFWwindow* window)
 			{
 				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
-				WindowCloseEvent e{};
+				WindowCloseEvent e;
 				data.EventCallback(e);
 			});
 		
@@ -104,19 +104,19 @@ namespace Callisto
 				{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent e{ key, 0 };
+					KeyPressedEvent e(key, 0);
 					data.EventCallback(e);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent e{ key }; 
+					KeyReleasedEvent e(key); 
 					data.EventCallback(e);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent e{ key, 1 };
+					KeyPressedEvent e(key, 1);
 					data.EventCallback(e);
 					break; 
 				}
@@ -125,7 +125,7 @@ namespace Callisto
 		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int charCode)
 			{
 				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
-				KeyTypedEvent e{ (int)charCode };
+				KeyTypedEvent e = (int)charCode;
 				data.EventCallback(e);
 			});
 		glfwSetMouseButtonCallback(m_Window,
@@ -136,13 +136,13 @@ namespace Callisto
 				{
 				case GLFW_PRESS:
 				{
-					MouseButtonPressedEvent e{ button };
+					MouseButtonPressedEvent e(button);
 					data.EventCallback(e);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					MouseButtonReleasedEvent e{ button };
+					MouseButtonReleasedEvent e(button);
 					data.EventCallback(e);
 					break;
 				}
