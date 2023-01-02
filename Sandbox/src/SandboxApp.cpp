@@ -1,12 +1,19 @@
 #include <Callisto.h>
 
+#include <Callisto/Platforms/OpenGL/OpenGLShader.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <Imgui/imgui.h>
+
 class ExampleLayer : public Callisto::Layer
 {
 public:
 	ExampleLayer()
 		:
 		Layer("Example"),
-		m_Camera( - 1.6f, 1.6f, -0.9f, 0.9f )
+		m_Camera( - 1.6f, 1.6f, -0.9f, 0.9f ),
+		m_Position2(0.0f),
+		m_SquareColor(0.8f, 0.2f, 0.2f, 1.0f)
 	{
 
 		m_VertexArray.reset(Callisto::VertexArray::Create());
@@ -33,10 +40,10 @@ public:
 		m_SquareVA.reset(Callisto::VertexArray::Create());
 		float vertices2[] =
 		{
-			-0.75f, -0.75f,  0.0f,
-			 0.75f, -0.75f,  0.0f,
-			 0.75f,  0.75f,  0.0f,
-			-0.75f,  0.75f,  0.0f
+			-0.5f, -0.5f,  0.0f,
+			 0.5f, -0.5f,  0.0f,
+			 0.5f,  0.5f,  0.0f,
+			-0.5f,  0.5f,  0.0f
 		};
 		std::shared_ptr<Callisto::VertexBuffer> SquareVB = std::shared_ptr<Callisto::VertexBuffer>(Callisto::VertexBuffer::Create(vertices2, 12 * sizeof(float)));
 		Callisto::BufferLayout layout2 =
@@ -56,6 +63,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -64,7 +72,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}	
 		)";
 
@@ -81,45 +89,56 @@ public:
 				color = v_Color;
 			}	
 		)";
-		m_Shader.reset(new Callisto::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(Callisto::Shader::Create(vertexSrc, fragmentSrc));
 
-		std::string vertexSrc2 = R"(
+		std::string vertexSrcSq = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
 			
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+			uniform vec4 u_Color;
 
 			out vec3 v_Position;
+			out vec4 v_Color;
 
 			void main()
 			{
+				v_Color = u_Color;
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}	
 		)";
-		std::string fragmentSrc2 = R"(
+		std::string fragmentSrcSq = R"(
 			#version 330 core
 
 			layout(location = 0) out vec4 color;
-
+			in vec4 v_Color;
 			in vec3 v_Position;
 
 			void main()
 			{
 				color = vec4(1.0, 1.0, 0.0, 1.0);
+				color = v_Color;
 			}	
 		)";
-		m_ShaderSquare.reset(new Callisto::Shader(vertexSrc2, fragmentSrc2));
+		m_ShaderSquare.reset(Callisto::Shader::Create(vertexSrcSq, fragmentSrcSq));
 
 	}
 
 	void OnImGuiRender() override
 	{
+		ImGui::Begin("Colors");
+		ImGui::ColorEdit4("square color", glm::value_ptr(m_SquareColor));
+		ImGui::End();
 	}
 
 	void OnUpdate(Callisto::TimeStep timeStep) override
 	{
+
+		//CALLISTO_INFO("Time: {0}ms", timeStep.GetMilliseconds());
+
 		Callisto::RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
 		Callisto::RenderCommand::Clear();
 
@@ -134,6 +153,15 @@ public:
 			else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_D))
 				camPos.x += inc * timeStep;
 
+			if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_I))
+				m_Position2.y += inc * timeStep * 0.5f;
+			else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_K))
+				m_Position2.y -= inc * timeStep * 0.5f;
+			if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_J))
+				m_Position2.x -= inc * timeStep * 0.5f;
+			else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_L))
+				m_Position2.x += inc * timeStep * 0.5f;
+
 			if (Callisto::Input::IsMouseButtonPressed(0))
 				camRot += 90 * timeStep;
 			else if (Callisto::Input::IsMouseButtonPressed(1))
@@ -143,10 +171,24 @@ public:
 		m_Camera.SetPosition(camPos);
 		m_Camera.SetRotation(camRot);
 
+
 		Callisto::Renderer::BeginScene(m_Camera);
 
-		Callisto::Renderer::Submit(m_ShaderSquare, m_SquareVA);
-		Callisto::Renderer::Submit(m_Shader, m_VertexArray);
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		m_ShaderSquare->Bind();
+		dynamic_cast<Callisto::OpenGLShader*>(m_ShaderSquare.get())->UploadUniformFloat4("u_Color", m_SquareColor);
+
+		for (int i = 0; i < 20; i++)
+		{
+			for (int j = 0; j < 20; j++)
+			{
+				glm::vec3 pos(i * 0.11f, j * 0.11f, 0.0f);
+				glm::mat4 transform2 = glm::translate(glm::mat4(1.0f), pos) * scale;
+				Callisto::Renderer::Submit(m_ShaderSquare, m_SquareVA, transform2);
+			}
+		}
+		//Callisto::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Callisto::Renderer::EndScene();
 	}
@@ -163,6 +205,10 @@ private:
 	std::shared_ptr<Callisto::VertexArray> m_VertexArray;
 	std::shared_ptr<Callisto::VertexArray> m_SquareVA;
 	Callisto::OrthographicCamera m_Camera;
+
+	glm::vec4 m_SquareColor;
+
+	glm::vec3 m_Position2;
 };
 
 class Sandbox : public Callisto::Application

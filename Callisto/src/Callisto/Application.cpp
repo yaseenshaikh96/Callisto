@@ -25,7 +25,7 @@ namespace Callisto
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
-		m_Window->SetVSync(false);
+		m_Window->SetVSync(true);
 
 		m_ImGuiLayer = new ImguiLayer();
 		PushOverlay(m_ImGuiLayer);

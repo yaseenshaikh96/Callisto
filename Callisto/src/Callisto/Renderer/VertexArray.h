@@ -10,7 +10,7 @@ namespace Callisto
 	public:
 		static VertexArray* Create();
 	public:
-		virtual ~VertexArray() {}
+		virtual ~VertexArray() = default;
 	public:
 		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) = 0;
 		virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) = 0;

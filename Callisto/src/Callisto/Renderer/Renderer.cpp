@@ -1,6 +1,8 @@
 #include "CallistoPCH.h"
 #include "Renderer.h"
 
+#include <Callisto/Platforms/OpenGL/OpenGLShader.h>
+
 namespace Callisto
 {
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData{};
@@ -12,10 +14,13 @@ namespace Callisto
 	void Renderer::EndScene()
 	{
 	}
-	void Renderer::Submit(const std::shared_ptr<Shader> shader, const std::shared_ptr<VertexArray>& vertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader> shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
 		shader->Bind();
-		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+		dynamic_cast<Callisto::OpenGLShader*>(shader.get())->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+
+		dynamic_cast<Callisto::OpenGLShader*>(shader.get())->UploadUniformMat4("u_Transform", transform);
+
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}
