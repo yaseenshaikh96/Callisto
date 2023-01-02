@@ -8,6 +8,8 @@
 #include <Callisto/Input.h>
 #include <Callisto/keycodes.h>
 
+#include <GLFW/glfw3.h>
+
 
 namespace Callisto
 {
@@ -23,6 +25,7 @@ namespace Callisto
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
+		m_Window->SetVSync(false);
 
 		m_ImGuiLayer = new ImguiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -63,8 +66,12 @@ namespace Callisto
 	{
 		while (m_Running)
 		{	
+			float time = (float)glfwGetTime();
+			TimeStep timeStep(time - m_LastFrameTime);
+			m_LastFrameTime = time;
+
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(timeStep);
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)

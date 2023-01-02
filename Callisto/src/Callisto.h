@@ -6,6 +6,8 @@
 #include "Callisto/Application.h"
 #include "Callisto/Log.h"
 
+#include "Callisto/Core/TimeStep.h"
+
 #include "Callisto/Input.h"
 #include "Callisto/KeyCodes.h"
 #include "Callisto/MouseButtonCodes.h"

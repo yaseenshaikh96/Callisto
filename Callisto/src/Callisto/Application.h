@@ -5,6 +5,8 @@
 #include <Callisto/LayerStack.h>
 #include <Callisto/Events/ApplicationEvent.h>
 
+#include <Callisto/Core/TimeStep.h>
+
 #include <Callisto/Imgui/ImguiLayer.h>
 
 #include "Callisto/Renderer/Shader.h"
@@ -34,12 +36,13 @@ namespace Callisto
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+
 	private:
 		std::unique_ptr<Window> m_Window;
 		ImguiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
+		float m_LastFrameTime = 0.0f;
 	private:
 		static Application* s_Instance;
 	};

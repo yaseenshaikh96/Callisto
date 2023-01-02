@@ -6,6 +6,8 @@
 #include <Callisto/Events/KeyEvent.h>
 #include <Callisto/Events/MouseEvent.h>
 
+#include <Callisto/Core/TimeStep.h>
+
 namespace Callisto{
 	
 	class CALLISTO_API Layer
@@ -16,7 +18,7 @@ namespace Callisto{
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(TimeStep timeStep) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& e) {}
 

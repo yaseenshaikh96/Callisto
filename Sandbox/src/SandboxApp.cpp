@@ -118,26 +118,26 @@ public:
 	{
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Callisto::TimeStep timeStep) override
 	{
 		Callisto::RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
 		Callisto::RenderCommand::Clear();
 
 		{
-			float inc{ 0.02f };
+			float inc{ 3.0f };
 			if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_W))
-				camPos.y += inc;
+				camPos.y += inc * timeStep;
 			else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_S))
-				camPos.y -= inc;
+				camPos.y -= inc * timeStep;
 			if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_A))
-				camPos.x -= inc;
+				camPos.x -= inc * timeStep;
 			else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_D))
-				camPos.x += inc;
+				camPos.x += inc * timeStep;
 
 			if (Callisto::Input::IsMouseButtonPressed(0))
-				camRot += 1;
+				camRot += 90 * timeStep;
 			else if (Callisto::Input::IsMouseButtonPressed(1))
-				camRot -= 1;
+				camRot -= 90 * timeStep;
 		}
 
 		m_Camera.SetPosition(camPos);
