@@ -2,12 +2,16 @@
 
 #include <Callisto/Renderer/Shader.h>
 
+//REMOVE THIS
+typedef unsigned int GLenum;
+
 namespace Callisto
 {
 	class OpenGLShader : public Shader
 	{
 	public:
 		OpenGLShader(const std::string& vertSrc, const std::string& fragSrc);
+		OpenGLShader(const std::string& path);
 		virtual ~OpenGLShader();
 
 		virtual void Bind() const override;
@@ -22,8 +26,11 @@ namespace Callisto
 		void UploadUniformFloat2(const std::string& name, const glm::vec2& float2);
 		void UploadUniformFloat3(const std::string& name, const glm::vec3& float3);
 		void UploadUniformFloat4(const std::string& name, const glm::vec4& float4);
-
 	private:
-		uint32_t m_RendererID;
+		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
+		std::string ReadFile(const std::string& path);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& shaderSrc);
+	private:
+		uint32_t m_RendererID{ 0 };
 	};
 }
