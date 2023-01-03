@@ -26,12 +26,30 @@ namespace Callisto
 		std::string shaderSrc = ReadFile(path);
 		auto shaderSources = PreProcess(shaderSrc);
 		Compile(shaderSources);
+	
+		
+		size_t lastSlash = path.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash;
+		size_t dot = path.rfind('.');
+		size_t count = dot == std::string::npos ? path.size() - lastSlash :  dot - lastSlash - 1;
+		m_Name = path.substr( lastSlash + 1, count);
+
+		CALLISTO_CORE_INFO("name: {0}", m_Name);
+	}
+
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSource, const std::string& fragmentSource)
+		: m_Name(name)
+	{
+		std::unordered_map<GLenum, std::string> sources;
+		sources[GL_VERTEX_SHADER] = vertexSource;
+		sources[GL_FRAGMENT_SHADER] = fragmentSource;
+		Compile(sources);
 	}
 
 	std::string OpenGLShader::ReadFile(const std::string& path)
 	{
 		std::string result;
-		std::ifstream in(path, std::ios::in, std::ios::binary);
+		std::ifstream in(path, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -72,18 +90,14 @@ namespace Callisto
 
 
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::string& fragmentSource)
-	{
-		std::unordered_map<GLenum, std::string> sources;
-		sources[GL_VERTEX_SHADER] = vertexSource;
-		sources[GL_FRAGMENT_SHADER] = fragmentSource;
-		Compile(sources);
-	}
 
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
 		GLuint program  = glCreateProgram();
-		std::vector<GLenum> glShaderIds(shaderSources.size());
+		CALLISTO_CORE_ASSERT(shaderSources.size() < MAX_SHADER_COUNT, "Exceeded max shader count per file!");
+		std::array<GLenum, MAX_SHADER_COUNT> glShaderIds;
+		
+		uint32_t shaderIDIndex = 0;
 		for (auto& kv : shaderSources)
 		{
 			GLenum type = kv.first;
@@ -111,7 +125,8 @@ namespace Callisto
 				break;
 			}
 			glAttachShader(program, shader);
-			glShaderIds.push_back(shader);
+			glShaderIds[shaderIDIndex] = shader;
+			shaderIDIndex++;
 		}
 
 		m_RendererID = program;
@@ -137,16 +152,17 @@ namespace Callisto
 			CALLISTO_CORE_ASSERT(false, "Shader Linking Error!");
 			return;
 		}
-		for (auto shader : glShaderIds)
-		{
-			glDetachShader(program, shader);
-		}
+
+		for(uint32_t i=0; i<shaderIDIndex; i++)
+			glDetachShader(program, glShaderIds[i]);
 	}
 
 	OpenGLShader::~OpenGLShader()
 	{
 		glDeleteProgram(m_RendererID);
 	}
+
+
 	void OpenGLShader::Bind() const
 	{
 		glUseProgram(m_RendererID);

@@ -10,12 +10,16 @@ namespace Callisto
 	class OpenGLShader : public Shader
 	{
 	public:
-		OpenGLShader(const std::string& vertSrc, const std::string& fragSrc);
+		OpenGLShader(const std::string& name, const std::string& vertSrc, const std::string& fragSrc);
 		OpenGLShader(const std::string& path);
 		virtual ~OpenGLShader();
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual const std::string& GetName() const override { return m_Name; }
+		virtual void SetName(const std::string& name) override { m_Name = name; }
+
 
 		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
@@ -32,5 +36,6 @@ namespace Callisto
 		std::unordered_map<GLenum, std::string> PreProcess(const std::string& shaderSrc);
 	private:
 		uint32_t m_RendererID{ 0 };
+		std::string m_Name;
 	};
 }
