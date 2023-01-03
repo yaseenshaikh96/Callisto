@@ -16,6 +16,7 @@ IncludedDirs["GLFW"] = "Callisto/vendor/GLFW/include"
 IncludedDirs["Glad"] = "Callisto/vendor/Glad/include"
 IncludedDirs["Imgui"] = "Callisto/vendor/Imgui"
 IncludedDirs["glm"] = "Callisto/vendor/glm"
+IncludedDirs["stb_image"] = "Callisto/vendor/stb_image"
 
 include "Callisto/vendor/GLFW"
 include "Callisto/vendor/Glad"
@@ -40,7 +41,11 @@ project "Callisto"
 		"%{prj.name}/src/**.cpp",
 
 		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl"
+		"%{prj.name}/vendor/glm/glm/**.inl",
+
+		"%{prj.name}/vendor/stb_image/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h"
+
 	}
 
 	defines
@@ -55,7 +60,9 @@ project "Callisto"
 		"%{IncludedDirs.GLFW}",
 		"%{IncludedDirs.Glad}",
 		"%{IncludedDirs.Imgui}",
-		"%{IncludedDirs.glm}"
+		"%{IncludedDirs.glm}",
+		"%{IncludedDirs.stb_image}"
+
 	}
 
 	links

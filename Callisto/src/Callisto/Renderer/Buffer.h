@@ -105,7 +105,7 @@ namespace Callisto
 	class VertexBuffer
 	{
 	public:
-		static VertexBuffer* Create(float* vertices, uint32_t size);
+		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
 	public:
 		virtual ~VertexBuffer() {}
 	public:
@@ -121,7 +121,7 @@ namespace Callisto
 	class IndexBuffer
 	{
 	public:
-		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
+		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t size);
 	public:
 		virtual ~IndexBuffer() {}
 	public:

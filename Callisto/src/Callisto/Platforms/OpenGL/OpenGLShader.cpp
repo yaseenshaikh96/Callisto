@@ -139,6 +139,14 @@ namespace Callisto
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 
 	}
+
+	void OpenGLShader::UploadUniformInt(const std::string& name, int value)
+	{
+		int location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1i(location, value);
+	}
+
+
 	void OpenGLShader::UploadUniformFloat1(const std::string& name, float float1)
 	{
 		int location = glGetUniformLocation(m_RendererID, name.c_str());

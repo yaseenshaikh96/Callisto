@@ -1,12 +1,12 @@
 #include "CallistoPCH.h"
-#include "VertexArray.h"
+#include "Texture.h"
 
 #include "Renderer.h"
-#include "Callisto/Platforms/OpenGL/OpenGLVertexArray.h"
+#include "Callisto/Platforms/OpenGL/OpenGLTexture.h"
 
 namespace Callisto
 {
-	Ref<VertexArray> VertexArray::Create()
+	Ref<Texture2D> Texture2D::Create(const std::string& path)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -14,7 +14,7 @@ namespace Callisto
 			CALLISTO_CORE_ASSERT(false, "RenderAPI::NONE not supported!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLVertexArray>();
+			return std::make_shared<OpenGLTexture2D>(path);
 		}
 		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
 		return nullptr;

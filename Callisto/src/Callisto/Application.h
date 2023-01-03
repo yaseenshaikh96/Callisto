@@ -38,7 +38,7 @@ namespace Callisto
 		bool OnWindowClose(WindowCloseEvent& e);
 
 	private:
-		std::unique_ptr<Window> m_Window;
+		Callisto::Ref<Window> m_Window;
 		ImguiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;

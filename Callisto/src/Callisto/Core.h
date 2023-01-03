@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 
 #ifdef CALLISTO_PLATFORM_WINDOWS
 	#if CALLISTO_DYNAMIC_LINK
@@ -30,3 +31,12 @@
 #define BIT(x) (1 << x)
 
 #define CALLISTO_BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
+
+namespace Callisto
+{
+	template<typename t_Type>
+	using Scope = std::unique_ptr<t_Type>;
+	
+	template<typename t_Type>
+	using Ref = std::shared_ptr<t_Type>;
+}

@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <Imgui/imgui.h>
+#include <Callisto/Renderer/Texture.h>
 
 class ExampleLayer : public Callisto::Layer
 {
@@ -16,7 +17,7 @@ public:
 		m_SquareColor(0.8f, 0.2f, 0.2f, 1.0f)
 	{
 
-		m_VertexArray.reset(Callisto::VertexArray::Create());
+		m_VertexArray = Callisto::VertexArray::Create();
 
 		float vertices[] =
 		{
@@ -24,7 +25,7 @@ public:
 			 0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 			 0.0f,  0.5f,  0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		};
-		std::shared_ptr<Callisto::VertexBuffer> vertexBuffer1 = std::shared_ptr<Callisto::VertexBuffer>(Callisto::VertexBuffer::Create(vertices, sizeof(vertices)));
+		Callisto::Ref<Callisto::VertexBuffer> vertexBuffer1 = Callisto::VertexBuffer::Create(vertices, sizeof(vertices));
 		Callisto::BufferLayout layout =
 		{
 			{Callisto::ShaderDataType::Float3, "a_Position"},
@@ -33,27 +34,28 @@ public:
 		vertexBuffer1->SetLayout(layout);
 		m_VertexArray->AddVertexBuffer(vertexBuffer1);
 		unsigned int indices[] = { 0, 1, 2 };
-		std::shared_ptr<Callisto::IndexBuffer> indexBuffer1 = std::shared_ptr<Callisto::IndexBuffer>(Callisto::IndexBuffer::Create(indices, 3));
+		Callisto::Ref<Callisto::IndexBuffer> indexBuffer1 = Callisto::IndexBuffer::Create(indices, 3);
 		m_VertexArray->SetIndexBuffer(indexBuffer1);
 
 
-		m_SquareVA.reset(Callisto::VertexArray::Create());
-		float vertices2[] =
+		m_SquareVA = Callisto::VertexArray::Create();
+		float verticesSquare[] =
 		{
-			-0.5f, -0.5f,  0.0f,
-			 0.5f, -0.5f,  0.0f,
-			 0.5f,  0.5f,  0.0f,
-			-0.5f,  0.5f,  0.0f
+			-0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f,  0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f,  0.0f, 0.0f, 1.0f
 		};
-		std::shared_ptr<Callisto::VertexBuffer> SquareVB = std::shared_ptr<Callisto::VertexBuffer>(Callisto::VertexBuffer::Create(vertices2, 12 * sizeof(float)));
+		Callisto::Ref<Callisto::VertexBuffer> SquareVB = Callisto::VertexBuffer::Create(verticesSquare, sizeof(verticesSquare));
 		Callisto::BufferLayout layout2 =
 		{
-			{Callisto::ShaderDataType::Float3, "a_Position"}
+			{Callisto::ShaderDataType::Float3, "a_Position"},
+			{Callisto::ShaderDataType::Float2, "a_TexCoord"}
 		};
 		SquareVB->SetLayout(layout2);
 		m_SquareVA->AddVertexBuffer(SquareVB);
 		unsigned int indices2[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Callisto::IndexBuffer> SquareVI = std::shared_ptr<Callisto::IndexBuffer>(Callisto::IndexBuffer::Create(indices2, 6));
+		Callisto::Ref<Callisto::IndexBuffer> SquareVI = Callisto::IndexBuffer::Create(indices2, 6);
 		m_SquareVA->SetIndexBuffer(SquareVI);
 
 		std::string vertexSrc = R"(
@@ -125,6 +127,47 @@ public:
 		)";
 		m_ShaderSquare.reset(Callisto::Shader::Create(vertexSrcSq, fragmentSrcSq));
 
+
+
+		std::string vertexSrcTexture = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+			
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+			uniform vec4 u_Color;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}	
+		)";
+		std::string fragmentSrcTexture = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+			
+			in vec2 v_TexCoord;
+			uniform sampler2D u_Texture;			
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}	
+		)";
+
+		m_ShaderTexture.reset(Callisto::Shader::Create(vertexSrcTexture, fragmentSrcTexture));
+
+		m_Texture = Callisto::Texture2D::Create("./Assets/Checkerboard.png");
+		//m_ShaderTexture->Bind();
+		m_Texture->Bind();
+		dynamic_cast<Callisto::OpenGLShader*>(m_ShaderTexture.get())->UploadUniformInt("u_Texture", 0);
+		
 	}
 
 	void OnImGuiRender() override
@@ -188,6 +231,12 @@ public:
 				Callisto::Renderer::Submit(m_ShaderSquare, m_SquareVA, transform2);
 			}
 		}
+
+		m_Texture->Bind();
+		Callisto::Renderer::Submit(m_ShaderTexture, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+
+		// Triangle
 		//Callisto::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Callisto::Renderer::EndScene();
@@ -200,11 +249,14 @@ private:
 	glm::vec3 camPos{};
 	float camRot = 0;
 
-	std::shared_ptr<Callisto::Shader> m_Shader;
-	std::shared_ptr<Callisto::Shader> m_ShaderSquare;
-	std::shared_ptr<Callisto::VertexArray> m_VertexArray;
-	std::shared_ptr<Callisto::VertexArray> m_SquareVA;
+	Callisto::Ref<Callisto::Shader> m_Shader;
+	Callisto::Ref<Callisto::Shader> m_ShaderSquare;
+	Callisto::Ref<Callisto::Shader> m_ShaderTexture;
+	Callisto::Ref<Callisto::VertexArray> m_VertexArray;
+	Callisto::Ref<Callisto::VertexArray> m_SquareVA;
 	Callisto::OrthographicCamera m_Camera;
+
+	Callisto::Ref<Callisto::Texture2D> m_Texture;
 
 	glm::vec4 m_SquareColor;
 

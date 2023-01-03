@@ -7,6 +7,9 @@
     <Filter Include="src\Callisto">
       <UniqueIdentifier>{B70F04B0-A372-9354-4CF8-CB0A383A5FD7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Callisto\Core">
+      <UniqueIdentifier>{6F9E3EFE-DBB4-3C94-242C-C8B590810D1C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Callisto\Events">
       <UniqueIdentifier>{BB07828D-2769-5F9B-B0D6-A54D1C37965A}</UniqueIdentifier>
     </Filter>
@@ -16,8 +19,14 @@
     <Filter Include="src\Callisto\Platforms">
       <UniqueIdentifier>{BE275E5A-AA21-87AC-938E-1DBD7F27ED18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Callisto\Platforms\OpenGL">
+      <UniqueIdentifier>{32EF4487-9E07-2CB1-67B4-BB4AD38BC04A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Callisto\Platforms\Windows">
       <UniqueIdentifier>{F8AFFEC7-E4D5-C82E-CD1B-4EFAB9E0EDFA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Callisto\Renderer">
+      <UniqueIdentifier>{3DF11DED-A95D-D9E7-7251-7145DE7CFB4F}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -40,6 +49,9 @@
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\stb_image">
+      <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Callisto.h">
@@ -50,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="src\Callisto\Core.h">
       <Filter>src\Callisto</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Core\TimeStep.h">
+      <Filter>src\Callisto\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\EntryPoint.h">
       <Filter>src\Callisto</Filter>
@@ -87,11 +102,56 @@
     <ClInclude Include="src\Callisto\MouseButtonCodes.h">
       <Filter>src\Callisto</Filter>
     </ClInclude>
+    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.h">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLContext.h">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLShader.h">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLTexture.h">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLVertexArray.h">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsInput.h">
       <Filter>src\Callisto\Platforms\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h">
       <Filter>src\Callisto\Platforms\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\Buffer.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\Camera.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\GraphicsContext.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\RenderCommand.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\Renderer.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\RendererAPI.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\Shader.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\Texture.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\VertexArray.h">
+      <Filter>src\Callisto\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Window.h">
       <Filter>src\Callisto</Filter>
@@ -1347,20 +1407,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Callisto\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Callisto\Renderer\Shader.h" />
-    <ClInclude Include="src\Callisto\Renderer\Buffer.h" />
-    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Callisto\Renderer\Renderer.h" />
-    <ClInclude Include="src\Callisto\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Callisto\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Callisto\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\Callisto\Renderer\Camera.h" />
-    <ClInclude Include="src\Callisto\Core\TimeStep.h" />
-    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Application.cpp">
@@ -1381,26 +1430,59 @@
     <ClCompile Include="src\Callisto\Log.cpp">
       <Filter>src\Callisto</Filter>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLTexture.cpp">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Callisto\Platforms\Windows\WindowsInput.cpp">
       <Filter>src\Callisto\Platforms\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\Platforms\Windows\WindowsWindow.cpp">
       <Filter>src\Callisto\Platforms\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\Buffer.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\Camera.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\RenderCommand.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\Renderer.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\RendererAPI.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\Shader.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\Texture.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\VertexArray.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\CallistoPCH.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Callisto\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Callisto\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Callisto\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Callisto\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Callisto\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Callisto\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\Callisto\Renderer\Camera.cpp" />
-    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
