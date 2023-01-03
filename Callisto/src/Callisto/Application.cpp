@@ -27,6 +27,8 @@ namespace Callisto
 		m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
 		m_Window->SetVSync(true);
 
+		Renderer::Init();
+
 		m_ImGuiLayer = new ImguiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}

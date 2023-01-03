@@ -164,8 +164,11 @@ public:
 		m_ShaderTexture.reset(Callisto::Shader::Create(vertexSrcTexture, fragmentSrcTexture));
 
 		m_Texture = Callisto::Texture2D::Create("./Assets/Checkerboard.png");
+		m_TextureTransparent = Callisto::Texture2D::Create("./Assets/ChernoLogo.png");
+		
+		
 		//m_ShaderTexture->Bind();
-		m_Texture->Bind();
+		m_ShaderTexture->Bind();
 		dynamic_cast<Callisto::OpenGLShader*>(m_ShaderTexture.get())->UploadUniformInt("u_Texture", 0);
 		
 	}
@@ -235,6 +238,9 @@ public:
 		m_Texture->Bind();
 		Callisto::Renderer::Submit(m_ShaderTexture, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+		m_TextureTransparent->Bind();
+		Callisto::Renderer::Submit(m_ShaderTexture, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 
 		// Triangle
 		//Callisto::Renderer::Submit(m_Shader, m_VertexArray);
@@ -257,6 +263,7 @@ private:
 	Callisto::OrthographicCamera m_Camera;
 
 	Callisto::Ref<Callisto::Texture2D> m_Texture;
+	Callisto::Ref<Callisto::Texture2D> m_TextureTransparent;
 
 	glm::vec4 m_SquareColor;
 
