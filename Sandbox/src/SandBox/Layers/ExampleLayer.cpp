@@ -1,6 +1,5 @@
 #include "ExampleLayer.h"
 
-#include <Callisto/Platforms/OpenGL/OpenGLShader.h>
 #include <Imgui/imgui.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -50,8 +49,7 @@ namespace MyApp
 		m_TextureChernoLogo = Callisto::Texture2D::Create("./Assets/ChernoLogo.png");
 
 		textureShader->Bind();
-		dynamic_cast<Callisto::OpenGLShader*>(textureShader.get())->UploadUniformInt("u_Texture", 0);
-		//dynamic_cast<Callisto::OpenGLShader*>(m_ShaderTexture.get())->UploadUniformInt("u_Texture", 0);
+		textureShader->UploadUniformInt("u_Texture", 0);
 	}
 
 	void ExampleLayer::OnImGuiRender()
@@ -74,7 +72,7 @@ namespace MyApp
 
 		Callisto::Ref<Callisto::Shader> flatColorShader = m_ShaderLibrary.Get("FlatColor");
 		flatColorShader->Bind();
-		dynamic_cast<Callisto::OpenGLShader*>(flatColorShader.get())->UploadUniformFloat4("u_Color", m_SquareColor);
+		flatColorShader->UploadUniformFloat4("u_Color", m_SquareColor);
 
 		for (int i = 0; i < 20; i++)
 		{

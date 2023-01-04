@@ -1,6 +1,5 @@
 #include "ExampleLayer2D.h"
 
-#include <Callisto/Platforms/OpenGL/OpenGLShader.h>
 #include <Imgui/imgui.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -61,22 +60,9 @@ namespace MyApp
 
 		Callisto::Ref<Callisto::Shader> flatColorShader = m_ShaderLibrary.Get("FlatColor");
 		flatColorShader->Bind();
-		dynamic_cast<Callisto::OpenGLShader*>(flatColorShader.get())->UploadUniformFloat4("u_Color", m_SquareColor);
+		flatColorShader->UploadUniformFloat4("u_Color", m_SquareColor);
 
 		Callisto::Renderer::Submit(flatColorShader, m_SquareVA);
-
-		/*
-		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-		for (int i = 0; i < 20; i++)
-		{
-			for (int j = 0; j < 20; j++)
-			{
-				glm::vec3 pos(i * 0.11f, j * 0.11f, 0.0f);
-				glm::mat4 transform2 = glm::translate(glm::mat4(1.0f), pos) * scale;
-				Callisto::Renderer::Submit(flatColorShader, m_SquareVA, transform2);
-			}
-		}
-		*/
 
 		Callisto::Renderer::EndScene();
 	}

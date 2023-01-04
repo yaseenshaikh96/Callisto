@@ -23,9 +23,9 @@ namespace Callisto
 
 		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
-
+		
 		void UploadUniformInt(const std::string& name, int value);
-
+		
 		void UploadUniformFloat1(const std::string& name, float float1);
 		void UploadUniformFloat2(const std::string& name, const glm::vec2& float2);
 		void UploadUniformFloat3(const std::string& name, const glm::vec3& float3);
