@@ -33,8 +33,6 @@ namespace Callisto
 		size_t dot = path.rfind('.');
 		size_t count = dot == std::string::npos ? path.size() - lastSlash :  dot - lastSlash - 1;
 		m_Name = path.substr( lastSlash + 1, count);
-
-		CALLISTO_CORE_INFO("name: {0}", m_Name);
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSource, const std::string& fragmentSource)

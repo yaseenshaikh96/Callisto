@@ -53,6 +53,7 @@ namespace Callisto
 	{
 		EventDispacther dispatcher = e;
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResizeEvent));
 	
 		//CALLISTO_CORE_TRACE("e: {0}", e);
 
@@ -72,8 +73,11 @@ namespace Callisto
 			TimeStep timeStep(time - m_LastFrameTime);
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timeStep);
+			if(!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timeStep);
+			}
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
@@ -90,5 +94,16 @@ namespace Callisto
 		return true;
 	}
 
+	bool Application::OnWindowResizeEvent(WindowResizeEvent& e)
+	{
+		if(e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+		m_Minimized = false;
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+		return false;
+	}
 
 }

@@ -36,11 +36,13 @@ namespace Callisto
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResizeEvent(WindowResizeEvent& e);
 
 	private:
 		Callisto::Ref<Window> m_Window;
 		ImguiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0.0f;
 	private:

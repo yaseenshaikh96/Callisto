@@ -17,7 +17,10 @@ namespace Callisto
 
 		void OnUpdate(TimeStep timeStep);
 		bool OnEvent(Event& e);
-	
+
+		float GetZoomLevel() const { return m_ZoomLevel; }
+		void SetZoomLevel(float level) { m_ZoomLevel = level; }
+
 	private:
 		bool OnMouseScrolled(const MouseScrollEvent& e);
 		bool OnWindowResizeEvent(const WindowResizeEvent& e);
