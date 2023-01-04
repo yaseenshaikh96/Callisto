@@ -13,7 +13,7 @@ public:
 	ExampleLayer()
 		:
 		Layer("Example"),
-		m_Camera( - 1.6f, 1.6f, -0.9f, 0.9f ),
+		m_CameraController(1280.0f / 720.0f, true),
 		m_Position2(0.0f),
 		m_SquareColor(0.8f, 0.2f, 0.2f, 1.0f)
 	{
@@ -156,37 +156,19 @@ public:
 		Callisto::RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
 		Callisto::RenderCommand::Clear();
 
-		{
-			float inc{ 3.0f };
-			if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_W))
-				camPos.y += inc * timeStep;
-			else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_S))
-				camPos.y -= inc * timeStep;
-			if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_A))
-				camPos.x -= inc * timeStep;
-			else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_D))
-				camPos.x += inc * timeStep;
-
-			if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_I))
-				m_Position2.y += inc * timeStep * 0.5f;
-			else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_K))
-				m_Position2.y -= inc * timeStep * 0.5f;
-			if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_J))
-				m_Position2.x -= inc * timeStep * 0.5f;
-			else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_L))
-				m_Position2.x += inc * timeStep * 0.5f;
-
-			if (Callisto::Input::IsMouseButtonPressed(0))
-				camRot += 90 * timeStep;
-			else if (Callisto::Input::IsMouseButtonPressed(1))
-				camRot -= 90 * timeStep;
-		}
-
-		m_Camera.SetPosition(camPos);
-		m_Camera.SetRotation(camRot);
-
-
-		Callisto::Renderer::BeginScene(m_Camera);
+		
+		/*
+		if (Input::IsKeyPressed(CALLISTO_KEY_I))
+			m_Position2.y += inc * timeStep * 0.5f;
+		else if (Input::IsKeyPressed(CALLISTO_KEY_K))
+			m_Position2.y -= inc * timeStep * 0.5f;
+		if (Input::IsKeyPressed(CALLISTO_KEY_J))
+			m_Position2.x -= inc * timeStep * 0.5f;
+		else if (Input::IsKeyPressed(CALLISTO_KEY_L))
+			m_Position2.x += inc * timeStep * 0.5f;
+		*/
+		m_CameraController.OnUpdate(timeStep);
+		Callisto::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -220,6 +202,7 @@ public:
 	}
 	void OnEvent(Callisto::Event& e) override
 	{
+		m_CameraController.OnEvent(e);
 	}
 
 private:
@@ -233,7 +216,7 @@ private:
 	//Callisto::Ref<Callisto::Shader> m_ShaderTexture;
 	Callisto::Ref<Callisto::VertexArray> m_VertexArray;
 	Callisto::Ref<Callisto::VertexArray> m_SquareVA;
-	Callisto::OrthographicCamera m_Camera;
+	Callisto::OrthographicCameraController m_CameraController;
 
 	Callisto::Ref<Callisto::Texture2D> m_Texture;
 	Callisto::Ref<Callisto::Texture2D> m_TextureTransparent;

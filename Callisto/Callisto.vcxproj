@@ -159,6 +159,7 @@
     <ClInclude Include="src\Callisto\LayerStack.h" />
     <ClInclude Include="src\Callisto\Log.h" />
     <ClInclude Include="src\Callisto\MouseButtonCodes.h" />
+    <ClInclude Include="src\Callisto\OrthographicCameraController.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLRendererAPI.h" />
@@ -603,6 +604,7 @@
     <ClCompile Include="src\Callisto\Layer.cpp" />
     <ClCompile Include="src\Callisto\LayerStack.cpp" />
     <ClCompile Include="src\Callisto\Log.cpp" />
+    <ClCompile Include="src\Callisto\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLRendererAPI.cpp" />

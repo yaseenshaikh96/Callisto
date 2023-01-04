@@ -25,7 +25,7 @@
 
 #include "Callisto/Renderer/Camera.h"
 /************************************************************************************/
-
+#include "Callisto/OrthographicCameraController.h"
 
 /**************************************EntryPoint************************************/
 #include "Callisto/EntryPoint.h"
