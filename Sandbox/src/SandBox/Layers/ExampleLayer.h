@@ -16,18 +16,13 @@ namespace MyApp
 		//virtual void OnDettach() override;
 
 	private:
-		glm::vec3 camPos{};
-		float camRot = 0;
 
 		Callisto::ShaderLibrary m_ShaderLibrary;
-
-		Callisto::Ref<Callisto::Shader> m_TriangleShader;
-		Callisto::Ref<Callisto::VertexArray> m_VertexArray;
 		Callisto::Ref<Callisto::VertexArray> m_SquareVA;
-		Callisto::OrthographicCameraController m_CameraController;
-
 		Callisto::Ref<Callisto::Texture2D> m_TextureCheckerBoard;
 		Callisto::Ref<Callisto::Texture2D> m_TextureChernoLogo;
+
+		Callisto::OrthographicCameraController m_CameraController;
 
 		glm::vec4 m_SquareColor;
 	};

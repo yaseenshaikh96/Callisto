@@ -120,6 +120,7 @@ project "Sandbox"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"Callisto/vendor/spdlog/include",
 		"Callisto/src",
 		"Callisto/vendor",

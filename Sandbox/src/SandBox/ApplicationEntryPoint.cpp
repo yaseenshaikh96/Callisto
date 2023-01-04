@@ -1,4 +1,4 @@
-#include "SandBoxApp.h"
+#include "SandBox/SandBoxApp.h"
 #include <Callisto/Core/EntryPoint.h>
 
 Callisto::Application* Callisto::CreateApplication()
