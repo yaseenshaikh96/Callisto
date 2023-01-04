@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Callisto/Window.h"
+#include <Callisto/Core/Window.h>
 #include <Callisto/Renderer/GraphicsContext.h>
 
 #include <GLFW/glfw3.h>

@@ -1,10 +1,8 @@
 #pragma once
 
-#include <Callisto/Core.h>
+#include <Callisto/Core/Core.h>
 #include <Callisto/Events/Event.h>
-#include <Callisto/Layer.h>
-
-
+#include <Callisto/Core/Layer.h>
 
 namespace Callisto
 {

@@ -144,21 +144,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Callisto.h" />
-    <ClInclude Include="src\Callisto\Application.h" />
-    <ClInclude Include="src\Callisto\Core.h" />
+    <ClInclude Include="src\Callisto\Core\Application.h" />
+    <ClInclude Include="src\Callisto\Core\Core.h" />
+    <ClInclude Include="src\Callisto\Core\EntryPoint.h" />
+    <ClInclude Include="src\Callisto\Core\Input.h" />
+    <ClInclude Include="src\Callisto\Core\KeyCodes.h" />
+    <ClInclude Include="src\Callisto\Core\Layer.h" />
+    <ClInclude Include="src\Callisto\Core\LayerStack.h" />
+    <ClInclude Include="src\Callisto\Core\Log.h" />
+    <ClInclude Include="src\Callisto\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Callisto\Core\TimeStep.h" />
-    <ClInclude Include="src\Callisto\EntryPoint.h" />
+    <ClInclude Include="src\Callisto\Core\Window.h" />
     <ClInclude Include="src\Callisto\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Callisto\Events\Event.h" />
     <ClInclude Include="src\Callisto\Events\KeyEvent.h" />
     <ClInclude Include="src\Callisto\Events\MouseEvent.h" />
     <ClInclude Include="src\Callisto\Imgui\ImguiLayer.h" />
-    <ClInclude Include="src\Callisto\Input.h" />
-    <ClInclude Include="src\Callisto\KeyCodes.h" />
-    <ClInclude Include="src\Callisto\Layer.h" />
-    <ClInclude Include="src\Callisto\LayerStack.h" />
-    <ClInclude Include="src\Callisto\Log.h" />
-    <ClInclude Include="src\Callisto\MouseButtonCodes.h" />
     <ClInclude Include="src\Callisto\OrthographicCameraController.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLContext.h" />
@@ -177,7 +178,6 @@
     <ClInclude Include="src\Callisto\Renderer\Shader.h" />
     <ClInclude Include="src\Callisto\Renderer\Texture.h" />
     <ClInclude Include="src\Callisto\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Callisto\Window.h" />
     <ClInclude Include="src\CallistoPCH.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -598,12 +598,12 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Callisto\Application.cpp" />
+    <ClCompile Include="src\Callisto\Core\Application.cpp" />
+    <ClCompile Include="src\Callisto\Core\Layer.cpp" />
+    <ClCompile Include="src\Callisto\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Callisto\Core\Log.cpp" />
     <ClCompile Include="src\Callisto\Imgui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Callisto\Imgui\ImguiLayer.cpp" />
-    <ClCompile Include="src\Callisto\Layer.cpp" />
-    <ClCompile Include="src\Callisto\LayerStack.cpp" />
-    <ClCompile Include="src\Callisto\Log.cpp" />
     <ClCompile Include="src\Callisto\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLContext.cpp" />

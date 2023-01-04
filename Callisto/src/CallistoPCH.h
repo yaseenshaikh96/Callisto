@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Callisto/Log.h"
+#include <Callisto/Core/Log.h>
 
 #ifdef CALLISTO_PLATFORM_WINDOWS
 	#include <Windows.h>

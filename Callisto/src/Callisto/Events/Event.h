@@ -2,7 +2,7 @@
 
 #include "CallistoPCH.h"
 
-#include "Callisto/Core.h"
+#include <Callisto/Core/Core.h>
 
 namespace Callisto
 {

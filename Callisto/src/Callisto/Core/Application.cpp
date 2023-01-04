@@ -1,12 +1,11 @@
 #include "CallistoPCH.h"
 
 #include "Application.h"
-#include <Callisto/Log.h>
 
+#include <Callisto/Core/Log.h>
 #include <Callisto/Renderer/Renderer.h>
-
-#include <Callisto/Input.h>
-#include <Callisto/keycodes.h>
+#include <Callisto/Core/Input.h>
+#include <Callisto/Core/keycodes.h>
 
 #include <GLFW/glfw3.h>
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Callisto/Core.h>
-#include "Layer.h"
+#include <Callisto/Core/Core.h>
+#include <Callisto/Core/Layer.h>
 
 namespace Callisto
 {

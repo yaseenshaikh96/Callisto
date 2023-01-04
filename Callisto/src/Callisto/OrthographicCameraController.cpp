@@ -1,8 +1,8 @@
 #include "CallistoPCH.h"
 #include "OrthographicCameraController.h"
 
-#include <Callisto/Input.h>
-#include <Callisto/KeyCodes.h>
+#include <Callisto/Core/Input.h>
+#include <Callisto/Core/KeyCodes.h>
 
 namespace Callisto
 {

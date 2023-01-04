@@ -5,7 +5,7 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-#include <Callisto/Application.h>
+#include <Callisto/Core/Application.h>
 
 #include <GLFW/glfw3.h>
 #include <Glad/glad.h>

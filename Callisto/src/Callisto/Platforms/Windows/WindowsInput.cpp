@@ -1,7 +1,7 @@
 #include "CallistoPCH.h"
 #include "WindowsInput.h"
 
-#include <Callisto/Application.h>
+#include <Callisto/Core/Application.h>
 #include <GLFW/glfw3.h>
 
 namespace Callisto

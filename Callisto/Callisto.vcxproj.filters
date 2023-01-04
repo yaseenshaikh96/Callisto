@@ -57,17 +57,38 @@
     <ClInclude Include="src\Callisto.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Callisto\Application.h">
-      <Filter>src\Callisto</Filter>
+    <ClInclude Include="src\Callisto\Core\Application.h">
+      <Filter>src\Callisto\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Callisto\Core.h">
-      <Filter>src\Callisto</Filter>
+    <ClInclude Include="src\Callisto\Core\Core.h">
+      <Filter>src\Callisto\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Core\EntryPoint.h">
+      <Filter>src\Callisto\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Core\Input.h">
+      <Filter>src\Callisto\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Core\KeyCodes.h">
+      <Filter>src\Callisto\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Core\Layer.h">
+      <Filter>src\Callisto\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Core\LayerStack.h">
+      <Filter>src\Callisto\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Core\Log.h">
+      <Filter>src\Callisto\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Core\MouseButtonCodes.h">
+      <Filter>src\Callisto\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Core\TimeStep.h">
       <Filter>src\Callisto\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Callisto\EntryPoint.h">
-      <Filter>src\Callisto</Filter>
+    <ClInclude Include="src\Callisto\Core\Window.h">
+      <Filter>src\Callisto\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Events\ApplicationEvent.h">
       <Filter>src\Callisto\Events</Filter>
@@ -84,22 +105,7 @@
     <ClInclude Include="src\Callisto\Imgui\ImguiLayer.h">
       <Filter>src\Callisto\Imgui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Callisto\Input.h">
-      <Filter>src\Callisto</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Callisto\KeyCodes.h">
-      <Filter>src\Callisto</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Callisto\Layer.h">
-      <Filter>src\Callisto</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Callisto\LayerStack.h">
-      <Filter>src\Callisto</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Callisto\Log.h">
-      <Filter>src\Callisto</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Callisto\MouseButtonCodes.h">
+    <ClInclude Include="src\Callisto\OrthographicCameraController.h">
       <Filter>src\Callisto</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.h">
@@ -152,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="src\Callisto\Renderer\VertexArray.h">
       <Filter>src\Callisto\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Callisto\Window.h">
-      <Filter>src\Callisto</Filter>
     </ClInclude>
     <ClInclude Include="src\CallistoPCH.h">
       <Filter>src</Filter>
@@ -1410,11 +1413,19 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Callisto\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Callisto\Application.cpp">
-      <Filter>src\Callisto</Filter>
+    <ClCompile Include="src\Callisto\Core\Application.cpp">
+      <Filter>src\Callisto\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Core\Layer.cpp">
+      <Filter>src\Callisto\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Core\LayerStack.cpp">
+      <Filter>src\Callisto\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Core\Log.cpp">
+      <Filter>src\Callisto\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\Imgui\ImGuiBuild.cpp">
       <Filter>src\Callisto\Imgui</Filter>
@@ -1422,13 +1433,7 @@
     <ClCompile Include="src\Callisto\Imgui\ImguiLayer.cpp">
       <Filter>src\Callisto\Imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Callisto\Layer.cpp">
-      <Filter>src\Callisto</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Callisto\LayerStack.cpp">
-      <Filter>src\Callisto</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Callisto\Log.cpp">
+    <ClCompile Include="src\Callisto\OrthographicCameraController.cpp">
       <Filter>src\Callisto</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.cpp">
@@ -1485,6 +1490,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Callisto\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

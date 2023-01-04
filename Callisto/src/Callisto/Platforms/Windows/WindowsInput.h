@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Callisto/Input.h"
+#include <Callisto/Core/Input.h>
 
 namespace Callisto
 {

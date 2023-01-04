@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Callisto/Core.h>
+#include <Callisto/Core/Core.h>
 #include <Callisto/Events/Event.h>
 #include <Callisto/Events/ApplicationEvent.h>
 #include <Callisto/Events/KeyEvent.h>

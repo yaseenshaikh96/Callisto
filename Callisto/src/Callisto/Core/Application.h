@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Core.h"
+#include <Callisto/Core/Core.h>
 #include "Window.h"
-#include <Callisto/LayerStack.h>
+#include <Callisto/Core/LayerStack.h>
 #include <Callisto/Events/ApplicationEvent.h>
 
 #include <Callisto/Core/TimeStep.h>
 
 #include <Callisto/Imgui/ImguiLayer.h>
 
-#include "Callisto/Renderer/Shader.h"
+#include <Callisto/Renderer/Shader.h>
 #include <Callisto/Renderer/Buffer.h>
 #include <Callisto/Renderer/VertexArray.h>
 

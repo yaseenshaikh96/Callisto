@@ -2,7 +2,7 @@
 #include "Texture.h"
 
 #include "Renderer.h"
-#include "Callisto/Platforms/OpenGL/OpenGLTexture.h"
+#include <Callisto/Platforms/OpenGL/OpenGLTexture.h>
 
 namespace Callisto
 {

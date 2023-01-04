@@ -2,7 +2,7 @@
 #include "VertexArray.h"
 
 #include "Renderer.h"
-#include "Callisto/Platforms/OpenGL/OpenGLVertexArray.h"
+#include <Callisto/Platforms/OpenGL/OpenGLVertexArray.h>
 
 namespace Callisto
 {

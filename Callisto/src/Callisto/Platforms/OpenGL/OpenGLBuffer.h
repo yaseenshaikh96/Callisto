@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Callisto/Renderer/Buffer.h"
+#include <Callisto/Renderer/Buffer.h>
 
 namespace Callisto
 {

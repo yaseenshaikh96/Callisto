@@ -151,7 +151,7 @@ public:
 	void OnUpdate(Callisto::TimeStep timeStep) override
 	{
 
-		//CALLISTO_INFO("Time: {0}ms", timeStep.GetMilliseconds());
+		CALLISTO_INFO("Time: {0}ms", timeStep.GetMilliseconds());
 
 		Callisto::RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
 		Callisto::RenderCommand::Clear();
