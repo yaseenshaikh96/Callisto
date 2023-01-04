@@ -16,12 +16,8 @@ namespace MyApp
 		virtual void OnAttach() override;
 	
 	private:
-		Callisto::ShaderLibrary m_ShaderLibrary;
-		Callisto::Ref<Callisto::VertexArray> m_SquareVA;
-		glm::vec4 m_SquareColor;
-
 		Callisto::OrthographicCameraController m_CameraController;
-
+		float cubeRot = 0.0f;
 	};
 }
 

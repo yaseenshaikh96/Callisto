@@ -18,10 +18,14 @@ namespace Callisto
 		static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 		static Ref<Shader> Create(const std::string& path);
 		
-		void UploadUniformFloat4(const std::string& name, const glm::vec4& float4);
-		void UploadUniformMat4(const std::string& name, const glm::mat4& float4);
-		void UploadUniformInt(const std::string& name, int value);
-		
+		virtual void SetInt(const std::string& name, int value) = 0;
+
+		virtual void SetFloat2(const std::string& name, const glm::vec2& Float2) = 0;
+		virtual void SetFloat3(const std::string& name, const glm::vec3& Float3) = 0;
+		virtual void SetFloat4(const std::string& name, const glm::vec4& Float4) = 0;
+
+		virtual void SetMat3(const std::string& name, const glm::mat3& matrix) = 0;
+		virtual void SetMat4(const std::string& name, const glm::mat4& matrix) = 0;
 
 	protected:
 		static constexpr size_t MAX_SHADER_COUNT = 4;

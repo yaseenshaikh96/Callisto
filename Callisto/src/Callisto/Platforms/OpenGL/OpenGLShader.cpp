@@ -169,6 +169,32 @@ namespace Callisto
 	{
 		glUseProgram(0);
 	}
+
+	void OpenGLShader::SetInt(const std::string& name, int value)
+	{
+		UploadUniformInt(name, value);
+	}
+	void OpenGLShader::SetFloat2(const std::string& name, const glm::vec2& Float2)
+	{
+		UploadUniformFloat2(name, Float2);
+	}
+	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& Float3)
+	{
+		UploadUniformFloat3(name, Float3);
+	}
+	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& Float4)
+	{
+		UploadUniformFloat4(name, Float4);
+	}
+	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& matrix)
+	{
+		UploadUniformMat3(name, matrix);
+	}
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& matrix)
+	{
+		UploadUniformMat4(name, matrix);
+	}
+
 	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix)
 	{
 		int location = glGetUniformLocation(m_RendererID, name.c_str());

@@ -49,7 +49,7 @@ namespace MyApp
 		m_TextureChernoLogo = Callisto::Texture2D::Create("./Assets/ChernoLogo.png");
 
 		textureShader->Bind();
-		textureShader->UploadUniformInt("u_Texture", 0);
+		textureShader->SetInt("u_Texture", 0);
 	}
 
 	void ExampleLayer::OnImGuiRender()
@@ -72,7 +72,7 @@ namespace MyApp
 
 		Callisto::Ref<Callisto::Shader> flatColorShader = m_ShaderLibrary.Get("FlatColor");
 		flatColorShader->Bind();
-		flatColorShader->UploadUniformFloat4("u_Color", m_SquareColor);
+		flatColorShader->SetFloat4("u_Color", m_SquareColor);
 
 		for (int i = 0; i < 20; i++)
 		{

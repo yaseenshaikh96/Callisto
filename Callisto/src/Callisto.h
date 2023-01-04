@@ -17,6 +17,7 @@
 		
 /*************************************Renderer*******************************>******/
 #include <Callisto/Renderer/Renderer.h>
+#include <Callisto/Renderer/Renderer2D.h>
 #include <Callisto/Renderer/RenderCommand.h>
 #include <Callisto/Renderer/Shader.h>
 #include <Callisto/Renderer/Texture.h>

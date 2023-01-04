@@ -36,39 +36,6 @@ namespace Callisto
 		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
 		return nullptr;
 	}
-	void Shader::UploadUniformFloat4(const std::string& name, const glm::vec4& float4)
-	{
-		switch (RendererAPI::GetAPI())
-		{
-		case RendererAPI::API::NONE:
-			CALLISTO_CORE_ASSERT(false, "RenderAPI::NONE not supported!");
-		case RendererAPI::API::OpenGL:
-			dynamic_cast<OpenGLShader*>(this)->UploadUniformFloat4(name, float4);
-		}
-		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
-	}
-	void Shader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
-	{
-		switch (RendererAPI::GetAPI())
-		{
-		case RendererAPI::API::NONE:
-			CALLISTO_CORE_ASSERT(false, "RenderAPI::NONE not supported!");
-		case RendererAPI::API::OpenGL:
-			dynamic_cast<OpenGLShader*>(this)->UploadUniformMat4(name, matrix);
-		}
-		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
-	}
-	void Shader::UploadUniformInt(const std::string& name, int value)
-	{
-		switch (RendererAPI::GetAPI())
-		{
-		case RendererAPI::API::NONE:
-			CALLISTO_CORE_ASSERT(false, "RenderAPI::NONE not supported!");
-		case RendererAPI::API::OpenGL:
-			dynamic_cast<OpenGLShader*>(this)->UploadUniformInt(name, value);
-		}
-		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
-	}
 	/******************************************************************************************************************************/
 	/* ShaderLibrary */
 	/******************************************************************************************************************************/

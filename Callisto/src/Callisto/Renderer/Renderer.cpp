@@ -1,6 +1,8 @@
 #include "CallistoPCH.h"
 #include "Renderer.h"
 
+#include <Callisto/Renderer/Renderer2D.h>
+
 #include <Callisto/Platforms/OpenGL/OpenGLShader.h>
 
 namespace Callisto
@@ -10,6 +12,7 @@ namespace Callisto
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		Renderer2D::Init();
 	}
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
 	{
