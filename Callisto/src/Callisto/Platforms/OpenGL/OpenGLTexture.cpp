@@ -9,6 +9,21 @@
 
 namespace Callisto
 {
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
+		:
+		m_Width(width),
+		m_Height(height)
+	{	
+		glGenTextures(1, &m_RendererID);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	}
+
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
 		:
 		m_Path(path), m_Width(0), m_Height(0), m_RendererID(0)
@@ -36,12 +51,15 @@ namespace Callisto
 			CALLISTO_CORE_ASSERT(false, "Only RGB and RGBA format supported!");
 		}
 
+		m_InternalFormat = internalFormat;
+		m_DataFormat = dataFormat;
 
 		glGenTextures(1, &m_RendererID);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 		
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
@@ -55,6 +73,16 @@ namespace Callisto
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &m_RendererID);
+	}
+
+	void OpenGLTexture2D::SetData(void* data, uint32_t size)
+	{
+		uint32_t bytesPerPixel = m_DataFormat == GL_RGBA ? 4 : 3;
+		CALLISTO_ASSERT(size == m_Width * m_Height * bytesPerPixel, "data must be entire texture!");
+
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
+		glTexImage2D(GL_TEXTURE_2D, 0, m_InternalFormat, m_Width, m_Height, 0, m_DataFormat, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const

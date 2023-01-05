@@ -16,6 +16,7 @@ namespace MyApp
 		virtual void OnAttach() override;
 	
 	private:
+		Callisto::Ref<Callisto::Texture2D> m_CheckerTexture;
 		Callisto::OrthographicCameraController m_CameraController;
 		float cubeRot = 0.0f;
 	};

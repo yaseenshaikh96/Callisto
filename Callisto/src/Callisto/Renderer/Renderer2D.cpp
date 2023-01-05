@@ -13,7 +13,8 @@ namespace Callisto
 	{
 	public:
 		Ref<VertexArray> QuadVertexArray;
-		Ref<Shader> QuadShader;
+		Ref<Shader> QuadTextureShader;
+		Ref<Texture2D> WhiteTexture;
 	};
 
 	static Renderer2DStorage* s_Data;
@@ -25,10 +26,10 @@ namespace Callisto
 
 		float vertices[] =
 		{
-			-0.5f, -0.5f,  0.0f,
-			 0.5f, -0.5f,  0.0f,
-			 0.5f,  0.5f,  0.0f,
-			-0.5f,  0.5f,  0.0f
+			-0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f,  0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f,  0.0f, 0.0f, 1.0f
 		};
 		unsigned int indices[6] = { 0, 1, 2, 2, 3, 0 };
 
@@ -36,7 +37,8 @@ namespace Callisto
 		Ref<VertexBuffer> SquareVB = VertexBuffer::Create(vertices, sizeof(vertices));
 		BufferLayout layout2 =
 		{
-			{ShaderDataType::Float3, "a_Position"}
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float2, "a_TexCoord"}
 		};
 		SquareVB->SetLayout(layout2);
 		s_Data->QuadVertexArray->AddVertexBuffer(SquareVB);
@@ -44,7 +46,13 @@ namespace Callisto
 		Ref<IndexBuffer> SquareVI = IndexBuffer::Create(indices, sizeof(indices));
 		s_Data->QuadVertexArray->SetIndexBuffer(SquareVI);
 
-		s_Data->QuadShader = Shader::Create("./Assets/Shaders/FlatColor.glsl");
+		uint32_t whiteTextureData = 0xffffffff;
+		s_Data->WhiteTexture = Texture2D::Create(1, 1);
+		s_Data->WhiteTexture->SetData((void*)&whiteTextureData, sizeof(whiteTextureData));
+
+		s_Data->QuadTextureShader = Shader::Create("./Assets/Shaders/Texture.glsl");
+		s_Data->QuadTextureShader->Bind();
+		s_Data->QuadTextureShader->SetInt("u_Texture", 0);
 	}
 	void Renderer2D::Shutdown()
 	{
@@ -52,8 +60,8 @@ namespace Callisto
 	}
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		s_Data->QuadShader->Bind();
-		s_Data->QuadShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+		s_Data->QuadTextureShader->Bind();
+		s_Data->QuadTextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 	void Renderer2D::EndScene()
 	{
@@ -64,8 +72,6 @@ namespace Callisto
 	}
 	void Renderer2D::DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, glm::vec4 color)
 	{
-		s_Data->QuadShader->Bind();
-		s_Data->QuadShader->SetFloat4("u_Color", color);
 
 		glm::mat4 transform = 
 			glm::translate(glm::mat4(1.0f), position)
@@ -74,7 +80,33 @@ namespace Callisto
 				glm::vec3(0.0f, 0.0f, 1.0f))
 			* glm::scale(glm::mat4(1.0f) , glm::vec3(size.x, size.y, 1.0f));
 
-		s_Data->QuadShader->SetMat4("u_Transform", transform);
+		s_Data->WhiteTexture->Bind();
+		
+		s_Data->QuadTextureShader->SetFloat4("u_Color", color);
+		s_Data->QuadTextureShader->SetMat4("u_Transform", transform);
+		
+		s_Data->QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+	}
+
+	void Renderer2D::DrawQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture)
+	{
+		DrawQuadFilled(glm::vec3(position.x, position.y, 0.0f), size, rotation, texture);
+	}
+	void Renderer2D::DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture)
+	{
+		glm::mat4 transform =
+			glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f),
+				glm::radians(rotation),
+				glm::vec3(0.0f, 0.0f, 1.0f))
+			* glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1.0f));
+
+		texture->Bind();
+		
+		s_Data->QuadTextureShader->SetFloat4("u_Color", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)); // Tint
+		s_Data->QuadTextureShader->SetMat4("u_Transform", transform);
+		
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
 	}
