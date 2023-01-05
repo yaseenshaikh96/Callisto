@@ -12,7 +12,7 @@ namespace MyApp
 	ExampleLayer2D::ExampleLayer2D()
 		:
 		Layer("Example2D"),
-		m_CameraController(1280.0f / 720.0f, true)
+		m_CameraController(1280.0f / 720.0f, true) // 1280.0f / 720.0f
 	{
 	}
 
@@ -63,7 +63,7 @@ namespace MyApp
 			Callisto::Renderer2D::DrawQuadFilled(glm::vec2(0.0f, 0.5f), glm::vec2(0.2f), cubeRot, glm::vec4(0.4f, 0.8f, 0.4f, 1.0f));
 			Callisto::Renderer2D::DrawQuadFilled(glm::vec2(-0.7f), glm::vec2(0.7f), cubeRot, glm::vec4(0.4f, 0.4f, 0.8f, 1.0f));
 
-			Callisto::Renderer2D::DrawQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.f), 0, m_CheckerTexture);
+			Callisto::Renderer2D::DrawQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f), glm::vec2(10.0f), 0, m_CheckerTexture);
 
 			Callisto::Renderer2D::EndScene();
 		}

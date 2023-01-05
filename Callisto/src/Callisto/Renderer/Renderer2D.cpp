@@ -91,17 +91,18 @@ namespace Callisto
 		s_Data->WhiteTexture->Bind();
 		
 		s_Data->QuadTextureShader->SetFloat4("u_Color", color);
+		s_Data->QuadTextureShader->SetFloat2("u_TexScale", glm::vec2(1.0f));
 		s_Data->QuadTextureShader->SetMat4("u_Transform", transform);
 		
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
 	}
 
-	void Renderer2D::DrawQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture)
+	void Renderer2D::DrawQuadFilled(const glm::vec2& position, const glm::vec2& size, const glm::vec2& texScale, float rotation, const Ref<Texture2D>& texture)
 	{
-		DrawQuadFilled(glm::vec3(position.x, position.y, 0.0f), size, rotation, texture);
+		DrawQuadFilled(glm::vec3(position.x, position.y, 0.0f), size, texScale, rotation, texture);
 	}
-	void Renderer2D::DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture)
+	void Renderer2D::DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, const glm::vec2& texScale, float rotation, const Ref<Texture2D>& texture)
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
@@ -115,6 +116,7 @@ namespace Callisto
 		texture->Bind();
 		
 		s_Data->QuadTextureShader->SetFloat4("u_Color", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)); // Tint
+		s_Data->QuadTextureShader->SetFloat2("u_TexScale", texScale);
 		s_Data->QuadTextureShader->SetMat4("u_Transform", transform);
 		
 		s_Data->QuadVertexArray->Bind();

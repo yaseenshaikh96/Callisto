@@ -17,8 +17,8 @@ namespace Callisto
 		static void DrawQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, glm::vec4 color = glm::vec4(0.0f));
 		static void DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, glm::vec4 color = glm::vec4(0.0f));
 
-		static void DrawQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture);
-		static void DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture);
+		static void DrawQuadFilled(const glm::vec2& position, const glm::vec2& size, const glm::vec2& texScale, float rotation, const Ref<Texture2D>& texture);
+		static void DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, const glm::vec2& texScale, float rotation, const Ref<Texture2D>& texture);
 
 	};
 }
