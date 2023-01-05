@@ -7,11 +7,7 @@
 
 namespace MyApp
 {
-	ExampleLayer2D::ProfilerResult::ProfilerResult(const char* name, float duration)
-		:Name(name), Timer(duration)
-	{}
-
-#define PROFILER_SCOPED(name) Callisto::Timer timer##__LINE__(name, [&](ProfilerResult profileResult) { m_ProfilerResults.push_back(profileResult); })
+	
 
 	ExampleLayer2D::ExampleLayer2D()
 		:
@@ -29,23 +25,12 @@ namespace MyApp
 	void ExampleLayer2D::OnImGuiRender()
 	{
 		
-		ImGui::Begin("Timer");
-		
-		for (auto& result : m_ProfilerResults)
-		{
-			char label[50];
-			strcpy(label, result.Name);
-			strcat(label, "  %.3fms");
-			ImGui::Text(label, result.Timer);
-		}
-		ImGui::End();
-		m_ProfilerResults.clear();
-		
 	}
 
 	void ExampleLayer2D::OnUpdate(Callisto::TimeStep timeStep)
 	{
-
+		CALLISTO_PROFILE_FUNCTION();
+		
 		if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_U))
 		{
 			CALLISTO_INFO("u PRESSED : {0}", cubeRot);
@@ -58,19 +43,19 @@ namespace MyApp
 		}
 
 		{
-			PROFILER_SCOPED("Render Clear:");
+			CALLISTO_PROFILE_SCOPE("Render Clear:");
 			Callisto::RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
 			Callisto::RenderCommand::Clear();
 		}
 
 		{
-			PROFILER_SCOPED("Camera:");
+			CALLISTO_PROFILE_SCOPE("Camera:");
 			m_CameraController.OnUpdate(timeStep);
 		}
 
 		
 		{
-			PROFILER_SCOPED("Render:");
+			CALLISTO_PROFILE_SCOPE("Render:");
 			Callisto::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 			Callisto::Renderer2D::DrawQuadFilled(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f), cubeRot, glm::vec4(0.8f, 0.4f, 0.4f, 1.0f));

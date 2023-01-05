@@ -15,13 +15,6 @@ namespace MyApp
 
 		virtual void OnAttach() override;
 	private:
-		struct ProfilerResult
-		{
-			ProfilerResult(const char* name, float duration);
-			const char* Name;
-			float Timer;
-		};
-		std::vector<ProfilerResult> m_ProfilerResults;
 
 		Callisto::Ref<Callisto::Texture2D> m_CheckerTexture;
 		Callisto::OrthographicCameraController m_CameraController;

@@ -155,6 +155,7 @@
     <ClInclude Include="src\Callisto\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Callisto\Core\TimeStep.h" />
     <ClInclude Include="src\Callisto\Core\Window.h" />
+    <ClInclude Include="src\Callisto\DebugUtils\Instrumental.h" />
     <ClInclude Include="src\Callisto\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Callisto\Events\Event.h" />
     <ClInclude Include="src\Callisto\Events\KeyEvent.h" />
