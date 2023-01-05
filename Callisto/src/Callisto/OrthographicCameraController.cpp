@@ -17,6 +17,8 @@ namespace Callisto
 
 	void OrthographicCameraController::OnUpdate(TimeStep timeStep)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		if (Input::IsKeyPressed(CALLISTO_KEY_W))
 			m_CamPos.y += m_CamMoveSpeed * timeStep;
 		else if (Input::IsKeyPressed(CALLISTO_KEY_S))
@@ -47,6 +49,8 @@ namespace Callisto
 	}
 	bool OrthographicCameraController::OnMouseScrolled(const MouseScrollEvent& e)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= e.GetOffsetY() * 0.25f;
 		m_ZoomLevel = std::max(0.25f, m_ZoomLevel);
 
@@ -57,6 +61,8 @@ namespace Callisto
 	}
 	bool OrthographicCameraController::OnWindowResizeEvent(const WindowResizeEvent& e)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;

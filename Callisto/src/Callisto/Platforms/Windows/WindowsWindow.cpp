@@ -11,6 +11,7 @@
 namespace Callisto
 {
 	static bool s_GLFWInitialized = false;
+	uint32_t WindowsWindow::s_GLFWWindowCount = 0;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
@@ -25,15 +26,18 @@ namespace Callisto
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		Init(props);
 	}
 	WindowsWindow::~WindowsWindow()
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -50,7 +54,7 @@ namespace Callisto
 
 			s_GLFWInitialized = true;
 		}
-
+		s_GLFWWindowCount++;
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		
 		m_Context = new OpenGLContext{m_Window};
@@ -170,17 +174,23 @@ namespace Callisto
 
 	void WindowsWindow::Shutdown()
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		glfwDestroyWindow(m_Window);
+		--s_GLFWWindowCount;
+		if (s_GLFWWindowCount == 0)
+			glfwTerminate();
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		if (enabled)
 			glfwSwapInterval(1);
 		else

@@ -18,8 +18,13 @@ namespace MyApp
 
 	void ExampleLayer2D::OnAttach()
 	{
-		m_CheckerTexture = Callisto::Texture2D::Create("./Assets/Checkerboard.png");
+		CALLISTO_PROFILE_FUNCTION();
 
+		m_CheckerTexture = Callisto::Texture2D::Create("./Assets/Checkerboard.png");
+	}
+	void ExampleLayer2D::OnDetach()
+	{
+		CALLISTO_PROFILE_FUNCTION();
 	}
 
 	void ExampleLayer2D::OnImGuiRender()
@@ -43,16 +48,12 @@ namespace MyApp
 		}
 
 		{
-			CALLISTO_PROFILE_SCOPE("Render Clear:");
+			CALLISTO_PROFILE_SCOPE("RenderCommand Clear:");
 			Callisto::RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
 			Callisto::RenderCommand::Clear();
 		}
 
-		{
-			CALLISTO_PROFILE_SCOPE("Camera:");
-			m_CameraController.OnUpdate(timeStep);
-		}
-
+		m_CameraController.OnUpdate(timeStep);
 		
 		{
 			CALLISTO_PROFILE_SCOPE("Render:");

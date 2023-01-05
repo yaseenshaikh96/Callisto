@@ -14,6 +14,8 @@ namespace Callisto
 		m_Width(width),
 		m_Height(height)
 	{	
+		CALLISTO_PROFILE_FUNCTION();
+		
 		glGenTextures(1, &m_RendererID);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 
@@ -28,9 +30,15 @@ namespace Callisto
 		:
 		m_Path(path), m_Width(0), m_Height(0), m_RendererID(0)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		int channel, width, height;
 		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(m_Path.c_str(), &width, &height, &channel, 0);
+		stbi_uc* data;
+		{
+			CALLISTO_PROFILE_SCOPE("OpenGLTexture2D::OpenGLTexture2D(const std::string&)::stbi_load(...)");
+			data = stbi_load(m_Path.c_str(), &width, &height, &channel, 0);
+		}
 		CALLISTO_CORE_ASSERT(data, "Failed to load Texture2D!");
 		m_Width = width;
 		m_Height = height;
@@ -72,11 +80,15 @@ namespace Callisto
 	}
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		glDeleteTextures(1, &m_RendererID);
 	}
 
 	void OpenGLTexture2D::SetData(void* data, uint32_t size)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		uint32_t bytesPerPixel = m_DataFormat == GL_RGBA ? 4 : 3;
 		CALLISTO_ASSERT(size == m_Width * m_Height * bytesPerPixel, "data must be entire texture!");
 
@@ -87,6 +99,8 @@ namespace Callisto
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 }

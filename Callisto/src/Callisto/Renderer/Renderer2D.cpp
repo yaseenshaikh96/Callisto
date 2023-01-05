@@ -21,6 +21,8 @@ namespace Callisto
 
 	void Renderer2D::Init()
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DStorage();
 
 
@@ -56,15 +58,20 @@ namespace Callisto
 	}
 	void Renderer2D::Shutdown()
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		s_Data->QuadTextureShader->Bind();
 		s_Data->QuadTextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 	void Renderer2D::EndScene()
 	{
+		CALLISTO_PROFILE_FUNCTION();
 	}
 	void Renderer2D::DrawQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, glm::vec4 color)
 	{
@@ -72,6 +79,7 @@ namespace Callisto
 	}
 	void Renderer2D::DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, glm::vec4 color)
 	{
+		CALLISTO_PROFILE_FUNCTION();
 
 		glm::mat4 transform = 
 			glm::translate(glm::mat4(1.0f), position)
@@ -95,6 +103,8 @@ namespace Callisto
 	}
 	void Renderer2D::DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		glm::mat4 transform =
 			glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f),

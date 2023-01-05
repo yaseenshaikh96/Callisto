@@ -1,1 +1,1 @@
-{"otherData": {},"traceEvents":[]}
+{"otherData": {},"traceEvents":[{"cat":"function","dur":865,"name":"__cdecl Callisto::OpenGLTexture2D::~OpenGLTexture2D(void)","ph":"X","pid":0,"tid":14979467965524317019,"ts":2658322554},{"cat":"function","dur":240900,"name":"void __cdecl Callisto::WindowsWindow::Shutdown(void)","ph":"X","pid":0,"tid":14979467965524317019,"ts":2658324025},{"cat":"function","dur":241285,"name":"__cdecl Callisto::WindowsWindow::~WindowsWindow(void)","ph":"X","pid":0,"tid":14979467965524317019,"ts":2658324023}]}

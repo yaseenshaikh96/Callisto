@@ -29,6 +29,7 @@ namespace Callisto
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 	private:
+		static uint32_t s_GLFWWindowCount;
 		GLFWwindow* m_Window;
 		GraphicsContext* m_Context;
 		// Holds a MSWindows Window's property along with a callback

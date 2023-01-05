@@ -11,6 +11,7 @@ namespace Callisto
 
 	void Renderer::Init()
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

@@ -12,6 +12,8 @@ namespace Callisto
 {
 	static GLenum ShaderTypeFromString(const std::string& type)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		if (type == "vertex")
 			return GL_VERTEX_SHADER;
 		if (type == "fragment" || type == "pixel")
@@ -23,6 +25,8 @@ namespace Callisto
 
 	OpenGLShader::OpenGLShader(const std::string& path)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		std::string shaderSrc = ReadFile(path);
 		auto shaderSources = PreProcess(shaderSrc);
 		Compile(shaderSources);
@@ -38,6 +42,8 @@ namespace Callisto
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSource, const std::string& fragmentSource)
 		: m_Name(name)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSource;
 		sources[GL_FRAGMENT_SHADER] = fragmentSource;
@@ -46,6 +52,8 @@ namespace Callisto
 
 	std::string OpenGLShader::ReadFile(const std::string& path)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		std::string result;
 		std::ifstream in(path, std::ios::in | std::ios::binary);
 		if (in)
@@ -65,6 +73,8 @@ namespace Callisto
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& shaderSrc)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "#type";
@@ -91,6 +101,8 @@ namespace Callisto
 
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		GLuint program  = glCreateProgram();
 		CALLISTO_CORE_ASSERT(shaderSources.size() < MAX_SHADER_COUNT, "Exceeded max shader count per file!");
 		std::array<GLenum, MAX_SHADER_COUNT> glShaderIds;
@@ -157,41 +169,59 @@ namespace Callisto
 
 	OpenGLShader::~OpenGLShader()
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
 
 	void OpenGLShader::Bind() const
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 	void OpenGLShader::Unbind() const
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 
 	void OpenGLShader::SetInt(const std::string& name, int value)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		UploadUniformInt(name, value);
 	}
 	void OpenGLShader::SetFloat2(const std::string& name, const glm::vec2& Float2)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		UploadUniformFloat2(name, Float2);
 	}
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& Float3)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		UploadUniformFloat3(name, Float3);
 	}
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& Float4)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		UploadUniformFloat4(name, Float4);
 	}
 	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& matrix)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+		
 		UploadUniformMat3(name, matrix);
 	}
 	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& matrix)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		UploadUniformMat4(name, matrix);
 	}
 

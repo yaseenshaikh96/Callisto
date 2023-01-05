@@ -28,25 +28,31 @@ namespace Callisto
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		glGenVertexArrays(1, &m_RendererID);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		glDeleteVertexArrays(1, &m_RendererID);
 	}
 	
 	void OpenGLVertexArray::Bind() const
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		glBindVertexArray(m_RendererID);
 	}
 	void OpenGLVertexArray::UnBind() const
 	{
+		CALLISTO_PROFILE_FUNCTION();
 		glBindVertexArray(0);
 	}
 	
 	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		CALLISTO_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "VertexBuffer has no layout!");
 
 		glBindVertexArray(m_RendererID);
@@ -70,6 +76,8 @@ namespace Callisto
 	}
 	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();
 		m_IndexBuffer = indexBuffer;

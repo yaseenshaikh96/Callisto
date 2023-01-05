@@ -19,6 +19,8 @@ namespace Callisto
 
 	Application::Application()
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		CALLISTO_CORE_ASSERT(!s_Instance, "Application already exist!");
 		s_Instance = this;
 
@@ -39,17 +41,23 @@ namespace Callisto
 
 	void Application::PushLayer(Layer* layer)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 	void Application::PushOverlay(Layer* overlay)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(overlay);
 		overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		EventDispacther dispatcher = e;
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResizeEvent));
@@ -66,21 +74,31 @@ namespace Callisto
 
 	void Application::Run()
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{	
+			CALLISTO_PROFILE_SCOPE("Run Loop");
+
 			float time = (float)glfwGetTime();
 			TimeStep timeStep(time - m_LastFrameTime);
 			m_LastFrameTime = time;
 
-			if(!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timeStep);
+				CALLISTO_PROFILE_SCOPE("LayerStack OnUpdate");
+				if (!m_Minimized)
+				{
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timeStep);
+				}
 			}
 
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
+			{
+				CALLISTO_PROFILE_SCOPE("ImGuiLayer OnUpdate:");
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
+			}
 			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
@@ -95,6 +113,8 @@ namespace Callisto
 
 	bool Application::OnWindowResizeEvent(WindowResizeEvent& e)
 	{
+		CALLISTO_PROFILE_FUNCTION();
+
 		if(e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;

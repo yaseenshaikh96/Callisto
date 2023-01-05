@@ -14,6 +14,7 @@ namespace MyApp
 		virtual void OnEvent(Callisto::Event& e) override;
 
 		virtual void OnAttach() override;
+		virtual void OnDetach() override;
 	private:
 
 		Callisto::Ref<Callisto::Texture2D> m_CheckerTexture;
