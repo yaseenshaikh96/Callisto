@@ -7,6 +7,7 @@
 #include <Callisto/Core/Log.h>
 		
 #include <Callisto/Core/TimeStep.h>
+#include <Callisto/Utils/Timer.h>
 		
 #include <Callisto/Core/Input.h>
 #include <Callisto/Core/KeyCodes.h>

@@ -180,6 +180,7 @@
     <ClInclude Include="src\Callisto\Renderer\Texture.h" />
     <ClInclude Include="src\Callisto\Renderer\VertexArray.h" />
     <ClInclude Include="src\CallistoPCH.h" />
+    <ClInclude Include="src\Callisto\Utils\Timer.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
