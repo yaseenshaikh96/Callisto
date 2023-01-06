@@ -38,12 +38,10 @@ namespace MyApp
 		
 		if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_U))
 		{
-			CALLISTO_INFO("u PRESSED : {0}", cubeRot);
 			cubeRot += 90 * timeStep;
 		}
 		else if (Callisto::Input::IsKeyPressed(CALLISTO_KEY_I))
 		{
-			CALLISTO_INFO("i PRESSED");
 			cubeRot -= 90 * timeStep;
 		}
 
@@ -59,12 +57,14 @@ namespace MyApp
 			CALLISTO_PROFILE_SCOPE("Render:");
 			Callisto::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-			Callisto::Renderer2D::DrawQuadFilled(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f), cubeRot, glm::vec4(0.8f, 0.4f, 0.4f, 1.0f));
-			Callisto::Renderer2D::DrawQuadFilled(glm::vec2(0.0f, 0.5f), glm::vec2(0.2f), cubeRot, glm::vec4(0.4f, 0.8f, 0.4f, 1.0f));
-			Callisto::Renderer2D::DrawQuadFilled(glm::vec2(-0.7f), glm::vec2(0.7f), cubeRot, glm::vec4(0.4f, 0.4f, 0.8f, 1.0f));
+			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(-1.0f, 0.0f), glm::vec2(0.8f, 0.8f), glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(0.5f, -0.5f), glm::vec2(0.5f, 0.75f), glm::vec4(0.2f, 0.8f, 0.2f, 1.0f) );
 
-			Callisto::Renderer2D::DrawQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f), glm::vec2(10.0f), 0, m_CheckerTexture);
+			//Callisto::Renderer2D::DrawRotatedQuadFilled(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f), cubeRot, glm::vec4(0.8f, 0.4f, 0.4f, 1.0f));
+			//Callisto::Renderer2D::DrawRotatedQuadFilled(glm::vec2(0.0f, 0.5f), glm::vec2(0.2f), cubeRot, glm::vec4(0.4f, 0.8f, 0.4f, 1.0f));
+			//Callisto::Renderer2D::DrawRotatedQuadFilled(glm::vec2(-0.7f), glm::vec2(0.7f), cubeRot, glm::vec4(0.4f, 0.4f, 0.8f, 1.0f));
 
+			//Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f), m_CheckerTexture, glm::vec2(10.0f), glm::vec4(0.5f, 0.5f, 1.0f, 1.0f));
 			Callisto::Renderer2D::EndScene();
 		}
 

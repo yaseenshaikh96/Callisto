@@ -14,11 +14,33 @@ namespace Callisto
 		static void BeginScene(const OrthographicCamera& camera);
 		static void EndScene();
 
-		static void DrawQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, glm::vec4 color = glm::vec4(0.0f));
-		static void DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, glm::vec4 color = glm::vec4(0.0f));
+		static void Flush();
+		
+		
+		static void DrawAxisAlignedQuadFilled(const glm::vec2& position, const glm::vec2& size, glm::vec4 color = glm::vec4(0.0f));
+		static void DrawAxisAlignedQuadFilled(const glm::vec3& position, const glm::vec2& size, glm::vec4 color = glm::vec4(0.0f));
 
-		static void DrawQuadFilled(const glm::vec2& position, const glm::vec2& size, const glm::vec2& texScale, float rotation, const Ref<Texture2D>& texture);
-		static void DrawQuadFilled(const glm::vec3& position, const glm::vec2& size, const glm::vec2& texScale, float rotation, const Ref<Texture2D>& texture);
+		static void DrawAxisAlignedQuadFilled(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
+		static void DrawAxisAlignedQuadFilled(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
 
+		static void DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, glm::vec4 color = glm::vec4(0.0f));
+		static void DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, glm::vec4 color = glm::vec4(0.0f));
+
+		static void DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
+		static void DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
+
+	public:
+		struct QuadVertex
+		{
+			glm::vec3 Position;
+			glm::vec4 Color;
+			glm::vec2 TexCoord;
+			// normal, texture id, etc
+		};
+
+	private:
+		static const uint32_t MAX_QUAD_COUNT_PER_DRAW;
+		static const uint32_t MAX_VERTICES_COUNT_PER_DRAW;
+		static const uint32_t MAX_INDICES_COUNT_PER_DRAW;
 	};
 }

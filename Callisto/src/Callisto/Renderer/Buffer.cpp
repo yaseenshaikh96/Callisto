@@ -29,7 +29,20 @@ namespace Callisto
 			CALLISTO_CORE_ASSERT(false, "RenderAPI::NONE not supported!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLVertexBuffer>(vertices, size);
+			return CreateRef<OpenGLVertexBuffer>(vertices, size);
+		}
+		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
+		return nullptr;
+	}
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::NONE:
+			CALLISTO_CORE_ASSERT(false, "RenderAPI::NONE not supported!");
+			return nullptr;
+		case RendererAPI::API::OpenGL:
+			return CreateRef<OpenGLVertexBuffer>(size);
 		}
 		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
 		return nullptr;
@@ -38,7 +51,7 @@ namespace Callisto
 	/**************************************************************************************************************************************************/
 	/* IndexBuffer */
 	/**************************************************************************************************************************************************/
-	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -46,7 +59,7 @@ namespace Callisto
 			CALLISTO_CORE_ASSERT(false, "RenderAPI::NONE not supported!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLIndexBuffer>(indices, size);
+			return CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 		CALLISTO_CORE_ASSERT(false, "Unknown RendererAPI");
 		return nullptr;
