@@ -71,10 +71,12 @@ namespace Callisto
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexImage2D(GL_TEXTURE_2D, 0, m_InternalFormat, m_Width, m_Height, 0, m_DataFormat, GL_UNSIGNED_BYTE, data);
+		//glGenerateMipmap(GL_TEXTURE_2D);
 
-		//glTexSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE, data);
+		//glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_UNSIGNED_BYTE, data);
+		//glGenerateMipmap(GL_TEXTURE_2D);
+
 	
 		stbi_image_free(data);
 	}
@@ -94,13 +96,17 @@ namespace Callisto
 
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 		glTexImage2D(GL_TEXTURE_2D, 0, m_InternalFormat, m_Width, m_Height, 0, m_DataFormat, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
+		//glGenerateMipmap(GL_TEXTURE_2D);
 	}
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
 		CALLISTO_PROFILE_FUNCTION();
-
+		
+		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
+
+		//glActiveTexture(slot);
+		//glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 }

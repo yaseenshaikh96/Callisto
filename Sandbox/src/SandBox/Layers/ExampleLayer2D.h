@@ -17,6 +17,8 @@ namespace MyApp
 		virtual void OnDetach() override;
 	private:
 
+		std::vector<Callisto::Ref<Callisto::Texture2D>> m_Textures;
+
 		Callisto::Ref<Callisto::Texture2D> m_CheckerTexture;
 		Callisto::OrthographicCameraController m_CameraController;
 		float cubeRot = 0.0f;

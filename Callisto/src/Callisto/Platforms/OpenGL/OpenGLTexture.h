@@ -18,6 +18,10 @@ namespace Callisto
 		virtual uint32_t GetWidth() const override { return m_Width; }
 		virtual uint32_t GetHeight() const override { return m_Height; }
 
+		virtual bool operator==(const Texture& other) const override { return GetID() == other.GetID(); }
+
+		virtual float GetID() const override { return (float)m_RendererID; }
+
 		virtual void Bind(uint32_t slot) const override;
 	private:
 		std::string m_Path;

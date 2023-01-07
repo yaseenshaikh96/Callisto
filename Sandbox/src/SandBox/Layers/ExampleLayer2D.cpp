@@ -21,6 +21,11 @@ namespace MyApp
 		CALLISTO_PROFILE_FUNCTION();
 
 		m_CheckerTexture = Callisto::Texture2D::Create("./Assets/Checkerboard.png");
+
+		m_Textures.push_back(Callisto::Texture2D::Create("./Assets/Image4.png"));
+		m_Textures.push_back(Callisto::Texture2D::Create("./Assets/Image5.png"));
+		m_Textures.push_back(Callisto::Texture2D::Create("./Assets/Image6.png"));
+
 	}
 	void ExampleLayer2D::OnDetach()
 	{
@@ -57,8 +62,13 @@ namespace MyApp
 			CALLISTO_PROFILE_SCOPE("Render:");
 			Callisto::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(-1.0f, 0.0f), glm::vec2(0.8f, 0.8f), glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
-			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(0.5f, -0.5f), glm::vec2(0.5f, 0.75f), glm::vec4(0.2f, 0.8f, 0.2f, 1.0f) );
+			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(-0.5f, 0.0f), glm::vec2(0.8f, 0.8f), glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+			//Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(0.5f, -0.5f), glm::vec2(0.5f, 0.75f), glm::vec4(0.2f, 0.8f, 0.2f, 1.0f) );
+
+			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(-1.5f, 0.0f), glm::vec2(0.5f, 0.5f), m_CheckerTexture, glm::vec2(1.0f), glm::vec4(1.0f));
+			//Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(1.5f,	 0.0f), glm::vec2(0.25f, 0.25f), m_Textures[1], glm::vec2(1.0f), glm::vec4(1.0f));
+			//Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(1.5f, +0.5f), glm::vec2(0.25f, 0.25f), m_Textures[2], glm::vec2(1.0f), glm::vec4(1.0f));
+
 
 			//Callisto::Renderer2D::DrawRotatedQuadFilled(glm::vec2(0.0f, 0.0f), glm::vec2(0.5f), cubeRot, glm::vec4(0.8f, 0.4f, 0.4f, 1.0f));
 			//Callisto::Renderer2D::DrawRotatedQuadFilled(glm::vec2(0.0f, 0.5f), glm::vec2(0.2f), cubeRot, glm::vec4(0.4f, 0.8f, 0.4f, 1.0f));

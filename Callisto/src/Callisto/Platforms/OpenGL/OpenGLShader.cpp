@@ -194,6 +194,13 @@ namespace Callisto
 
 		UploadUniformInt(name, value);
 	}
+	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		CALLISTO_PROFILE_FUNCTION();
+
+		UploadUniformIntArray(name, values, count);
+	}
+
 	void OpenGLShader::SetFloat2(const std::string& name, const glm::vec2& Float2)
 	{
 		CALLISTO_PROFILE_FUNCTION();
@@ -242,7 +249,11 @@ namespace Callisto
 		int location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1i(location, value);
 	}
-
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		int location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1iv(location, count, values);
+	}
 
 	void OpenGLShader::UploadUniformFloat1(const std::string& name, float float1)
 	{

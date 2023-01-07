@@ -35,9 +35,11 @@ namespace Callisto
 			glm::vec3 Position;
 			glm::vec4 Color;
 			glm::vec2 TexCoord;
+			float TexIndex;
 			// normal, texture id, etc
 		};
 
+		static const uint32_t MAX_TEXTURE_SLOTS;
 	private:
 		static const uint32_t MAX_QUAD_COUNT_PER_DRAW;
 		static const uint32_t MAX_VERTICES_COUNT_PER_DRAW;

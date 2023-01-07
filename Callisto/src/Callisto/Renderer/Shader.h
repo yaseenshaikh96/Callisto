@@ -19,6 +19,7 @@ namespace Callisto
 		static Ref<Shader> Create(const std::string& path);
 		
 		virtual void SetInt(const std::string& name, int value) = 0;
+		virtual void SetIntArray(const std::string& name, int* values, uint32_t count) = 0;
 
 		virtual void SetFloat2(const std::string& name, const glm::vec2& Float2) = 0;
 		virtual void SetFloat3(const std::string& name, const glm::vec3& Float3) = 0;

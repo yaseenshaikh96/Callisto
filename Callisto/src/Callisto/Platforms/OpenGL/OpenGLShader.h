@@ -21,7 +21,8 @@ namespace Callisto
 		virtual void SetName(const std::string& name) override { m_Name = name; }
 
 		virtual void SetInt(const std::string& name, int value) override;
-		
+		virtual void SetIntArray(const std::string& name, int* values, uint32_t count) override;
+
 		virtual void SetFloat2(const std::string& name, const glm::vec2& Float2) override;
 		virtual void SetFloat3(const std::string& name, const glm::vec3& Float3) override;
 		virtual void SetFloat4(const std::string& name, const glm::vec4& Float4) override;
@@ -34,6 +35,7 @@ namespace Callisto
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
 		
 		void UploadUniformInt(const std::string& name, int value);
+		void UploadUniformIntArray(const std::string& name, int* values, uint32_t count);
 		
 		void UploadUniformFloat1(const std::string& name, float float1);
 		void UploadUniformFloat2(const std::string& name, const glm::vec2& float2);
