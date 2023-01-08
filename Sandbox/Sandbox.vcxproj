@@ -137,12 +137,16 @@
     <ClInclude Include="src\SandBox\Layers\ExampleLayer2D.h" />
     <ClInclude Include="src\SandBox\Layers\ExampleLayer.h" />
     <ClInclude Include="src\SandBox\SandBoxApp.h" />
+    <ClInclude Include="src\SandBox\Utils\ParticleSystem.h" />
+    <ClInclude Include="src\SandBox\Utils\Random.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SandBox\Layers\ExampleLayer2D.cpp" />
     <ClCompile Include="src\SandBox\ApplicationEntryPoint.cpp" />
     <ClCompile Include="src\SandBox\Layers\ExampleLayer.cpp" />
     <ClCompile Include="src\SandBox\SandboxApp.cpp" />
+    <ClCompile Include="src\SandBox\Utils\ParticleSystem.cpp" />
+    <ClCompile Include="src\SandBox\Utils\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Callisto\Callisto.vcxproj">

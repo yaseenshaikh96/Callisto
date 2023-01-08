@@ -4,6 +4,9 @@
 
 namespace Callisto
 {
+
+
+
 	class OrthographicCamera
 	{
 	public:

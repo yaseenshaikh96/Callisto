@@ -8,6 +8,16 @@ namespace Callisto
 	class Renderer2D
 	{
 	public:
+		struct Statistics
+		{
+			uint32_t DrawCalls = 0;
+			uint32_t QuadCount = 0;
+
+			uint32_t GetTotalVertexCount() { return QuadCount * 4; }
+			uint32_t GetTotalIndicesCount() { return QuadCount * 6; }
+		};
+
+	public:
 		static void Init();
 		static void Shutdown();
 
@@ -29,13 +39,18 @@ namespace Callisto
 		static void DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
 		static void DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
 
+		static void ResetStatistics();
+		static Statistics GetStatistics();
+	private:
+		static void FlushAndReset();
 	public:
 		struct QuadVertex
 		{
 			glm::vec3 Position;
 			glm::vec4 Color;
-			glm::vec2 TexCoord;
 			float TexIndex;
+			glm::vec2 TexCoord;
+			glm::vec2 TexScale;
 			// normal, texture id, etc
 		};
 

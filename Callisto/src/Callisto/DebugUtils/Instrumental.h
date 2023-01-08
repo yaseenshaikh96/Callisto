@@ -124,7 +124,7 @@ namespace Callisto
 }
 
 #define COMBINE(x, y) x##y
-#define CALLISTO_PROFILE 1
+#define CALLISTO_PROFILE 0
 #if CALLISTO_PROFILE
     #define CALLISTO_PROFILE_BEGIN_SESSION(name, filePath)  ::Callisto::Instrumentor::Get().BeginSession(name, filePath)
     #define CALLISTO_PROFILE_END_SESSION()                  ::Callisto::Instrumentor::Get().EndSession()

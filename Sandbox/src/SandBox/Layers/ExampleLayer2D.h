@@ -2,6 +2,9 @@
 
 #include <Callisto.h>
 
+#include "SandBox/Utils/ParticleSystem.h"
+
+
 namespace MyApp
 {
 	class ExampleLayer2D : public Callisto::Layer
@@ -15,7 +18,10 @@ namespace MyApp
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
+
 	private:
+		ParticleSystem m_ParticleSystem;
+		ParticleProps m_Particle;
 
 		std::vector<Callisto::Ref<Callisto::Texture2D>> m_Textures;
 
@@ -24,4 +30,3 @@ namespace MyApp
 		float cubeRot = 0.0f;
 	};
 }
-
