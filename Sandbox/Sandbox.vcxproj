@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\SandBox\Layers\ExampleLayer2DSpriteSheets.h" />
     <ClInclude Include="src\SandBox\Layers\ExampleLayer2D.h" />
     <ClInclude Include="src\SandBox\Layers\ExampleLayer.h" />
     <ClInclude Include="src\SandBox\SandBoxApp.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="src\SandBox\Utils\Random.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SandBox\Layers\ExampleLayer2DSpriteSheets.cpp" />
     <ClCompile Include="src\SandBox\Layers\ExampleLayer2D.cpp" />
     <ClCompile Include="src\SandBox\ApplicationEntryPoint.cpp" />
     <ClCompile Include="src\SandBox\Layers\ExampleLayer.cpp" />

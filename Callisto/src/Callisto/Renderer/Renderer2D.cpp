@@ -154,46 +154,35 @@ namespace Callisto
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
-		if (s_Data.QuadIndexCount >= MAX_INDICES_COUNT_PER_DRAW)
+		if (s_Data.QuadIndexCount >= Renderer2D::MAX_INDICES_COUNT_PER_DRAW)
 		{
 			FlushAndReset();
 		}
 
-		const float texIndex = 0.0f; // white texture
-		glm::vec2 texScale(1.0f, 1.0f);
+		constexpr size_t quadVertexCount = 4;
+		const float textureIndex = 0.0f; // White Texture
+		constexpr glm::vec2 textureCoords[] =
+		{
+			glm::vec2(0.0f, 0.0f),
+			glm::vec2(1.0f, 0.0f),
+			glm::vec2(1.0f, 1.0f),
+			glm::vec2(0.0f, 1.0f)
+		};
+		const glm::vec2 texScale(1.0f, 1.0f);
 
-		glm::mat4 transform =
-			glm::translate(glm::mat4(1.0f), position)
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
-			* glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1.0f));
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(0.0f, 0.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[1];
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1.0f, 0.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[2];
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1.0f, 1.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[3];
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(0.0f, 1.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
+		for (size_t i = 0; i < quadVertexCount; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Color = color;
+			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
+			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+			s_Data.QuadVertexBufferPtr->TexScale = texScale;
+			s_Data.QuadVertexBufferPtr++;
+		}
 
 		s_Data.QuadIndexCount += 6;
 		s_Data.stats.QuadCount++;
@@ -213,7 +202,14 @@ namespace Callisto
 		}
 
 		const glm::vec4 whiteColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-
+		constexpr size_t quadVertexCount = 4;
+		constexpr glm::vec2 textureCoords[] =
+		{
+			glm::vec2(0.0f, 0.0f),
+			glm::vec2(1.0f, 0.0f),
+			glm::vec2(1.0f, 1.0f),
+			glm::vec2(0.0f, 1.0f)
+		};
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotSIndex; i++)
@@ -231,38 +227,19 @@ namespace Callisto
 			s_Data.TextureSlotSIndex++;
 		}
 
-		glm::mat4 transform = 
-			glm::translate(glm::mat4(1.0f), position)
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
-			* glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1.0f));
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
-		s_Data.QuadVertexBufferPtr->Color = whiteColor;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(0.0f, 0.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[1];
-		s_Data.QuadVertexBufferPtr->Color = whiteColor;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1.0f, 0.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[2];
-		s_Data.QuadVertexBufferPtr->Color = whiteColor;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1.0f, 1.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[3];
-		s_Data.QuadVertexBufferPtr->Color = whiteColor;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(0.0f, 1.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
+		for (size_t i = 0; i < quadVertexCount; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Color = tintColor;
+			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
+			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+			s_Data.QuadVertexBufferPtr->TexScale = texScale;
+			s_Data.QuadVertexBufferPtr++;
+		}
 
 		s_Data.QuadIndexCount += 6;
 		s_Data.stats.QuadCount++;
@@ -276,45 +253,34 @@ namespace Callisto
 	{
 		CALLISTO_PROFILE_FUNCTION();
 		
-		if (s_Data.QuadIndexCount >= MAX_INDICES_COUNT_PER_DRAW)
+		if (s_Data.QuadIndexCount >= Renderer2D::MAX_INDICES_COUNT_PER_DRAW)
 		{
 			FlushAndReset();
 		}
 
-		const float texIndex = 0.0f; // white texture
+		constexpr size_t quadVertexCount = 4;
+		const float textureIndex = 0.0f; // White Texture
+		constexpr glm::vec2 textureCoords[] =
+		{
+			glm::vec2(0.0f, 0.0f),
+			glm::vec2(1.0f, 0.0f),
+			glm::vec2(1.0f, 1.0f),
+			glm::vec2(0.0f, 1.0f)
+		};
 		const glm::vec2 texScale(1.0f, 1.0f);
 
-		glm::mat4 transform =
-			glm::translate(glm::mat4(1.0f), position)
-			* glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1.0f));
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(0.0f, 0.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-		  
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[1];
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1.0f, 0.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-		  
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[2];
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1.0f, 1.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-		  
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[3];
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexIndex = texIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(0.0f, 1.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
+		for (size_t i = 0; i < quadVertexCount; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Color = color;
+			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
+			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+			s_Data.QuadVertexBufferPtr->TexScale = texScale;
+			s_Data.QuadVertexBufferPtr++;
+		}
 
 		s_Data.QuadIndexCount += 6;
 		s_Data.stats.QuadCount++;
@@ -332,9 +298,20 @@ namespace Callisto
 		{
 			FlushAndReset();
 		}
+		constexpr float xIndex = 7.0f, yIndex = 8.0f;
+		constexpr float spriteWidth = 128.0f, spriteHeight = 128.0f;
+		constexpr float sheetWidthPx = 2560.0f, sheetheightPx = 1664.0f;
+
 
 		const glm::vec4 whiteColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-
+		constexpr size_t quadVertexCount = 4;
+		constexpr glm::vec2 textureCoords[] = 
+		{
+			glm::vec2((xIndex * spriteWidth) / sheetWidthPx      , (yIndex * spriteHeight)/ sheetheightPx),
+			glm::vec2(((1 + xIndex) * spriteWidth) / sheetWidthPx, (yIndex * spriteHeight) / sheetheightPx),
+			glm::vec2(((1 + xIndex) * spriteWidth) / sheetWidthPx, ((1 + yIndex) * spriteHeight) / sheetheightPx),
+			glm::vec2((xIndex * spriteWidth) / sheetWidthPx      , ((1 + yIndex) * spriteHeight) / sheetheightPx)
+		};
 
 		float textureIndex = 0.0f;
 		for (uint32_t i = 1; i < s_Data.TextureSlotSIndex; i++)
@@ -351,38 +328,19 @@ namespace Callisto
 			s_Data.TextureSlots[s_Data.TextureSlotSIndex] = texture;
 			s_Data.TextureSlotSIndex++;
 		}
-		
-		glm::mat4 transform =
-			glm::translate(glm::mat4(1.0f), position)
-			* glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1.0f));
 
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];
-		s_Data.QuadVertexBufferPtr->Color = whiteColor;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(0.0f, 0.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[1];
-		s_Data.QuadVertexBufferPtr->Color = whiteColor;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1.0f, 0.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[2];
-		s_Data.QuadVertexBufferPtr->Color = whiteColor;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(1.0f, 1.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
-
-		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[3];
-		s_Data.QuadVertexBufferPtr->Color = whiteColor;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr->TexCoord = glm::vec2(0.0f, 1.0f);
-		s_Data.QuadVertexBufferPtr->TexScale = texScale;
-		s_Data.QuadVertexBufferPtr++;
+		for (size_t i = 0; i < quadVertexCount; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Color = tintColor;
+			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
+			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+			s_Data.QuadVertexBufferPtr->TexScale = texScale;
+			s_Data.QuadVertexBufferPtr++;
+		}
 
 		s_Data.QuadIndexCount += 6;
 		s_Data.stats.QuadCount++;

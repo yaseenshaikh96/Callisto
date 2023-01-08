@@ -85,7 +85,7 @@ namespace MyApp
 			CALLISTO_PROFILE_SCOPE("Render:");
 			Callisto::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f), m_CheckerTexture, glm::vec2(10.0f), glm::vec4(0.5f, 0.5f, 1.0f, 1.0f));
+			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f), m_CheckerTexture, glm::vec2(10.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 
 			//Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec2(-0.5f, 0.0f), glm::vec2(0.8f, 0.8f), glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
