@@ -178,6 +178,7 @@
     <ClInclude Include="src\Callisto\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Callisto\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Callisto\Renderer\Shader.h" />
+    <ClInclude Include="src\Callisto\Renderer\SubTexture2D.h" />
     <ClInclude Include="src\Callisto\Renderer\Texture.h" />
     <ClInclude Include="src\Callisto\Renderer\VertexArray.h" />
     <ClInclude Include="src\CallistoPCH.h" />
@@ -623,6 +624,7 @@
     <ClCompile Include="src\Callisto\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Callisto\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Callisto\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Texture.cpp" />
     <ClCompile Include="src\Callisto\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\CallistoPCH.cpp">

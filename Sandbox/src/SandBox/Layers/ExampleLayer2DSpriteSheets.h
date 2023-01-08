@@ -18,9 +18,11 @@ namespace MyApp
 
 	private:
 
+		Callisto::Ref<Callisto::SubTexture2D> m_SpriteTexture;
+
 		std::vector<Callisto::Ref<Callisto::Texture2D>> m_Textures;
 	
-		Callisto::Ref<Callisto::Texture2D> m_SpriteTexture;
+		Callisto::Ref<Callisto::Texture2D> m_SheetTexture;
 		
 		Callisto::Ref<Callisto::Texture2D> m_CheckerTexture;
 		Callisto::OrthographicCameraController m_CameraController;

@@ -1416,6 +1416,7 @@
     <ClInclude Include="src\Callisto\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Callisto\Utils\Timer.h" />
     <ClInclude Include="src\Callisto\DebugUtils\Instrumental.h" />
+    <ClInclude Include="src\Callisto\Renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Core\Application.cpp">
@@ -1494,5 +1495,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Callisto\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>
