@@ -4,28 +4,51 @@
     <Filter Include="Layers">
       <UniqueIdentifier>{157446C0-0116-7196-EAD0-84EAD611F8E6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{F68B420E-62A0-6ABF-2B22-0E1F97F566F0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\SandBox\Layers\ExampleLayer.h">
       <Filter>Layers</Filter>
     </ClInclude>
+    <ClInclude Include="src\SandBox\Layers\ExampleLayer2D.h">
+      <Filter>Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SandBox\Layers\ExampleLayer2DSpriteSheets.h">
+      <Filter>Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SandBox\Layers\ExampleLayerImGuiDocking.h">
+      <Filter>Layers</Filter>
+    </ClInclude>
     <ClInclude Include="src\SandBox\SandBoxApp.h" />
-    <ClInclude Include="src\SandBox\Layers\ExampleLayer2D.h" />
-    <ClInclude Include="src\SandBox\Utils\ParticleSystem.h" />
-    <ClInclude Include="src\SandBox\Utils\Random.h" />
-    <ClInclude Include="src\SandBox\Layers\ExampleLayer2DSpriteSheets.h" />
-    <ClInclude Include="src\SandBox\Layers\ExampleLayerImGuiDocking.h" />
+    <ClInclude Include="src\SandBox\Utils\ParticleSystem.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SandBox\Utils\Random.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SandBox\ApplicationEntryPoint.cpp" />
     <ClCompile Include="src\SandBox\Layers\ExampleLayer.cpp">
       <Filter>Layers</Filter>
     </ClCompile>
+    <ClCompile Include="src\SandBox\Layers\ExampleLayer2D.cpp">
+      <Filter>Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SandBox\Layers\ExampleLayer2DSpriteSheets.cpp">
+      <Filter>Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SandBox\Layers\ExampleLayerImGuiDocking.cpp">
+      <Filter>Layers</Filter>
+    </ClCompile>
     <ClCompile Include="src\SandBox\SandboxApp.cpp" />
-    <ClCompile Include="src\SandBox\Layers\ExampleLayer2D.cpp" />
-    <ClCompile Include="src\SandBox\Utils\ParticleSystem.cpp" />
-    <ClCompile Include="src\SandBox\Utils\Random.cpp" />
-    <ClCompile Include="src\SandBox\Layers\ExampleLayer2DSpriteSheets.cpp" />
-    <ClCompile Include="src\SandBox\Layers\ExampleLayerImGuiDocking.cpp" />
+    <ClCompile Include="src\SandBox\Utils\ParticleSystem.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SandBox\Utils\Random.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

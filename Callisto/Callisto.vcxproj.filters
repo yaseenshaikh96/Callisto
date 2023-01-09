@@ -10,6 +10,9 @@
     <Filter Include="src\Callisto\Core">
       <UniqueIdentifier>{6F9E3EFE-DBB4-3C94-242C-C8B590810D1C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Callisto\DebugUtils">
+      <UniqueIdentifier>{5EFFF87F-CA36-4117-D340-A53A3FF76710}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Callisto\Events">
       <UniqueIdentifier>{BB07828D-2769-5F9B-B0D6-A54D1C37965A}</UniqueIdentifier>
     </Filter>
@@ -27,6 +30,9 @@
     </Filter>
     <Filter Include="src\Callisto\Renderer">
       <UniqueIdentifier>{3DF11DED-A95D-D9E7-7251-7145DE7CFB4F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Callisto\Utils">
+      <UniqueIdentifier>{57BE5AC7-43A2-1B1D-AC02-16709805069F}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -90,6 +96,9 @@
     <ClInclude Include="src\Callisto\Core\Window.h">
       <Filter>src\Callisto\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Callisto\DebugUtils\Instrumental.h">
+      <Filter>src\Callisto\DebugUtils</Filter>
+    </ClInclude>
     <ClInclude Include="src\Callisto\Events\ApplicationEvent.h">
       <Filter>src\Callisto\Events</Filter>
     </ClInclude>
@@ -112,6 +121,9 @@
       <Filter>src\Callisto\Platforms\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLContext.h">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLFrameBuffer.h">
       <Filter>src\Callisto\Platforms\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLRendererAPI.h">
@@ -138,6 +150,9 @@
     <ClInclude Include="src\Callisto\Renderer\Camera.h">
       <Filter>src\Callisto\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\FrameBuffer.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Callisto\Renderer\GraphicsContext.h">
       <Filter>src\Callisto\Renderer</Filter>
     </ClInclude>
@@ -147,10 +162,16 @@
     <ClInclude Include="src\Callisto\Renderer\Renderer.h">
       <Filter>src\Callisto\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\Renderer2D.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Callisto\Renderer\RendererAPI.h">
       <Filter>src\Callisto\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Renderer\Shader.h">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Renderer\SubTexture2D.h">
       <Filter>src\Callisto\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Renderer\Texture.h">
@@ -158,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="src\Callisto\Renderer\VertexArray.h">
       <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Utils\Timer.h">
+      <Filter>src\Callisto\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\CallistoPCH.h">
       <Filter>src</Filter>
@@ -1413,12 +1437,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Callisto\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\Callisto\Utils\Timer.h" />
-    <ClInclude Include="src\Callisto\DebugUtils\Instrumental.h" />
-    <ClInclude Include="src\Callisto\Renderer\SubTexture2D.h" />
-    <ClInclude Include="src\Callisto\Renderer\FrameBuffer.h" />
-    <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Core\Application.cpp">
@@ -1448,6 +1466,9 @@
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLContext.cpp">
       <Filter>src\Callisto\Platforms\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLFrameBuffer.cpp">
+      <Filter>src\Callisto\Platforms\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLRendererAPI.cpp">
       <Filter>src\Callisto\Platforms\OpenGL</Filter>
     </ClCompile>
@@ -1472,16 +1493,25 @@
     <ClCompile Include="src\Callisto\Renderer\Camera.cpp">
       <Filter>src\Callisto\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\FrameBuffer.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Callisto\Renderer\RenderCommand.cpp">
       <Filter>src\Callisto\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\Renderer\Renderer.cpp">
       <Filter>src\Callisto\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\Renderer2D.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Callisto\Renderer\RendererAPI.cpp">
       <Filter>src\Callisto\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\Renderer\Shader.cpp">
+      <Filter>src\Callisto\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Renderer\SubTexture2D.cpp">
       <Filter>src\Callisto\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\Renderer\Texture.cpp">
@@ -1496,9 +1526,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Callisto\Renderer\Renderer2D.cpp" />
-    <ClCompile Include="src\Callisto\Renderer\SubTexture2D.cpp" />
-    <ClCompile Include="src\Callisto\Renderer\FrameBuffer.cpp" />
-    <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLFrameBuffer.cpp" />
   </ItemGroup>
 </Project>

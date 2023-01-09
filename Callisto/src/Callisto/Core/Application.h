@@ -22,7 +22,7 @@ namespace Callisto
 	class CALLISTO_API Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "Callisto App");
 		virtual ~Application();
 	public:
 		void Run(); 

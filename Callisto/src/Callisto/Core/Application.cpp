@@ -17,14 +17,14 @@ namespace Callisto
 	
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
 		CALLISTO_CORE_ASSERT(!s_Instance, "Application already exist!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = Ref<Window>(Window::Create(WindowProps(name) ));
 		m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
 		m_Window->SetVSync(true);
 
