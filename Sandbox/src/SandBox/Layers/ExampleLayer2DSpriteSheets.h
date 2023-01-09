@@ -19,6 +19,7 @@ namespace MyApp
 	private:
 
 		Callisto::Ref<Callisto::SubTexture2D> m_SpriteTexture;
+		Callisto::Ref<Callisto::SubTexture2D> m_TreeTexture;
 
 		std::vector<Callisto::Ref<Callisto::Texture2D>> m_Textures;
 	

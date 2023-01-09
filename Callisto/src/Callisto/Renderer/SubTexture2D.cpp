@@ -4,15 +4,16 @@
 namespace Callisto
 {
 
-	Ref<SubTexture2D> SubTexture2D::CreateFromCoords(const Ref<Texture2D>& texture, const glm::vec2& coord, const glm::vec2& spriteSize)
+	Ref<SubTexture2D> SubTexture2D::CreateFromCoords(const Ref<Texture2D>& texture, const glm::vec2& coord, const glm::vec2& cellSize, const glm::vec2& spriteSize)
 	{
+
 		float sheetWidthPx = (float)texture->GetWidth();
 		float  sheetheightPx = (float)texture->GetHeight();
 		return CreateRef<SubTexture2D>
 		(
 			texture,
-			glm::vec2((coord.x * spriteSize.x)       / sheetWidthPx      , (coord.y * spriteSize.y)       / sheetheightPx), // min
-			glm::vec2(((1 + coord.x) * spriteSize.x) / sheetWidthPx      , ((1 + coord.y) * spriteSize.y) / sheetheightPx)  // max
+			glm::vec2((coord.x * cellSize.x) / sheetWidthPx                 , (coord.y * cellSize.y) / sheetheightPx), // min
+			glm::vec2(((coord.x + spriteSize.x) * cellSize.x) / sheetWidthPx, ((coord.y + spriteSize.y) * cellSize.y) / sheetheightPx)  // max
 		);
 	}
 

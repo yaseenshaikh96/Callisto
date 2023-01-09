@@ -30,8 +30,8 @@ namespace MyApp
 
 		m_SheetTexture = Callisto::Texture2D::Create("./Assets/Game/RPGpack_sheet_20x13-128x128.png");
 
-		m_SpriteTexture = Callisto::SubTexture2D::CreateFromCoords(m_SheetTexture, glm::vec2(6.0f, 3.0f), glm::vec2(128.0f, 128.0f));
-
+		m_SpriteTexture = Callisto::SubTexture2D::CreateFromCoords(m_SheetTexture, glm::vec2(6.0f, 3.0f), glm::vec2(128.0f, 128.0f), glm::vec2(1.0f,1.0f));
+		m_TreeTexture = Callisto::SubTexture2D::CreateFromCoords(m_SheetTexture, glm::vec2(2.0f, 1.0f), glm::vec2(128.0f, 128.0f), glm::vec2(1.0f, 2.0f));
 	}
 	void ExampleLayer2DSpriteSheets::OnDetach()
 	{
@@ -78,6 +78,7 @@ namespace MyApp
 
 			//Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec2(1.0f), m_SpriteTexture, glm::vec2(1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec2(1.0f), m_SpriteTexture, glm::vec2(1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+			Callisto::Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(1.0f, 0.0f, 0.1f), glm::vec2(1.0f, 2.0f), m_TreeTexture, glm::vec2(1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 			
 			Callisto::Renderer2D::EndScene();
 
