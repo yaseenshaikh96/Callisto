@@ -28,6 +28,8 @@ namespace Callisto
 		void Run(); 
 		void OnEvent(Event& e);
 
+		void Close() { m_Running = false; }
+
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 

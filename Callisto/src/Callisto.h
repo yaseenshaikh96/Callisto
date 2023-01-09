@@ -22,7 +22,9 @@
 #include <Callisto/Renderer/RenderCommand.h>
 #include <Callisto/Renderer/Shader.h>
 #include <Callisto/Renderer/Texture.h>
+#include <Callisto/Renderer/SubTexture2D.h>
 #include <Callisto/Renderer/Buffer.h>
+#include <Callisto/Renderer/FrameBuffer.h>
 #include <Callisto/Renderer/VertexArray.h>
 #include <Callisto/Renderer/Camera.h>
 /*****************************************************************************>******/

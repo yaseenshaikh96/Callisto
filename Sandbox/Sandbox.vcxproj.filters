@@ -14,6 +14,7 @@
     <ClInclude Include="src\SandBox\Utils\ParticleSystem.h" />
     <ClInclude Include="src\SandBox\Utils\Random.h" />
     <ClInclude Include="src\SandBox\Layers\ExampleLayer2DSpriteSheets.h" />
+    <ClInclude Include="src\SandBox\Layers\ExampleLayerImGuiDocking.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SandBox\ApplicationEntryPoint.cpp" />
@@ -25,5 +26,6 @@
     <ClCompile Include="src\SandBox\Utils\ParticleSystem.cpp" />
     <ClCompile Include="src\SandBox\Utils\Random.cpp" />
     <ClCompile Include="src\SandBox\Layers\ExampleLayer2DSpriteSheets.cpp" />
+    <ClCompile Include="src\SandBox\Layers\ExampleLayerImGuiDocking.cpp" />
   </ItemGroup>
 </Project>

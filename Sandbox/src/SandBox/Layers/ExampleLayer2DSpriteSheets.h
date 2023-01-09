@@ -17,9 +17,13 @@ namespace MyApp
 		virtual void OnDetach() override;
 
 	private:
+		uint32_t m_MapWidth, m_MapHeight;
+		const char* m_MapTiles;
 
-		Callisto::Ref<Callisto::SubTexture2D> m_SpriteTexture;
+		Callisto::Ref<Callisto::SubTexture2D> m_StairsTexture;
 		Callisto::Ref<Callisto::SubTexture2D> m_TreeTexture;
+
+		std::unordered_map<char, Callisto::Ref<Callisto::SubTexture2D>> m_MapTileTextures;
 
 		std::vector<Callisto::Ref<Callisto::Texture2D>> m_Textures;
 	

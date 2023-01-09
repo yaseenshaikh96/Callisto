@@ -55,6 +55,7 @@ namespace Callisto
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
 		s_Data.QuadVertexBufferBase = new QuadVertex[MAX_VERTICES_COUNT_PER_DRAW];
+		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
 
 		uint32_t* quadIndices = new uint32_t[MAX_INDICES_COUNT_PER_DRAW];
 		
