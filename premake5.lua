@@ -22,6 +22,7 @@ IncludedDirs["Glad"] = "Callisto/vendor/Glad/include"
 IncludedDirs["Imgui"] = "Callisto/vendor/Imgui"
 IncludedDirs["glm"] = "Callisto/vendor/glm"
 IncludedDirs["stb_image"] = "Callisto/vendor/stb_image"
+IncludedDirs["entt"] = "Callisto/vendor/entt/include"
 
 group "Dependencies"
 	include "Callisto/vendor/GLFW"
@@ -69,8 +70,8 @@ project "Callisto"
 		"%{IncludedDirs.Glad}",
 		"%{IncludedDirs.Imgui}",
 		"%{IncludedDirs.glm}",
-		"%{IncludedDirs.stb_image}"
-
+		"%{IncludedDirs.stb_image}",
+		"%{IncludedDirs.entt}"
 	}
 
 	links
@@ -132,7 +133,9 @@ project "Sandbox"
 		"Callisto/vendor/spdlog/include",
 		"Callisto/src",
 		"Callisto/vendor",
-		"%{IncludedDirs.glm}"
+		"%{IncludedDirs.glm}",
+		"%{IncludedDirs.entt}"
+
 	}
 
 	links
@@ -190,7 +193,8 @@ project "CallistoEditor"
 		"Callisto/vendor/spdlog/include",
 		"Callisto/src",
 		"Callisto/vendor",
-		"%{IncludedDirs.glm}"
+		"%{IncludedDirs.glm}",
+		"%{IncludedDirs.entt}"
 	}
 
 	links
