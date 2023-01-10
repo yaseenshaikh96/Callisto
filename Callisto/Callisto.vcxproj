@@ -80,7 +80,9 @@
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\Imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -105,6 +107,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -130,6 +133,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -160,7 +164,7 @@
     <ClInclude Include="src\Callisto\Events\Event.h" />
     <ClInclude Include="src\Callisto\Events\KeyEvent.h" />
     <ClInclude Include="src\Callisto\Events\MouseEvent.h" />
-    <ClInclude Include="src\Callisto\Imgui\ImGuiLayer.h" />
+    <ClInclude Include="src\Callisto\Imgui\ImguiLayer.h" />
     <ClInclude Include="src\Callisto\OrthographicCameraController.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLContext.h" />
@@ -608,7 +612,7 @@
     <ClCompile Include="src\Callisto\Core\LayerStack.cpp" />
     <ClCompile Include="src\Callisto\Core\Log.cpp" />
     <ClCompile Include="src\Callisto\Imgui\ImGuiBuild.cpp" />
-    <ClCompile Include="src\Callisto\Imgui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Callisto\Imgui\ImguiLayer.cpp" />
     <ClCompile Include="src\Callisto\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLContext.cpp" />

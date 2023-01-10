@@ -8,6 +8,11 @@ workspace "Callisto"
 		"Release",
 		"Dist"
 	}
+	
+	flags
+	{
+		"MultiProcessorCompile"
+	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -52,6 +57,7 @@ project "Callisto"
 
 	defines
 	{
+		"GLFW_INCLUDE_NONE",
 		"_CRT_SECURE_NO_WARNINGS"
 	}
 
@@ -71,8 +77,8 @@ project "Callisto"
 	{
 		"GLFW",
 		"Glad",
-		"opengl32.lib",
-		"Imgui"
+		"Imgui",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

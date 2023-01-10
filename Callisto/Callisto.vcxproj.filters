@@ -111,7 +111,7 @@
     <ClInclude Include="src\Callisto\Events\MouseEvent.h">
       <Filter>src\Callisto\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Callisto\Imgui\ImGuiLayer.h">
+    <ClInclude Include="src\Callisto\Imgui\ImguiLayer.h">
       <Filter>src\Callisto\Imgui</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\OrthographicCameraController.h">
@@ -1451,7 +1451,7 @@
     <ClCompile Include="src\Callisto\Imgui\ImGuiBuild.cpp">
       <Filter>src\Callisto\Imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Callisto\Imgui\ImGuiLayer.cpp">
+    <ClCompile Include="src\Callisto\Imgui\ImguiLayer.cpp">
       <Filter>src\Callisto\Imgui</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\OrthographicCameraController.cpp">
