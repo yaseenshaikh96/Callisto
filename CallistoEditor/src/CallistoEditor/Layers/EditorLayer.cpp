@@ -91,8 +91,13 @@ namespace Callisto
 
 		ImGui::End(); // settings
 
+
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 		ImGui::Begin("ViewPort");
+
+		m_ViewPortFocused = ImGui::IsWindowFocused();
+		Application::Get().GetImGuiLayer()->SetBlockImGuiEvent(!m_ViewPortFocused);
+
 		ImVec2 ViewPortPanelSize = ImGui::GetContentRegionAvail();
 		if (m_ViewPortSize != glm::vec2(ViewPortPanelSize.x, ViewPortPanelSize.y))
 		{
@@ -113,14 +118,18 @@ namespace Callisto
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
-		m_CubeRotation += 90 * timeStep;
 
 		m_FrameBuffer->Bind();
 
 		RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
 		RenderCommand::Clear();
 
-		m_CameraController.OnUpdate(timeStep);
+		if(m_ViewPortFocused)
+		{
+			m_CameraController.OnUpdate(timeStep);
+		}
+		
+		m_CubeRotation += 90 * timeStep;
 		
 		Renderer2D::ResetStatistics();
 		Renderer2D::BeginScene(m_CameraController.GetCamera());

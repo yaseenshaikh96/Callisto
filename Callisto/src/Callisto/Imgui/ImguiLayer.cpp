@@ -1,5 +1,5 @@
 #include "CallistoPCH.h"
-#include "ImguiLayer.h"
+#include "ImGuiLayer.h"
 
 #include <imgui.h>
 #include "backends/imgui_impl_glfw.h"
@@ -14,13 +14,13 @@
 namespace Callisto
 {
 
-	ImguiLayer::ImguiLayer()
+	ImGuiLayer::ImGuiLayer()
 		: Layer("DebugLayer")
 	{}
-	ImguiLayer::~ImguiLayer()
+	ImGuiLayer::~ImGuiLayer()
 	{}
 
-	void ImguiLayer::Begin()
+	void ImGuiLayer::Begin()
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
@@ -29,7 +29,7 @@ namespace Callisto
 		ImGui::NewFrame();
 	}
 
-	void ImguiLayer::End()
+	void ImGuiLayer::End()
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
@@ -48,7 +48,18 @@ namespace Callisto
 		}
 	}
 
-	void ImguiLayer::OnAttach()
+	void ImGuiLayer::OnEvent(Event& e)
+	{
+		if (m_BlockImGuiEvent)
+		{
+			auto& io = ImGui::GetIO();
+			e.Handled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			e.Handled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
+	}
+
+
+	void ImGuiLayer::OnAttach()
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
@@ -82,7 +93,7 @@ namespace Callisto
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
-	void ImguiLayer::OnDetach()
+	void ImGuiLayer::OnDetach()
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
@@ -90,7 +101,7 @@ namespace Callisto
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
-	void ImguiLayer::OnImGuiRender()
+	void ImGuiLayer::OnImGuiRender()
 	{
 		CALLISTO_PROFILE_FUNCTION();
 

@@ -160,7 +160,7 @@
     <ClInclude Include="src\Callisto\Events\Event.h" />
     <ClInclude Include="src\Callisto\Events\KeyEvent.h" />
     <ClInclude Include="src\Callisto\Events\MouseEvent.h" />
-    <ClInclude Include="src\Callisto\Imgui\ImguiLayer.h" />
+    <ClInclude Include="src\Callisto\Imgui\ImGuiLayer.h" />
     <ClInclude Include="src\Callisto\OrthographicCameraController.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLContext.h" />
@@ -608,7 +608,7 @@
     <ClCompile Include="src\Callisto\Core\LayerStack.cpp" />
     <ClCompile Include="src\Callisto\Core\Log.cpp" />
     <ClCompile Include="src\Callisto\Imgui\ImGuiBuild.cpp" />
-    <ClCompile Include="src\Callisto\Imgui\ImguiLayer.cpp" />
+    <ClCompile Include="src\Callisto\Imgui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Callisto\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLContext.cpp" />

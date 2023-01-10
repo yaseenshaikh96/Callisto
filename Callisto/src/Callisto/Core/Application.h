@@ -1,19 +1,19 @@
 #pragma once
 
-#include <Callisto/Core/Core.h>
-#include "Window.h"
-#include <Callisto/Core/LayerStack.h>
-#include <Callisto/Events/ApplicationEvent.h>
-
-#include <Callisto/Core/TimeStep.h>
-
-#include <Callisto/Imgui/ImguiLayer.h>
-
-#include <Callisto/Renderer/Shader.h>
-#include <Callisto/Renderer/Buffer.h>
-#include <Callisto/Renderer/VertexArray.h>
-
-#include <Callisto/Renderer/Camera.h>
+#include "Callisto/Core/Window.h"
+#include "Callisto/Core/Core.h"
+#include "Callisto/Core/LayerStack.h"
+#include "Callisto/Events/ApplicationEvent.h"
+		 
+#include "Callisto/Core/TimeStep.h"
+		 
+#include "Callisto/Imgui/ImguiLayer.h"
+		 
+#include "Callisto/Renderer/Shader.h"
+#include "Callisto/Renderer/Buffer.h"
+#include "Callisto/Renderer/VertexArray.h"
+		 
+#include "Callisto/Renderer/Camera.h"
 
 
 namespace Callisto
@@ -36,13 +36,14 @@ namespace Callisto
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResizeEvent(WindowResizeEvent& e);
 
 	private:
 		Callisto::Ref<Window> m_Window;
-		ImguiLayer* m_ImGuiLayer;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		bool m_Minimized = false;
 		LayerStack m_LayerStack;

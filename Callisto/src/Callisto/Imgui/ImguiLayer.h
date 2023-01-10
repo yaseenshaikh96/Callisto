@@ -6,18 +6,23 @@
 
 namespace Callisto
 {
-	class CALLISTO_API ImguiLayer : public Layer
+	class CALLISTO_API ImGuiLayer : public Layer
 	{
 	public:
-		ImguiLayer();
-		~ImguiLayer();
+		ImGuiLayer();
+		~ImGuiLayer();
 
+		virtual void OnEvent(Event& e) override;
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
 		virtual void OnImGuiRender() override;
 
+		void SetBlockImGuiEvent(bool block) { m_BlockImGuiEvent = block; }
+
 		void Begin();
 		void End();
+	private:
+		bool m_BlockImGuiEvent = true;
 	};
 }
 

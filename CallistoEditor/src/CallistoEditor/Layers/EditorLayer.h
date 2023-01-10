@@ -16,6 +16,7 @@ namespace Callisto
 		virtual void OnDetach() override;
 
 	private:
+		bool m_ViewPortFocused = false;
 		float m_CubeRotation = 0.0f;
 		Ref<Texture2D> m_CheckerTexture;
 		glm::vec4 m_Color;

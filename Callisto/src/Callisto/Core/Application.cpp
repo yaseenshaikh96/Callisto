@@ -1,11 +1,10 @@
 #include "CallistoPCH.h"
-
 #include "Application.h"
 
-#include <Callisto/Core/Log.h>
-#include <Callisto/Renderer/Renderer.h>
-#include <Callisto/Core/Input.h>
-#include <Callisto/Core/keycodes.h>
+#include "Callisto/Core/Log.h"
+#include "Callisto/Renderer/Renderer.h"
+#include "Callisto/Core/Input.h"
+#include "Callisto/Core/keycodes.h"
 
 #include <GLFW/glfw3.h>
 
@@ -30,7 +29,7 @@ namespace Callisto
 
 		Renderer::Init();
 
-		m_ImGuiLayer = new ImguiLayer();
+		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Callisto/Core/Core.h>
+#include "Callisto/Core/Core.h"
 
 namespace Callisto
 {
