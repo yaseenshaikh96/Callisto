@@ -16,6 +16,7 @@ namespace Callisto
 	{
 	public:
 		static Ref<FrameBuffer> Create(const FrameBufferSpecification& specs);
+		virtual ~FrameBuffer() = default;
 
 		virtual const FrameBufferSpecification& GetSpecifications() const = 0;
 

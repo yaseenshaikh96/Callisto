@@ -89,7 +89,7 @@ namespace Callisto
 
 		ImGui::ColorEdit4("My Color", glm::value_ptr(m_Color));
 
-		ImGui::End();
+		ImGui::End(); // settings
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 		ImGui::Begin("ViewPort");
@@ -104,7 +104,7 @@ namespace Callisto
 		uint32_t frameBuffer = m_FrameBuffer->GetColorAttachmentID();
 		ImGui::Image((void*)frameBuffer, ImVec2(m_ViewPortSize.x, m_ViewPortSize.y), ImVec2(0, 1), ImVec2(1, 0)); 		//#pragma warning(suppress : 4312)
 		ImGui::End();
-		ImGui::PopStyleVar();
+		ImGui::PopStyleVar(); // viewport
 
 		ImGui::End(); // docking
 	}

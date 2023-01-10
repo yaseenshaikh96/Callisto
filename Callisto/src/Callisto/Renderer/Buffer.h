@@ -108,7 +108,7 @@ namespace Callisto
 		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
 		static Ref<VertexBuffer> Create(uint32_t size);
 	public:
-		virtual ~VertexBuffer() {}
+		virtual ~VertexBuffer() = default;
 	public:
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
@@ -125,7 +125,7 @@ namespace Callisto
 	public:
 		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t size);
 	public:
-		virtual ~IndexBuffer() {}
+		virtual ~IndexBuffer() = default;
 	public:
 		virtual uint32_t GetCount() const = 0;
 
