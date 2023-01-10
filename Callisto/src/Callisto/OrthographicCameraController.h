@@ -27,6 +27,8 @@ namespace Callisto
 		void OnUpdate(TimeStep timeStep);
 		bool OnEvent(Event& e);
 
+
+		void OnResize(float width, float height);
 		const OrthographicCameraBounds& GetBounds() const { return m_Bounds; }
 
 		float GetZoomLevel() const { return m_ZoomLevel; }

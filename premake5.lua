@@ -1,6 +1,6 @@
 workspace "Callisto"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "CallistoEditor"
 
 	configurations
 	{

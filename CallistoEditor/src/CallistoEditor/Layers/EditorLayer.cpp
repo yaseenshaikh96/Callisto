@@ -1,7 +1,7 @@
 #include "EditorLayer.h"
 
 #include <Imgui/imgui.h>
-#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
 
 
@@ -89,20 +89,31 @@ namespace Callisto
 
 		ImGui::ColorEdit4("My Color", glm::value_ptr(m_Color));
 
+		ImGui::End();
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+		ImGui::Begin("ViewPort");
+		ImVec2 ViewPortPanelSize = ImGui::GetContentRegionAvail();
+		if (m_ViewPortSize != glm::vec2(ViewPortPanelSize.x, ViewPortPanelSize.y))
+		{
+			m_FrameBuffer->Resize((uint32_t)ViewPortPanelSize.x, (uint32_t)ViewPortPanelSize.y);
+			m_ViewPortSize = glm::vec2(ViewPortPanelSize.x, ViewPortPanelSize.y);
+			m_CameraController.OnResize(ViewPortPanelSize.x, ViewPortPanelSize.y);
+		}
+
 		uint32_t frameBuffer = m_FrameBuffer->GetColorAttachmentID();
-		float width = (float)m_FrameBuffer->GetSpecifications().Width;
-		float height = (float)m_FrameBuffer->GetSpecifications().Height;
-
-		//#pragma warning(suppress : 4312)
-		ImGui::Image((void*)frameBuffer, ImVec2(1280.0f, 720.0f), ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::Image((void*)frameBuffer, ImVec2(m_ViewPortSize.x, m_ViewPortSize.y), ImVec2(0, 1), ImVec2(1, 0)); 		//#pragma warning(suppress : 4312)
 		ImGui::End();
+		ImGui::PopStyleVar();
 
-		ImGui::End();
+		ImGui::End(); // docking
 	}
 
 	void EditorLayer::OnUpdate(TimeStep timeStep)
 	{
 		CALLISTO_PROFILE_FUNCTION();
+
+		m_CubeRotation += 90 * timeStep;
 
 		m_FrameBuffer->Bind();
 
@@ -114,6 +125,24 @@ namespace Callisto
 		Renderer2D::ResetStatistics();
 		Renderer2D::BeginScene(m_CameraController.GetCamera());
 
+		Renderer2D::DrawRotatedQuadFilled(
+			glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::vec2(0.5f, 0.5f),
+			m_CubeRotation,
+			glm::vec4(0.2f, 0.2f, 0.8f, 1.0f));
+
+		Renderer2D::DrawRotatedQuadFilled(
+			glm::vec3(1.0f, 0.0f, 0.0f),
+			glm::vec2(0.5f, 0.5f),
+			m_CubeRotation,
+			glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
+		
+		Renderer2D::DrawRotatedQuadFilled(
+			glm::vec3(-1.0f, 0.0f, 0.0f),
+			glm::vec2(0.5f, 0.5f),
+			m_CubeRotation,
+			glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+		
 		//Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f), glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
 		Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f), m_CheckerTexture, glm::vec2(10.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 

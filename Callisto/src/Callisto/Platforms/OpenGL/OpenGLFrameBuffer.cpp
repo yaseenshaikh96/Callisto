@@ -13,12 +13,26 @@ namespace Callisto
 	OpenGLFrameBuffer::~OpenGLFrameBuffer()
 	{
 		glDeleteFramebuffers(1, &m_RendererID);
+		glDeleteTextures(1, &m_ColorAttachment);
+		glDeleteTextures(1, &m_DepthAttachment);
 	}
 
-
+	void OpenGLFrameBuffer::Resize(uint32_t width, uint32_t height)
+	{
+		m_Specs.Width = width;
+		m_Specs.Height = height;
+		Invalidate();
+	}
 
 	void OpenGLFrameBuffer::Invalidate()
 	{
+		if (m_RendererID != 0)
+		{
+			glDeleteFramebuffers(1, &m_RendererID);
+			glDeleteTextures(1, &m_ColorAttachment);
+			glDeleteTextures(1, &m_DepthAttachment);
+		}
+
 		glGenFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
 
@@ -47,6 +61,7 @@ namespace Callisto
 	void OpenGLFrameBuffer::Bind()
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
+		glViewport(0, 0, m_Specs.Width, m_Specs.Height);
 	}
 	void OpenGLFrameBuffer::UnBind()
 	{

@@ -7,11 +7,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CallistoEditor\CallistoEditorApp.h" />
-    <ClInclude Include="src\CallistoEditor\Layers\EditorLayer.h" />
+    <ClInclude Include="src\CallistoEditor\Layers\EditorLayer.h">
+      <Filter>Layers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CallistoEditor\ApplicationEntryPoint.cpp" />
     <ClCompile Include="src\CallistoEditor\CallistoEditorApp.cpp" />
-    <ClCompile Include="src\CallistoEditor\Layers\EditorLayer.cpp" />
+    <ClCompile Include="src\CallistoEditor\Layers\EditorLayer.cpp">
+      <Filter>Layers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

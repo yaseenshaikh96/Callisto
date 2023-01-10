@@ -16,14 +16,16 @@ namespace Callisto
 		virtual void Bind() override;
 		virtual void UnBind() override;
 
+		virtual void Resize(uint32_t width, uint32_t height) override;
+
 		virtual uint32_t GetColorAttachmentID() const override { return m_ColorAttachment; }
 
 		virtual const FrameBufferSpecification& GetSpecifications() const override { return m_Specs; }
 
 	private:
-		uint32_t m_RendererID;
-		uint32_t m_ColorAttachment;
-		uint32_t m_DepthAttachment;
-		FrameBufferSpecification& m_Specs;
+		FrameBufferSpecification m_Specs;
+		uint32_t m_RendererID = 0;
+		uint32_t m_ColorAttachment = 0;
+		uint32_t m_DepthAttachment = 0;
 	};
 }

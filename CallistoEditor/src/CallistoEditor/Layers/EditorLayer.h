@@ -16,10 +16,11 @@ namespace Callisto
 		virtual void OnDetach() override;
 
 	private:
+		float m_CubeRotation = 0.0f;
 		Ref<Texture2D> m_CheckerTexture;
 		glm::vec4 m_Color;
 		Ref<FrameBuffer> m_FrameBuffer;
-
+		glm::vec2 m_ViewPortSize{0.0f, 0.0f};
 		OrthographicCameraController m_CameraController;
 
 	};
