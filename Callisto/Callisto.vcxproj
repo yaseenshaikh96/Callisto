@@ -169,7 +169,6 @@
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Callisto\Platforms\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Callisto\Platforms\Windows\WindowsInput.h" />
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Callisto\Renderer\Buffer.h" />
     <ClInclude Include="src\Callisto\Renderer\Camera.h" />

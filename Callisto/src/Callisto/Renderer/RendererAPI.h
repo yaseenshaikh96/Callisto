@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include <Callisto/Renderer/VertexArray.h>
+#include "Callisto/Renderer/VertexArray.h"
 
 namespace Callisto
 {

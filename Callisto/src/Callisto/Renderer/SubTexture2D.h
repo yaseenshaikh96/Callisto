@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <string>
 
-#include <Callisto/Renderer/Texture.h>
+#include "Callisto/Renderer/Texture.h"
 
 namespace Callisto
 {

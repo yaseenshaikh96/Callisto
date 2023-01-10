@@ -1,9 +1,9 @@
 #include "CallistoPCH.h"
 #include "Renderer2D.h"
 
-#include <Callisto/Renderer/RenderCommand.h>
-#include <Callisto/Renderer/VertexArray.h>
-#include <Callisto/Renderer/Shader.h>
+#include "Callisto/Renderer/RenderCommand.h"
+#include "Callisto/Renderer/VertexArray.h"
+#include "Callisto/Renderer/Shader.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 

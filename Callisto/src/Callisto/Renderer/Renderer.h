@@ -1,8 +1,8 @@
 #pragma once
 
 #include "RenderCommand.h"
-#include <Callisto/Renderer/Camera.h>
-#include <Callisto/Renderer/Shader.h>
+#include "Callisto/Renderer/Camera.h"
+#include "Callisto/Renderer/Shader.h"
 
 namespace Callisto
 {

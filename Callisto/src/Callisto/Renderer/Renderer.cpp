@@ -1,9 +1,9 @@
 #include "CallistoPCH.h"
 #include "Renderer.h"
 
-#include <Callisto/Renderer/Renderer2D.h>
+#include "Callisto/Renderer/Renderer2D.h"
 
-#include <Callisto/Platforms/OpenGL/OpenGLShader.h>
+#include "Callisto/Platforms/OpenGL/OpenGLShader.h"
 
 namespace Callisto
 {

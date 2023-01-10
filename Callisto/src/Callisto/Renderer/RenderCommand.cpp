@@ -1,7 +1,7 @@
 #include "CallistoPCH.h"
 #include "RenderCommand.h"
 
-#include <Callisto/Platforms/OpenGL/OpenGLRendererAPI.h>
+#include "Callisto/Platforms/OpenGL/OpenGLRendererAPI.h"
 
 namespace Callisto
 {

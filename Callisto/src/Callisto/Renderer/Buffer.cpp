@@ -2,7 +2,7 @@
 #include "Buffer.h"
 #include "Renderer.h"
 
-#include <Callisto/Platforms/OpenGL/OpenGLBuffer.h>
+#include "Callisto/Platforms/OpenGL/OpenGLBuffer.h"
 
 namespace Callisto
 {

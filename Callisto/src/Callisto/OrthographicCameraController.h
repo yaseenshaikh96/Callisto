@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Callisto/Renderer/Camera.h>
-#include <Callisto/Core/TimeStep.h>
-#include <Callisto/Events/MouseEvent.h>
-#include <Callisto/Events/ApplicationEvent.h>
+#include "Callisto/Renderer/Camera.h"
+#include "Callisto/Core/TimeStep.h"
+#include "Callisto/Events/MouseEvent.h"
+#include "Callisto/Events/ApplicationEvent.h"
 
 namespace Callisto
 {
