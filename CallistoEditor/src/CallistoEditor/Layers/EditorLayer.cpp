@@ -26,9 +26,10 @@ namespace Callisto
 
 
 		m_Scene = CreateRef<Scene>();
-		m_SquareEntity = m_Scene->CreateEntity();
-		m_Scene->GetRegistry().emplace<TransformComponent>(m_SquareEntity);
-		m_Scene->GetRegistry().emplace<SpriteRendererComponent>(m_SquareEntity, glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
+
+		m_SquareEntity = m_Scene->CreateEntity("Square");
+		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+		//m_SquareEntity.HasComponent<TransformComponent>();
 
 	}
 	void EditorLayer::OnDetach()
@@ -94,7 +95,9 @@ namespace Callisto
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndicesCount());
 
-		auto& squareColor = m_Scene->GetRegistry().get<SpriteRendererComponent>(m_SquareEntity).Color;
+		ImGui::Separator();
+		ImGui::Text("%s", m_SquareEntity.GetComponent<TagComponent>().Tag.c_str());
+		auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
 		ImGui::ColorEdit4("My Color", glm::value_ptr(squareColor));
 
 		ImGui::End(); // settings

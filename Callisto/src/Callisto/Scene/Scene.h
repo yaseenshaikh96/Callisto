@@ -5,20 +5,22 @@
 #include "Callisto/Scene/Components.h"
 #include "Callisto/Core/TimeStep.h"
 
+
 namespace Callisto
 {
+	class Entity;
 	class Scene
 	{
 	public:
 		Scene();
 		~Scene();
+		Entity CreateEntity(const std::string& name = std::string());
+
 		void OnUpdate(TimeStep timeStep);
-
-		entt::registry& GetRegistry() { return m_Registry; }
-
-		entt::entity CreateEntity();
 
 	private:
 		entt::registry m_Registry;
+		
+		friend class Entity;
 	};
 }

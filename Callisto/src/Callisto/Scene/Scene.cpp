@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 #include <glm/glm.hpp>
+#include "Callisto/Scene/Entity.h"
 #include "Callisto/Renderer/Renderer2D.h"
 
 namespace Callisto
@@ -56,9 +57,14 @@ namespace Callisto
 		}
 	}
 
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& name)
 	{
-		return m_Registry.create();
+		Entity entity(m_Registry.create(), this);
+		auto tag = entity.AddComponent<TagComponent>(name);
+		tag.Tag = name.empty() ? "Entity" : name;
+		
+		entity.AddComponent<TransformComponent>();
+		return entity;
 	}
 
 }

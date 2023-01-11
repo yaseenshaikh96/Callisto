@@ -4,6 +4,16 @@
 
 namespace Callisto
 {
+	struct TagComponent
+	{
+		TagComponent() = default;
+		TagComponent(const TagComponent& other) = default;
+		TagComponent(const std::string& tag)
+			: Tag(tag)
+		{}
+		std::string Tag;
+	};
+
 	struct TransformComponent
 	{
 		glm::mat4 Transform = glm::mat4(1.0f);

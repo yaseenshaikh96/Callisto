@@ -27,6 +27,6 @@ namespace Callisto
 		OrthographicCameraController m_CameraController;
 
 		Ref<Scene> m_Scene;
-		entt::entity m_SquareEntity;
+		Entity m_SquareEntity;
 	};
 }

@@ -19,6 +19,7 @@
 /*************************************Scene**********************************>******/
 #include "Callisto/Scene/Scene.h"
 #include "Callisto/Scene/Components.h"
+#include "Callisto/Scene/Entity.h"
 		
 /*************************************Renderer*******************************>******/
 #include "Callisto/Renderer/Renderer.h"

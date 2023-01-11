@@ -1436,6 +1436,7 @@
     </ClInclude>
     <ClInclude Include="src\Callisto\Scene\Scene.h" />
     <ClInclude Include="src\Callisto\Scene\Components.h" />
+    <ClInclude Include="src\Callisto\Scene\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Core\Application.cpp">
@@ -1526,5 +1527,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\Scene\Scene.cpp" />
+    <ClCompile Include="src\Callisto\Scene\Entity.cpp" />
   </ItemGroup>
 </Project>
