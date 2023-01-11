@@ -23,6 +23,13 @@ namespace Callisto
 		specs.Width = static_cast<uint32_t>(1280.0f);
 		specs.Height = static_cast<uint32_t>(720.0f);
 		m_FrameBuffer = FrameBuffer::Create(specs);		
+
+
+		m_Scene = CreateRef<Scene>();
+		m_SquareEntity = m_Scene->CreateEntity();
+		m_Scene->GetRegistry().emplace<TransformComponent>(m_SquareEntity);
+		m_Scene->GetRegistry().emplace<SpriteRendererComponent>(m_SquareEntity, glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
+
 	}
 	void EditorLayer::OnDetach()
 	{
@@ -87,7 +94,8 @@ namespace Callisto
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndicesCount());
 
-		ImGui::ColorEdit4("My Color", glm::value_ptr(m_Color));
+		auto& squareColor = m_Scene->GetRegistry().get<SpriteRendererComponent>(m_SquareEntity).Color;
+		ImGui::ColorEdit4("My Color", glm::value_ptr(squareColor));
 
 		ImGui::End(); // settings
 
@@ -119,44 +127,53 @@ namespace Callisto
 		CALLISTO_PROFILE_FUNCTION();
 
 
-		m_FrameBuffer->Bind();
-
-		RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
-		RenderCommand::Clear();
-
 		if(m_ViewPortFocused)
 		{
 			m_CameraController.OnUpdate(timeStep);
 		}
-		
-		m_CubeRotation += 90 * timeStep;
-		
-		Renderer2D::ResetStatistics();
-		Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		Renderer2D::DrawRotatedQuadFilled(
-			glm::vec3(0.0f, 0.0f, 0.0f),
-			glm::vec2(0.5f, 0.5f),
-			m_CubeRotation,
-			glm::vec4(0.2f, 0.2f, 0.8f, 1.0f));
+		{
+			CALLISTO_PROFILE_SCOPE("Renderer start");
+			Renderer2D::ResetStatistics();
+			m_FrameBuffer->Bind();
+			RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
+			RenderCommand::Clear();
+		}
 
-		Renderer2D::DrawRotatedQuadFilled(
-			glm::vec3(1.0f, 0.0f, 0.0f),
-			glm::vec2(0.5f, 0.5f),
-			m_CubeRotation,
-			glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
 		
-		Renderer2D::DrawRotatedQuadFilled(
-			glm::vec3(-1.0f, 0.0f, 0.0f),
-			glm::vec2(0.5f, 0.5f),
-			m_CubeRotation,
-			glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
-		
-		//Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f), glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
-		Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f), m_CheckerTexture, glm::vec2(10.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		//m_CubeRotation += 90 * timeStep;
+		{
+			CALLISTO_PROFILE_SCOPE("Render");
 
-		Renderer2D::EndScene();
-		m_FrameBuffer->UnBind();
+			Renderer2D::BeginScene(m_CameraController.GetCamera());
+			
+			m_Scene->OnUpdate(timeStep);
+			
+			/*
+			Renderer2D::DrawRotatedQuadFilled(
+				glm::vec3(0.0f, 0.0f, 0.0f),
+				glm::vec2(0.5f, 0.5f),
+				m_CubeRotation,
+				glm::vec4(0.2f, 0.2f, 0.8f, 1.0f));
+
+			Renderer2D::DrawRotatedQuadFilled(
+				glm::vec3(1.0f, 0.0f, 0.0f),
+				glm::vec2(0.5f, 0.5f),
+				m_CubeRotation,
+				glm::vec4(0.2f, 0.8f, 0.2f, 1.0f));
+		
+			Renderer2D::DrawRotatedQuadFilled(
+				glm::vec3(-1.0f, 0.0f, 0.0f),
+				glm::vec2(0.5f, 0.5f),
+				m_CubeRotation,
+				glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+			*/
+		
+			Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f), m_CheckerTexture, glm::vec2(10.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+
+			Renderer2D::EndScene();
+			m_FrameBuffer->UnBind();
+		}
 
 	}
 

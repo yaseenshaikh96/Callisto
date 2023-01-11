@@ -2,22 +2,21 @@
 #include "Scene.h"
 
 #include <glm/glm.hpp>
+#include "Callisto/Renderer/Renderer2D.h"
 
 namespace Callisto
 {
 	Scene::Scene()
 	{
-		struct MeshComponent{};
+		/*
+		struct MeshComponent
+		{
+			MeshComponent() = default;
+			float x, y, z;
+		};
 		struct TransformComponent
 		{
-			glm::mat4 Transform;
 
-			operator const glm::mat4&() { return Transform; }
-			TransformComponent() = default;
-			TransformComponent(const TransformComponent& other) = default;
-			TransformComponent(const glm::mat4& transform)
-				: Transform(transform)
-			{}
 
 		};
 
@@ -32,17 +31,34 @@ namespace Callisto
 		{
 			
 		}
-		/*
-		auto group = m_Registry.group<TransformComponent>(entt::get<MeshComponent>);
-		for (auto ennt : group)
-		{
-			auto&[trans, mesh] = group.get<TransformComponent, MeshComponent>(ennt);
-		}
 		*/
+		/*
+		*/
+		//auto group = m_Registry.group<TransformComponent>(entt::get<MeshComponent>);
+		//for (auto ennt : group)
+		//{
+		//	auto&[trans, mesh] = group.get<TransformComponent, MeshComponent>(ennt);
+		//}
 		
 	}
 	Scene::~Scene()
 	{
 	}
 	
+	void Scene::OnUpdate(TimeStep timeStep)
+	{
+		auto group= m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+		for (auto entity : group)
+		{
+			auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+			
+			Renderer2D::DrawQuad(transform.Transform, sprite.Color);
+		}
+	}
+
+	entt::entity Scene::CreateEntity()
+	{
+		return m_Registry.create();
+	}
+
 }

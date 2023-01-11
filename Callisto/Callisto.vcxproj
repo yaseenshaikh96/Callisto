@@ -186,6 +186,7 @@
     <ClInclude Include="src\Callisto\Renderer\SubTexture2D.h" />
     <ClInclude Include="src\Callisto\Renderer\Texture.h" />
     <ClInclude Include="src\Callisto\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Callisto\Scene\Components.h" />
     <ClInclude Include="src\Callisto\Scene\Scene.h" />
     <ClInclude Include="src\Callisto\Utils\Timer.h" />
     <ClInclude Include="src\CallistoPCH.h" />

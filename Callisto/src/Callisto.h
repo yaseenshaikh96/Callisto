@@ -15,6 +15,10 @@
 		 
 #include "Callisto/Core/Layer.h"
 #include "Callisto/Imgui/ImGuiLayer.h"
+
+/*************************************Scene**********************************>******/
+#include "Callisto/Scene/Scene.h"
+#include "Callisto/Scene/Components.h"
 		
 /*************************************Renderer*******************************>******/
 #include "Callisto/Renderer/Renderer.h"

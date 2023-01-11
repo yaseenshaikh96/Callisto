@@ -155,38 +155,11 @@ namespace Callisto
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
-		if (s_Data.QuadIndexCount >= Renderer2D::MAX_INDICES_COUNT_PER_DRAW)
-		{
-			FlushAndReset();
-		}
-
-		constexpr size_t quadVertexCount = 4;
-		const float textureIndex = 0.0f; // White Texture
-		constexpr glm::vec2 textureCoords[] =
-		{
-			glm::vec2(0.0f, 0.0f),
-			glm::vec2(1.0f, 0.0f),
-			glm::vec2(1.0f, 1.0f),
-			glm::vec2(0.0f, 1.0f)
-		};
-		const glm::vec2 texScale(1.0f, 1.0f);
-
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-
-		for (size_t i = 0; i < quadVertexCount; i++)
-		{
-			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
-			s_Data.QuadVertexBufferPtr->Color = color;
-			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
-			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-			s_Data.QuadVertexBufferPtr->TexScale = texScale;
-			s_Data.QuadVertexBufferPtr++;
-		}
-
-		s_Data.QuadIndexCount += 6;
-		s_Data.stats.QuadCount++;
+		
+		DrawQuad(transform, color);
 	}
 
 	void Renderer2D::DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor)
@@ -197,53 +170,11 @@ namespace Callisto
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
-		if (s_Data.QuadIndexCount >= MAX_INDICES_COUNT_PER_DRAW)
-		{
-			FlushAndReset();
-		}
-
-		const glm::vec4 whiteColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-		constexpr size_t quadVertexCount = 4;
-		constexpr glm::vec2 textureCoords[] =
-		{
-			glm::vec2(0.0f, 0.0f),
-			glm::vec2(1.0f, 0.0f),
-			glm::vec2(1.0f, 1.0f),
-			glm::vec2(0.0f, 1.0f)
-		};
-
-		float textureIndex = 0.0f;
-		for (uint32_t i = 1; i < s_Data.TextureSlotSIndex; i++)
-		{
-			if (*(s_Data.TextureSlots[i].get()) == *(texture.get()))
-			{
-				textureIndex = (float)i;
-				break;
-			}
-		}
-		if (textureIndex == 0.0f)
-		{
-			textureIndex = (float)s_Data.TextureSlotSIndex;
-			s_Data.TextureSlots[s_Data.TextureSlotSIndex] = texture;
-			s_Data.TextureSlotSIndex++;
-		}
-
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		for (size_t i = 0; i < quadVertexCount; i++)
-		{
-			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
-			s_Data.QuadVertexBufferPtr->Color = tintColor;
-			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
-			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-			s_Data.QuadVertexBufferPtr->TexScale = texScale;
-			s_Data.QuadVertexBufferPtr++;
-		}
-
-		s_Data.QuadIndexCount += 6;
-		s_Data.stats.QuadCount++;
+		DrawQuad(transform, texture, texScale, tintColor);
 	}
 	/****************************************************/
 	void Renderer2D::DrawAxisAlignedQuadFilled(const glm::vec2& position, const glm::vec2& size, glm::vec4 color)
@@ -253,38 +184,11 @@ namespace Callisto
 	void Renderer2D::DrawAxisAlignedQuadFilled(const glm::vec3& position, const glm::vec2& size, glm::vec4 color)
 	{
 		CALLISTO_PROFILE_FUNCTION();
-		
-		if (s_Data.QuadIndexCount >= Renderer2D::MAX_INDICES_COUNT_PER_DRAW)
-		{
-			FlushAndReset();
-		}
-
-		constexpr size_t quadVertexCount = 4;
-		const float textureIndex = 0.0f; // White Texture
-		constexpr glm::vec2 textureCoords[] =
-		{
-			glm::vec2(0.0f, 0.0f),
-			glm::vec2(1.0f, 0.0f),
-			glm::vec2(1.0f, 1.0f),
-			glm::vec2(0.0f, 1.0f)
-		};
-		const glm::vec2 texScale(1.0f, 1.0f);
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		for (size_t i = 0; i < quadVertexCount; i++)
-		{
-			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
-			s_Data.QuadVertexBufferPtr->Color = color;
-			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
-			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-			s_Data.QuadVertexBufferPtr->TexScale = texScale;
-			s_Data.QuadVertexBufferPtr++;
-		}
-
-		s_Data.QuadIndexCount += 6;
-		s_Data.stats.QuadCount++;
+		DrawQuad(transform, color);
 	}
 
 	void Renderer2D::DrawAxisAlignedQuadFilled(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor)
@@ -295,52 +199,10 @@ namespace Callisto
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
-		if (s_Data.QuadIndexCount >= MAX_INDICES_COUNT_PER_DRAW)
-		{
-			FlushAndReset();
-		}
-
-		const glm::vec4 whiteColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-		constexpr size_t quadVertexCount = 4;
-		constexpr glm::vec2 textureCoords[] =
-		{
-			glm::vec2(0.0f, 0.0f),
-			glm::vec2(1.0f, 0.0f),
-			glm::vec2(1.0f, 1.0f),
-			glm::vec2(0.0f, 1.0f)
-		};
-
-		float textureIndex = 0.0f;
-		for (uint32_t i = 1; i < s_Data.TextureSlotSIndex; i++)
-		{
-			if (*(s_Data.TextureSlots[i].get()) == *(texture.get()))
-			{
-				textureIndex = (float)i;
-				break;
-			}
-		}
-		if (textureIndex == 0.0f)
-		{
-			textureIndex = (float)s_Data.TextureSlotSIndex;
-			s_Data.TextureSlots[s_Data.TextureSlotSIndex] = texture;
-			s_Data.TextureSlotSIndex++;
-		}
-
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		for (size_t i = 0; i < quadVertexCount; i++)
-		{
-			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
-			s_Data.QuadVertexBufferPtr->Color = tintColor;
-			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
-			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-			s_Data.QuadVertexBufferPtr->TexScale = texScale;
-			s_Data.QuadVertexBufferPtr++;
-		}
-
-		s_Data.QuadIndexCount += 6;
-		s_Data.stats.QuadCount++;
+		DrawQuad(transform, texture, texScale, tintColor);
 	}
 
 	void Renderer2D::DrawAxisAlignedQuadFilled(const glm::vec2& position, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor)
@@ -352,47 +214,11 @@ namespace Callisto
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
-		if (s_Data.QuadIndexCount >= MAX_INDICES_COUNT_PER_DRAW)
-		{
-			FlushAndReset();
-		}
-
-		float textureIndex = 0.0f;
-		for (uint32_t i = 1; i < s_Data.TextureSlotSIndex; i++)
-		{
-			if (*(s_Data.TextureSlots[i].get()) == *(subTexture->GetTexture().get()))
-			{
-				textureIndex = (float)i;
-				break;
-			}
-		}
-		if (textureIndex == 0.0f)
-		{
-			textureIndex = (float)s_Data.TextureSlotSIndex;
-			s_Data.TextureSlots[s_Data.TextureSlotSIndex] = subTexture->GetTexture();
-			s_Data.TextureSlotSIndex++;
-		}
-
-		const glm::vec4 whiteColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-		constexpr size_t quadVertexCount = 4;
-		const glm::vec2* textureCoords = subTexture->GetTexCoords();
-
-
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		for (size_t i = 0; i < quadVertexCount; i++)
-		{
-			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
-			s_Data.QuadVertexBufferPtr->Color = tintColor;
-			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
-			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-			s_Data.QuadVertexBufferPtr->TexScale = texScale;
-			s_Data.QuadVertexBufferPtr++;
-		}
+		DrawQuad(transform, subTexture, texScale, tintColor);
 
-		s_Data.QuadIndexCount += 6;
-		s_Data.stats.QuadCount++;
 	}
 	void Renderer2D::DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor)
 	{
@@ -402,6 +228,99 @@ namespace Callisto
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
+			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+
+		DrawQuad(transform, subTexture, texScale, tintColor);
+	}
+
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color)
+	{
+		CALLISTO_PROFILE_FUNCTION();
+
+		if (s_Data.QuadIndexCount >= Renderer2D::MAX_INDICES_COUNT_PER_DRAW)
+		{
+			FlushAndReset();
+		}
+
+		constexpr size_t quadVertexCount = 4;
+		const float textureIndex = 0.0f; // White Texture
+		constexpr glm::vec2 textureCoords[] =
+		{
+			glm::vec2(0.0f, 0.0f),
+			glm::vec2(1.0f, 0.0f),
+			glm::vec2(1.0f, 1.0f),
+			glm::vec2(0.0f, 1.0f)
+		};
+		const glm::vec2 texScale(1.0f, 1.0f);
+
+		for (size_t i = 0; i < quadVertexCount; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Color = color;
+			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
+			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+			s_Data.QuadVertexBufferPtr->TexScale = texScale;
+			s_Data.QuadVertexBufferPtr++;
+		}
+
+		s_Data.QuadIndexCount += 6;
+		s_Data.stats.QuadCount++;
+	}
+
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor)
+	{
+		CALLISTO_PROFILE_FUNCTION();
+
+		if (s_Data.QuadIndexCount >= MAX_INDICES_COUNT_PER_DRAW)
+		{
+			FlushAndReset();
+		}
+
+		const glm::vec4 whiteColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		constexpr size_t quadVertexCount = 4;
+		constexpr glm::vec2 textureCoords[] =
+		{
+			glm::vec2(0.0f, 0.0f),
+			glm::vec2(1.0f, 0.0f),
+			glm::vec2(1.0f, 1.0f),
+			glm::vec2(0.0f, 1.0f)
+		};
+
+		float textureIndex = 0.0f;
+		for (uint32_t i = 1; i < s_Data.TextureSlotSIndex; i++)
+		{
+			if (*(s_Data.TextureSlots[i].get()) == *(texture.get()))
+			{
+				textureIndex = (float)i;
+				break;
+			}
+		}
+		if (textureIndex == 0.0f)
+		{
+			textureIndex = (float)s_Data.TextureSlotSIndex;
+			s_Data.TextureSlots[s_Data.TextureSlotSIndex] = texture;
+			s_Data.TextureSlotSIndex++;
+		}
+
+		for (size_t i = 0; i < quadVertexCount; i++)
+		{
+			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
+			s_Data.QuadVertexBufferPtr->Color = tintColor;
+			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
+			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+			s_Data.QuadVertexBufferPtr->TexScale = texScale;
+			s_Data.QuadVertexBufferPtr++;
+		}
+
+		s_Data.QuadIndexCount += 6;
+		s_Data.stats.QuadCount++;
+	}
+
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor)
+	{
+
 		if (s_Data.QuadIndexCount >= MAX_INDICES_COUNT_PER_DRAW)
 		{
 			FlushAndReset();
@@ -427,11 +346,6 @@ namespace Callisto
 		constexpr size_t quadVertexCount = 4;
 		const glm::vec2* textureCoords = subTexture->GetTexCoords();
 
-
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
-			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-
 		for (size_t i = 0; i < quadVertexCount; i++)
 		{
 			s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[i];
@@ -445,7 +359,6 @@ namespace Callisto
 		s_Data.QuadIndexCount += 6;
 		s_Data.stats.QuadCount++;
 	}
-
 
 	void Renderer2D::ResetStatistics()
 	{

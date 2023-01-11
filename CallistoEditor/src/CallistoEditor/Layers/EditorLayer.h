@@ -2,6 +2,8 @@
 
 #include <Callisto.h>
 
+#include <entt.hpp>
+
 namespace Callisto
 {
 	class EditorLayer : public Layer
@@ -24,5 +26,7 @@ namespace Callisto
 		glm::vec2 m_ViewPortSize{0.0f, 0.0f};
 		OrthographicCameraController m_CameraController;
 
+		Ref<Scene> m_Scene;
+		entt::entity m_SquareEntity;
 	};
 }
