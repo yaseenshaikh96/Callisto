@@ -39,10 +39,10 @@ namespace Callisto
 			CALLISTO_CORE_ASSERT(HasComponent<t_Type>(), "Entity does not have Component!");
 			return m_Scene->m_Registry.remove<t_Type>(m_EntityHandle);
 		}
-		operator bool() const { return (uint32_t)m_EntityHandle != 0; }
+		operator bool() const { return m_EntityHandle != entt::null; }
 
 	private:
 		Scene* m_Scene = nullptr;
-		entt::entity m_EntityHandle{ 0 };
+		entt::entity m_EntityHandle{ entt::null };
 	};
 }

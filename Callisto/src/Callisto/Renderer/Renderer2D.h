@@ -23,6 +23,7 @@ namespace Callisto
 		static void Shutdown();
 
 		static void BeginScene(const OrthographicCamera& camera);
+		static void BeginScene(const Camera& camera, glm::mat4 transform);
 		static void EndScene();
 
 		static void Flush();

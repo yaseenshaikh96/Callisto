@@ -31,6 +31,8 @@
 #define BIT(x) (1 << x)
 
 #define CALLISTO_BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
+//[this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
+
 
 
 namespace Callisto

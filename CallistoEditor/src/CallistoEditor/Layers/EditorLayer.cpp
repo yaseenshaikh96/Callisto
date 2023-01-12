@@ -29,6 +29,11 @@ namespace Callisto
 
 		m_SquareEntity = m_Scene->CreateEntity("Square");
 		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
+
+		m_CameraEntity = m_Scene->CreateEntity("Camera Entity");
+		m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+
+
 		//m_SquareEntity.HasComponent<TransformComponent>();
 
 	}
@@ -147,8 +152,6 @@ namespace Callisto
 		//m_CubeRotation += 90 * timeStep;
 		{
 			CALLISTO_PROFILE_SCOPE("Render");
-
-			Renderer2D::BeginScene(m_CameraController.GetCamera());
 			
 			m_Scene->OnUpdate(timeStep);
 			
@@ -171,10 +174,6 @@ namespace Callisto
 				m_CubeRotation,
 				glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
 			*/
-		
-			Renderer2D::DrawAxisAlignedQuadFilled(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec2(10.0f), m_CheckerTexture, glm::vec2(10.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-
-			Renderer2D::EndScene();
 			m_FrameBuffer->UnBind();
 		}
 

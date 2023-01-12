@@ -26,6 +26,8 @@ namespace Callisto
 		glm::vec2 m_ViewPortSize{0.0f, 0.0f};
 		OrthographicCameraController m_CameraController;
 
+		Entity m_CameraEntity;
+
 		Ref<Scene> m_Scene;
 		Entity m_SquareEntity;
 	};

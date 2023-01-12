@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "Callisto/Renderer/Camera.h"
+
 namespace Callisto
 {
 	struct TagComponent
@@ -36,6 +38,18 @@ namespace Callisto
 		SpriteRendererComponent(const SpriteRendererComponent& other) = default;
 		SpriteRendererComponent(const glm::vec4& color)
 			: Color(color)
+		{}
+	};
+
+	struct CameraComponent
+	{
+		Camera Camera;
+		bool Primary = true;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent& other) = default;
+		CameraComponent(const glm::mat4 projection)
+			: Camera(projection)
 		{}
 	};
 }

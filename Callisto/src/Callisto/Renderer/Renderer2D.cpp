@@ -116,6 +116,19 @@ namespace Callisto
 		s_Data.QuadTextureShader->Bind();
 		s_Data.QuadTextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
+	void Renderer2D::BeginScene(const Camera& camera, glm::mat4 transform)
+	{
+		s_Data.TextureSlotSIndex = 1;
+
+		s_Data.QuadIndexCount = 0;
+		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+		glm::mat4 viewProjection = camera.GetProjection() * glm::inverse(transform);
+
+		s_Data.QuadTextureShader->Bind();
+		s_Data.QuadTextureShader->SetMat4("u_ViewProjection", viewProjection);
+	}
+
 	void Renderer2D::EndScene()
 	{
 		CALLISTO_PROFILE_FUNCTION();
