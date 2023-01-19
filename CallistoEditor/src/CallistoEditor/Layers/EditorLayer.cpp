@@ -31,8 +31,10 @@ namespace Callisto
 		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
 
 		m_CameraEntity = m_Scene->CreateEntity("Camera Entity");
-		m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+		m_CameraEntity.AddComponent<CameraComponent>();
 
+		m_SecondaryCameraEntity = m_Scene->CreateEntity("Secondary Camera Entity");
+		m_SecondaryCameraEntity.AddComponent<CameraComponent>().Primary = false;
 
 		//m_SquareEntity.HasComponent<TransformComponent>();
 
@@ -105,6 +107,21 @@ namespace Callisto
 		auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
 		ImGui::ColorEdit4("My Color", glm::value_ptr(squareColor));
 
+
+		ImGui::DragFloat3("Camera Transform: ", glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
+		
+		if (ImGui::Checkbox("Use Primary", &m_PrimaryCamera))
+		{
+			m_SecondaryCameraEntity.GetComponent<CameraComponent>().Primary = !m_PrimaryCamera;
+			m_CameraEntity.GetComponent<CameraComponent>().Primary = m_PrimaryCamera;
+		}
+		auto& secondCamera = m_SecondaryCameraEntity.GetComponent<CameraComponent>().Camera;
+		float cameraSize = secondCamera.GetOrthographicsSize();
+		if(ImGui::DragFloat("Second Camera Size: ", &cameraSize))
+		{
+			secondCamera.SetOrthographicsSize(cameraSize);
+		}
+
 		ImGui::End(); // settings
 
 
@@ -114,16 +131,11 @@ namespace Callisto
 		m_ViewPortFocused = ImGui::IsWindowFocused();
 		Application::Get().GetImGuiLayer()->SetBlockImGuiEvent(!m_ViewPortFocused);
 
-		ImVec2 ViewPortPanelSize = ImGui::GetContentRegionAvail();
-		if (m_ViewPortSize != glm::vec2(ViewPortPanelSize.x, ViewPortPanelSize.y))
-		{
-			m_FrameBuffer->Resize((uint32_t)ViewPortPanelSize.x, (uint32_t)ViewPortPanelSize.y);
-			m_ViewPortSize = glm::vec2(ViewPortPanelSize.x, ViewPortPanelSize.y);
-			m_CameraController.OnResize(ViewPortPanelSize.x, ViewPortPanelSize.y);
-		}
-
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		m_ViewPortSize = { viewportPanelSize.x, viewportPanelSize.y };
 		uint32_t frameBuffer = m_FrameBuffer->GetColorAttachmentID();
-		ImGui::Image((void*)frameBuffer, ImVec2(m_ViewPortSize.x, m_ViewPortSize.y), ImVec2(0, 1), ImVec2(1, 0)); 		//#pragma warning(suppress : 4312)
+		ImGui::Image((void*)frameBuffer, ImVec2{ m_ViewPortSize.x, m_ViewPortSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
 		ImGui::End();
 		ImGui::PopStyleVar(); // viewport
 
@@ -135,9 +147,14 @@ namespace Callisto
 		CALLISTO_PROFILE_FUNCTION();
 
 
-		if(m_ViewPortFocused)
+		if (FrameBufferSpecification spec = m_FrameBuffer->GetSpecifications();
+			m_ViewPortSize.x > 0.0f && m_ViewPortSize.y > 0.0f && // zero sized framebuffer is invalid
+			(spec.Width != m_ViewPortSize.x || spec.Height != m_ViewPortSize.y))
 		{
-			m_CameraController.OnUpdate(timeStep);
+			m_FrameBuffer->Resize((uint32_t)m_ViewPortSize.x, (uint32_t)m_ViewPortSize.y);
+			m_CameraController.OnResize(m_ViewPortSize.x, m_ViewPortSize.y);
+
+			m_Scene->OnViewPortResize((uint32_t)m_ViewPortSize.x, (uint32_t)m_ViewPortSize.y);
 		}
 
 		{
@@ -148,6 +165,10 @@ namespace Callisto
 			RenderCommand::Clear();
 		}
 
+		if(m_ViewPortFocused)
+		{
+			m_CameraController.OnUpdate(timeStep);
+		}
 		
 		//m_CubeRotation += 90 * timeStep;
 		{

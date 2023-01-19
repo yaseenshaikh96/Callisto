@@ -189,6 +189,7 @@
     <ClInclude Include="src\Callisto\Scene\Components.h" />
     <ClInclude Include="src\Callisto\Scene\Entity.h" />
     <ClInclude Include="src\Callisto\Scene\Scene.h" />
+    <ClInclude Include="src\Callisto\Scene\SceneCamera.h" />
     <ClInclude Include="src\Callisto\Utils\Timer.h" />
     <ClInclude Include="src\CallistoPCH.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -637,11 +638,12 @@
     <ClCompile Include="src\Callisto\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Texture.cpp" />
     <ClCompile Include="src\Callisto\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Callisto\Scene\Entity.cpp" />
+    <ClCompile Include="src\Callisto\Scene\Scene.cpp" />
     <ClCompile Include="src\CallistoPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Callisto\Scene\Entity.cpp" />
-    <ClCompile Include="src\Callisto\Scene\Scene.cpp" />
+    <ClCompile Include="src\Callisto\Scene\SceneCamera.cpp" />
     <ClCompile Include="vendor\stb_image\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>

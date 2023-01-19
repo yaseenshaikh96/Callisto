@@ -31,6 +31,9 @@
     <Filter Include="src\Callisto\Renderer">
       <UniqueIdentifier>{3DF11DED-A95D-D9E7-7251-7145DE7CFB4F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Callisto\Scene">
+      <UniqueIdentifier>{142A2DC7-000E-EE1C-696E-E86F5571D89E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Callisto\Utils">
       <UniqueIdentifier>{57BE5AC7-43A2-1B1D-AC02-16709805069F}</UniqueIdentifier>
     </Filter>
@@ -176,6 +179,15 @@
     </ClInclude>
     <ClInclude Include="src\Callisto\Renderer\VertexArray.h">
       <Filter>src\Callisto\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Scene\Components.h">
+      <Filter>src\Callisto\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Scene\Entity.h">
+      <Filter>src\Callisto\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Callisto\Scene\Scene.h">
+      <Filter>src\Callisto\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Utils\Timer.h">
       <Filter>src\Callisto\Utils</Filter>
@@ -1434,9 +1446,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Callisto\Scene\Scene.h" />
-    <ClInclude Include="src\Callisto\Scene\Components.h" />
-    <ClInclude Include="src\Callisto\Scene\Entity.h" />
+    <ClInclude Include="src\Callisto\Scene\SceneCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Core\Application.cpp">
@@ -1520,13 +1530,18 @@
     <ClCompile Include="src\Callisto\Renderer\VertexArray.cpp">
       <Filter>src\Callisto\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Callisto\Scene\Entity.cpp">
+      <Filter>src\Callisto\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Scene\Scene.cpp">
+      <Filter>src\Callisto\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\CallistoPCH.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Callisto\Scene\Scene.cpp" />
-    <ClCompile Include="src\Callisto\Scene\Entity.cpp" />
+    <ClCompile Include="src\Callisto\Scene\SceneCamera.cpp" />
   </ItemGroup>
 </Project>

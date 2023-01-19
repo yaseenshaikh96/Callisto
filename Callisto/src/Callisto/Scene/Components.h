@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "Callisto/Renderer/Camera.h"
+#include "Callisto/Scene/SceneCamera.h"
 
 namespace Callisto
 {
@@ -43,13 +44,11 @@ namespace Callisto
 
 	struct CameraComponent
 	{
-		Camera Camera;
+		SceneCamera Camera;
 		bool Primary = true;
+		bool FixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent& other) = default;
-		CameraComponent(const glm::mat4 projection)
-			: Camera(projection)
-		{}
 	};
 }

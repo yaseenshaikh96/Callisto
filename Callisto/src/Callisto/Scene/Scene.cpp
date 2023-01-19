@@ -80,6 +80,22 @@ namespace Callisto
 		}
 	}
 
+	void Scene::OnViewPortResize(uint32_t width, uint32_t height)
+	{
+		m_ViewPortWidth = width; 
+		m_ViewPortHeight = height;
+
+		auto view = m_Registry.view<CameraComponent>();
+		for (auto entity : view)
+		{
+			auto& currentCameraComponent = view.get<CameraComponent>(entity);
+			if (!currentCameraComponent.FixedAspectRatio)
+			{
+				currentCameraComponent.Camera.SetViewPortSize(width, height);
+			}
+		}
+	}
+
 	Entity Scene::CreateEntity(const std::string& name)
 	{
 		Entity entity(m_Registry.create(), this);

@@ -27,6 +27,9 @@ namespace Callisto
 		OrthographicCameraController m_CameraController;
 
 		Entity m_CameraEntity;
+		Entity m_SecondaryCameraEntity;
+
+		bool m_PrimaryCamera = true;
 
 		Ref<Scene> m_Scene;
 		Entity m_SquareEntity;
