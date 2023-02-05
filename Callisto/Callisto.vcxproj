@@ -190,6 +190,7 @@
     <ClInclude Include="src\Callisto\Scene\Entity.h" />
     <ClInclude Include="src\Callisto\Scene\Scene.h" />
     <ClInclude Include="src\Callisto\Scene\SceneCamera.h" />
+    <ClInclude Include="src\Callisto\Scene\ScriptableEntity.h" />
     <ClInclude Include="src\Callisto\Utils\Timer.h" />
     <ClInclude Include="src\CallistoPCH.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />

@@ -2,9 +2,8 @@
 
 #include <entt.hpp>
 
-#include "Callisto/Scene/Components.h"
 #include "Callisto/Core/TimeStep.h"
-
+#include "Callisto/Scene/Components.h"
 
 namespace Callisto
 {

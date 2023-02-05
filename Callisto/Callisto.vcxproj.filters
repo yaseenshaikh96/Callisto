@@ -1447,6 +1447,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Callisto\Scene\SceneCamera.h" />
+    <ClInclude Include="src\Callisto\Scene\ScriptableEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Callisto\Core\Application.cpp">

@@ -38,6 +38,34 @@ namespace Callisto
 
 		//m_SquareEntity.HasComponent<TransformComponent>();
 
+
+		class CameraController : public ScriptableEntity
+		{
+		public:
+			void OnCreate()
+			{
+				CALLISTO_CORE_INFO("Created!");
+			}
+			void OnUpdate(TimeStep timeStep)
+			{
+				CALLISTO_CORE_INFO("TimeStep: {0}", timeStep);
+				auto& transform = GetComponent<TransformComponent>().Transform;
+				float speed = 2;
+				if (Input::IsKeyPressed(CALLISTO_KEY_A))
+					transform[3][0] -= speed * timeStep;
+				if (Input::IsKeyPressed(CALLISTO_KEY_D))
+					transform[3][0] += speed * timeStep;
+				if (Input::IsKeyPressed(CALLISTO_KEY_W))
+					transform[3][1] += speed * timeStep;
+				if (Input::IsKeyPressed(CALLISTO_KEY_S))
+					transform[3][1] -= speed * timeStep;
+
+			}
+			void OnDestroy()
+			{}
+		};
+		m_SecondaryCameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
 	}
 	void EditorLayer::OnDetach()
 	{
