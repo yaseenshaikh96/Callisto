@@ -24,11 +24,11 @@ namespace Callisto
 				{
 					if (!nsc.Instance)
 					{
-						nsc.InstantiateFunction();
+						nsc.Instance = nsc.InstantiateScript();
 						nsc.Instance->m_Entity = Entity(entity, this);
-						nsc.OnCreateFunction(nsc.Instance);
+						nsc.Instance->OnCreate();
 					}
-					nsc.OnUpdateFunction(nsc.Instance, timeStep);
+					nsc.Instance->OnUpdate(timeStep);
 				}
 			);
 		}
@@ -84,7 +84,7 @@ namespace Callisto
 	Entity Scene::CreateEntity(const std::string& name)
 	{
 		Entity entity(m_Registry.create(), this);
-		auto tag = entity.AddComponent<TagComponent>(name);
+		auto& tag = entity.AddComponent<TagComponent>(name);
 		tag.Tag = name.empty() ? "Entity" : name;
 		
 		entity.AddComponent<TransformComponent>();

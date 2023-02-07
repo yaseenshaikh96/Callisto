@@ -42,11 +42,11 @@ namespace Callisto
 		class CameraController : public ScriptableEntity
 		{
 		public:
-			void OnCreate()
+			virtual void OnCreate() override
 			{
 				CALLISTO_CORE_INFO("Created!");
 			}
-			void OnUpdate(TimeStep timeStep)
+			virtual void OnUpdate(TimeStep timeStep) override
 			{
 				CALLISTO_CORE_INFO("TimeStep: {0}", timeStep);
 				auto& transform = GetComponent<TransformComponent>().Transform;
@@ -61,10 +61,11 @@ namespace Callisto
 					transform[3][1] -= speed * timeStep;
 
 			}
-			void OnDestroy()
+			virtual void OnDestroy() override
 			{}
 		};
 		m_SecondaryCameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
 	}
 	void EditorLayer::OnDetach()

@@ -12,6 +12,11 @@ namespace Callisto
 		{
 			return m_Entity.GetComponent<t_Type>();
 		}
+
+		virtual void OnCreate() {}
+		virtual void OnUpdate(TimeStep timeStep) {}
+		virtual void OnDestroy() {}
+
 	private:
 		Entity m_Entity;
 		friend class Scene;

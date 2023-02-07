@@ -54,27 +54,19 @@ namespace Callisto
 	};
 
 	class ScriptableEntity;
+
 	struct NativeScriptComponent
 	{
 		ScriptableEntity* Instance = nullptr;
 
-		std::function<void()> InstantiateFunction;
-		std::function<void()> DestroyInstanceFunction;
-
-		std::function<void(ScriptableEntity*)> OnCreateFunction;
-		std::function<void(ScriptableEntity*)> OnDestroyFunction;
-		std::function<void(ScriptableEntity*, TimeStep)> OnUpdateFunction;
+		std::function<ScriptableEntity*()> InstantiateScript;
+		std::function<void(NativeScriptComponent*)> DestroyScript;
 
 		template<typename t_Type>
 		void Bind()
 		{
-			InstantiateFunction = [&]() { Instance = new t_Type(); };
-			DestroyInstanceFunction = [&]() { delete (t_Type*)Instance; Instance = nullptr; };
-
-			OnCreateFunction = [](ScriptableEntity* instance) { ((t_Type*)instance)->OnCreate(); };
-			OnDestroyFunction = [](ScriptableEntity* instance) { ((t_Type*)instance)->OnDestroy(); };
-			OnUpdateFunction = [](ScriptableEntity* instance, TimeStep timeStep) { ((t_Type*)instance)->OnUpdate(timeStep); };
-		
+			InstantiateScript = []() { return static_cast<ScriptableEntity*>(new t_Type()); };
+			DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
 		}
 	};
 }
