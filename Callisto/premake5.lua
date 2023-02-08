@@ -33,9 +33,9 @@ project "Callisto"
 	{
 		"src",
 		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludedDirs.glad}",
 		"%{IncludedDirs.GLFW}",
-		"%{IncludedDirs.Glad}",
-		"%{IncludedDirs.Imgui}",
+		"%{IncludedDirs.imgui}",
 		"%{IncludedDirs.glm}",
 		"%{IncludedDirs.stb_image}",
 		"%{IncludedDirs.entt}"
@@ -43,9 +43,9 @@ project "Callisto"
 
 	links
 	{
+		"glad",
 		"GLFW",
-		"Glad",
-		"Imgui",
+		"imgui",
 		"opengl32.lib"
 	}
 

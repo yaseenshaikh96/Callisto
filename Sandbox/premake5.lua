@@ -16,9 +16,9 @@ project "Sandbox"
 	includedirs
 	{
 		"src",
-		"Callisto/vendor/spdlog/include",
-		"Callisto/src",
-		"Callisto/vendor",
+		"%{wks.location}/Callisto/vendor/spdlog/include",
+		"%{wks.location}/Callisto/src",
+		"%{wks.location}/Callisto/vendor",
 		"%{IncludedDirs.glm}",
 		"%{IncludedDirs.entt}"
 	}
