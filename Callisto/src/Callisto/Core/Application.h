@@ -19,7 +19,7 @@
 namespace Callisto
 {
 	// This object represents the entire application
-	class CALLISTO_API Application
+	class Application
 	{
 	public:
 		Application(const std::string& name = "Callisto App");

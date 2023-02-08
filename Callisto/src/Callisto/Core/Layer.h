@@ -1,16 +1,16 @@
 #pragma once
 
-#include <Callisto/Core/Core.h>
-#include <Callisto/Events/Event.h>
-#include <Callisto/Events/ApplicationEvent.h>
-#include <Callisto/Events/KeyEvent.h>
-#include <Callisto/Events/MouseEvent.h>
+#include "Callisto/Core/Core.h"
+#include "Callisto/Events/Event.h"
+#include "Callisto/Events/ApplicationEvent.h"
+#include "Callisto/Events/KeyEvent.h"
+#include "Callisto/Events/MouseEvent.h"
 
-#include <Callisto/Core/TimeStep.h>
+#include "Callisto/Core/TimeStep.h"
 
 namespace Callisto{
 	
-	class CALLISTO_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& debugName = "Layer");

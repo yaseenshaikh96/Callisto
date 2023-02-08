@@ -5,7 +5,7 @@
 
 namespace Callisto
 {
-	class CALLISTO_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();
