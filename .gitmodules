@@ -1,12 +1,9 @@
 [submodule "Callisto/vendor/spdlog"]
 	path = Callisto/vendor/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule "Callisto/vendor/GLFW"]
-	path = Callisto/vendor/GLFW
-	url = https://github.com/TheCherno/glfw.git
 [submodule "Callisto/vendor/Imgui"]
 	path = Callisto/vendor/Imgui
 	url = https://github.com/TheCherno/imgui.git
-[submodule "Callisto/vendor/glm"]
-	path = Callisto/vendor/glm
-	url = https://github.com/g-truc/glm.git
+[submodule "Callisto/vendor/GLFW"]
+	path = Callisto/vendor/GLFW
+	url = https://github.com/yaseenshaikh96/glfw.git
