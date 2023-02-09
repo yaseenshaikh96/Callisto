@@ -1,11 +1,87 @@
 #include "SceneHierarchyPanel.h"
 
 #include <imgui/imgui.h>
+#include <imgui/imgui_internal.h>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Callisto
 {
+	static bool DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f)
+	{
+		bool isChanged = false;
+		ImGui::PushID(label.c_str());
+		ImGui::Columns(2);
+		ImGui::SetColumnWidth(0, columnWidth);
+		ImGui::Text(label.c_str());
 
+		ImGui::NextColumn();
+
+		ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
+
+		float lineHeight = GImGui->Font->FontSize + (GImGui->Style.FramePadding.y * 2);
+		ImVec2 buttonSize(lineHeight + 3.0f, lineHeight);
+
+		ImGui::PushStyleColor(ImGuiCol_Button,			ImVec4{ 0.8f, 0.1f, 0.1f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered,	ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive,	ImVec4{ 0.8f, 0.1f, 0.1f, 1.0f });
+		if (ImGui::Button("x", buttonSize))
+		{
+			values.x = resetValue;
+			isChanged = true;
+		}
+		ImGui::SameLine();
+		if (ImGui::DragFloat("##X", &(values.x), 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+			isChanged = true;
+		}
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+		ImGui::PopStyleColor(3);
+
+		ImGui::PushStyleColor(ImGuiCol_Button,			ImVec4{ 0.1f, 0.7f, 0.1f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered,	ImVec4{ 0.2f, 0.8f, 0.2f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive,	ImVec4{ 0.1f, 0.8f, 0.1f, 1.0f });
+		if (ImGui::Button("y", buttonSize))
+		{
+			values.y = resetValue;
+			isChanged = true;
+		}
+		ImGui::SameLine();
+		if(ImGui::DragFloat("##Y", &(values.y), 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+			isChanged = true;
+		}
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+		ImGui::PopStyleColor(3);
+
+		ImGui::PushStyleColor(ImGuiCol_Button,			ImVec4{ 0.1f, 0.2f, 0.8f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered,	ImVec4{ 0.2f, 0.3f, 0.9f, 1.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive,	ImVec4{ 0.1f, 0.2f, 0.9f, 1.0f });
+		if (ImGui::Button("z", buttonSize))
+		{
+			values.z = resetValue;
+			isChanged = true;
+		}
+		ImGui::SameLine();
+		if (ImGui::DragFloat("##Z", &(values.z), 0.1f, 0.0f, 0.0f, "%.2f"))
+		{
+			isChanged = true;
+		}
+		ImGui::PopItemWidth();
+		ImGui::PopStyleColor(3);
+
+		ImGui::PopStyleVar();
+		ImGui::Columns(1);
+		ImGui::PopID();
+
+		return isChanged;
+	}
+
+	/************************************************************************************************************************************/
+	/* SceneHierarchyPanel */
+	/************************************************************************************************************************************/
 	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& context)
 	{
 		SetContext(context);
@@ -80,8 +156,14 @@ namespace Callisto
 
 			if (ImGui::TreeNodeEx((void*)(typeid(TransformComponent).hash_code()), flags, "Transform Component"))
 			{
-				auto& transform = entity.GetComponent<TransformComponent>().Transform;
-				ImGui::DragFloat3("Position: ", glm::value_ptr(transform[3]), 0.5f);
+				auto& tc = entity.GetComponent<TransformComponent>();
+				DrawVec3Control("Position", tc.Position);
+				glm::vec3 rotation = glm::degrees(tc.Rotation);
+				if(DrawVec3Control("Rotation", rotation))
+				{
+					tc.Rotation = glm::radians(rotation);
+				}
+				DrawVec3Control("Scale", tc.Scale, 1.0f);
 				ImGui::TreePop();
 			}		
 		}
@@ -137,6 +219,7 @@ namespace Callisto
 					float PerspectiveFarClip = camera.GetPerspectiveFarClip();
 					ImGui::DragFloat("Far Clip", &PerspectiveFarClip, 0.1f);
 					{
+	
 						camera.SetPerspectiveFarClip(PerspectiveFarClip);
 					}
 				}
@@ -184,4 +267,6 @@ namespace Callisto
 		}
 
 	}
+
+
 }

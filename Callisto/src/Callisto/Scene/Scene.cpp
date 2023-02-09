@@ -34,7 +34,7 @@ namespace Callisto
 		}
 
 		Camera* mainCamera = nullptr;
-		glm::mat4* cameraTransform = nullptr;
+		glm::mat4 cameraTransform;
 		{
 			auto group = m_Registry.group<TransformComponent, CameraComponent>();
 			for (auto entity : group)
@@ -44,7 +44,7 @@ namespace Callisto
 				if (camera.Primary)
 				{
 					mainCamera = &(camera.Camera);
-					cameraTransform = &(transform.Transform);
+					cameraTransform = transform.GetTransform();
 					break;
 				}
 
@@ -53,13 +53,13 @@ namespace Callisto
 
 		if (mainCamera)
 		{
-			Renderer2D::BeginScene(*mainCamera, *cameraTransform);
+			Renderer2D::BeginScene(*mainCamera, cameraTransform);
 			auto view = m_Registry.view<TransformComponent, SpriteRendererComponent>();
 			for (auto entity : view)
 			{
 				auto [transform, sprite] = view.get<TransformComponent, SpriteRendererComponent>(entity);
 			
-				Renderer2D::DrawQuad(transform.Transform, sprite.Color);
+				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
 			}
 			Renderer2D::EndScene();
 		}

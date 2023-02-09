@@ -28,9 +28,12 @@ namespace Callisto
 		m_SceneHierarchyPanel.SetContext(m_Scene);
 
 		m_SquareEntity = m_Scene->CreateEntity("Square");
+		m_SquareEntity.GetComponent<TransformComponent>().Position = glm::vec3(-1.0f, 0.0f, 0.0f);
 		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
 
-		m_Scene->CreateEntity("Square2").AddComponent<SpriteRendererComponent>(glm::vec4(0.2f, 0.2f, 0.8f, 1.0f));
+		Entity SquareEntity2 = m_Scene->CreateEntity("Square2");
+		SquareEntity2.GetComponent<TransformComponent>().Position = glm::vec3(1.0f, 0.0f, 0.0f);
+		SquareEntity2.AddComponent<SpriteRendererComponent>(glm::vec4(0.2f, 0.2f, 0.8f, 1.0f));
 
 		m_CameraEntity = m_Scene->CreateEntity("Camera Entity");
 		m_CameraEntity.AddComponent<CameraComponent>();
@@ -46,16 +49,16 @@ namespace Callisto
 			}
 			virtual void OnUpdate(TimeStep timeStep) override
 			{
-				auto& transform = GetComponent<TransformComponent>().Transform;
+				auto& position = GetComponent<TransformComponent>().Position;
 				float speed = 2;
 				if (Input::IsKeyPressed(CALLISTO_KEY_A))
-					transform[3][0] -= speed * timeStep;
+					position.x -= speed * timeStep;
 				if (Input::IsKeyPressed(CALLISTO_KEY_D))
-					transform[3][0] += speed * timeStep;
+					position.x += speed * timeStep;
 				if (Input::IsKeyPressed(CALLISTO_KEY_W))
-					transform[3][1] += speed * timeStep;
+					position.y += speed * timeStep;
 				if (Input::IsKeyPressed(CALLISTO_KEY_S))
-					transform[3][1] -= speed * timeStep;
+					position.y -= speed * timeStep;
 
 			}
 			virtual void OnDestroy() override
