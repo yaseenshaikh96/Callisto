@@ -13,13 +13,15 @@ namespace Callisto
 		SceneHierarchyPanel(const Ref<Scene>& context);
 	
 		void SetContext(const Ref<Scene>& context);
-		void SetSelectionContext(Entity selectionContext);
+
+		void SetSelectionContext(Entity selectionContext) { m_SelectionContext = selectionContext; }
+		Entity GetSelectionContext() { return m_SelectionContext; }
 
 		void OnImGuiRender();
 
 	private:
 		void DrawEntityNode(Entity entity);
-	
+		void DrawEntityProperties(Entity entity);
 	private:
 		Ref<Scene> m_Context;
 		Entity m_SelectionContext;

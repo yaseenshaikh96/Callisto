@@ -42,14 +42,14 @@ namespace Callisto
 		static void DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
 		static void DrawQuad(const glm::mat4& transform, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor);
 
-		static void DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, glm::vec4 color = glm::vec4(0.0f));
-		static void DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, glm::vec4 color = glm::vec4(0.0f));
+		static void DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotInRad, glm::vec4 color = glm::vec4(0.0f));
+		static void DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotInRad, glm::vec4 color = glm::vec4(0.0f));
 
-		static void DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
-		static void DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
+		static void DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotInRad, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
+		static void DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotInRad, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
 
-		static void DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor);
-		static void DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor);
+		static void DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotInRad, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor);
+		static void DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotInRad, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor);
 
 		static void ResetStatistics();
 		static Statistics GetStatistics();

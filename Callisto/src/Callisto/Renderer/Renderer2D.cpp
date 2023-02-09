@@ -160,31 +160,31 @@ namespace Callisto
 	}
 
 	/****************************************************************************************************************************/
-	void Renderer2D::DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, glm::vec4 color)
+	void Renderer2D::DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotInRad, glm::vec4 color)
 	{
-		DrawRotatedQuadFilled(glm::vec3(position.x, position.y, 0.0f), size, rotation, color);
+		DrawRotatedQuadFilled(glm::vec3(position.x, position.y, 0.0f), size, rotInRad, color);
 	}
-	void Renderer2D::DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, glm::vec4 color)
+	void Renderer2D::DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotInRad, glm::vec4 color)
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
+			* glm::rotate(glm::mat4(1.0f), rotInRad, glm::vec3(0.0f, 0.0f, 1.0f))
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 		
 		DrawQuad(transform, color);
 	}
 
-	void Renderer2D::DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor)
+	void Renderer2D::DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotInRad, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor)
 	{
-		DrawRotatedQuadFilled(glm::vec3(position.x, position.y, 0.0f), size, rotation, texture, texScale, tintColor);
+		DrawRotatedQuadFilled(glm::vec3(position.x, position.y, 0.0f), size, rotInRad, texture, texScale, tintColor);
 	}
-	void Renderer2D::DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor)
+	void Renderer2D::DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotInRad, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor)
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
+			* glm::rotate(glm::mat4(1.0f), rotInRad, glm::vec3(0.0f, 0.0f, 1.0f))
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		DrawQuad(transform, texture, texScale, tintColor);
@@ -233,16 +233,16 @@ namespace Callisto
 		DrawQuad(transform, subTexture, texScale, tintColor);
 
 	}
-	void Renderer2D::DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor)
+	void Renderer2D::DrawRotatedQuadFilled(const glm::vec2& position, const glm::vec2& size, float rotInRad, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor)
 	{
-		DrawRotatedQuadFilled(glm::vec3(position.x, position.y, 0.0f), size, rotation, subTexture, texScale, tintColor);
+		DrawRotatedQuadFilled(glm::vec3(position.x, position.y, 0.0f), size, rotInRad, subTexture, texScale, tintColor);
 	}
-	void Renderer2D::DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor)
+	void Renderer2D::DrawRotatedQuadFilled(const glm::vec3& position, const glm::vec2& size, float rotInRad, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor)
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f))
+			* glm::rotate(glm::mat4(1.0f), rotInRad, glm::vec3(0.0f, 0.0f, 1.0f))
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
 		DrawQuad(transform, subTexture, texScale, tintColor);

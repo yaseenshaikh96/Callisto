@@ -30,6 +30,8 @@ namespace Callisto
 		m_SquareEntity = m_Scene->CreateEntity("Square");
 		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
 
+		m_Scene->CreateEntity("Square2").AddComponent<SpriteRendererComponent>(glm::vec4(0.2f, 0.2f, 0.8f, 1.0f));
+
 		m_CameraEntity = m_Scene->CreateEntity("Camera Entity");
 		m_CameraEntity.AddComponent<CameraComponent>();
 
@@ -145,10 +147,10 @@ namespace Callisto
 			m_CameraEntity.GetComponent<CameraComponent>().Primary = m_PrimaryCamera;
 		}
 		auto& secondCamera = m_SecondaryCameraEntity.GetComponent<CameraComponent>().Camera;
-		float cameraSize = secondCamera.GetOrthographicsSize();
+		float cameraSize = secondCamera.GetOrthographicSize();
 		if(ImGui::DragFloat("Second Camera Size: ", &cameraSize))
 		{
-			secondCamera.SetOrthographicsSize(cameraSize);
+			secondCamera.SetOrthographicSize(cameraSize);
 		}
 
 		ImGui::End(); // settings
