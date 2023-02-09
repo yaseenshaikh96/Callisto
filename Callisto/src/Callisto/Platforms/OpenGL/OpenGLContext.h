@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Callisto/Renderer/GraphicsContext.h>
+#include "Callisto/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;
 

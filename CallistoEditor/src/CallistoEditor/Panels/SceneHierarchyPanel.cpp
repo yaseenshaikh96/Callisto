@@ -170,5 +170,18 @@ namespace Callisto
 			}
 		}
 
+
+		if (entity.HasComponent<SpriteRendererComponent>())
+		{
+			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
+
+			if (ImGui::TreeNodeEx((void*)(typeid(SpriteRendererComponent).hash_code()), flags, "SpriteRenderer Component"))
+			{
+				auto& color = entity.GetComponent<SpriteRendererComponent>().Color;
+				ImGui::ColorEdit4("Color: ", glm::value_ptr(color), 0.5f);
+				ImGui::TreePop();
+			}
+		}
+
 	}
 }
