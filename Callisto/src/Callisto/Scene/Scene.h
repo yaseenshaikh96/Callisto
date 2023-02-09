@@ -23,5 +23,6 @@ namespace Callisto
 		uint32_t m_ViewPortWidth = 0, m_ViewPortHeight = 0;
 
 		friend class Entity;
+		friend class SceneHierarchyPanel;
 	};
 }

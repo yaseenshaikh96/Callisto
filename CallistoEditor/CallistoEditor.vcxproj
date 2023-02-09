@@ -140,11 +140,13 @@
   <ItemGroup>
     <ClInclude Include="src\CallistoEditor\CallistoEditorApp.h" />
     <ClInclude Include="src\CallistoEditor\Layers\EditorLayer.h" />
+    <ClInclude Include="src\CallistoEditor\Panels\SceneHierarchyPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CallistoEditor\ApplicationEntryPoint.cpp" />
     <ClCompile Include="src\CallistoEditor\CallistoEditorApp.cpp" />
     <ClCompile Include="src\CallistoEditor\Layers\EditorLayer.cpp" />
+    <ClCompile Include="src\CallistoEditor\Panels\SceneHierarchyPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Callisto\Callisto.vcxproj">

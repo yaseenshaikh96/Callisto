@@ -10,6 +10,7 @@
     <ClInclude Include="src\CallistoEditor\Layers\EditorLayer.h">
       <Filter>Layers</Filter>
     </ClInclude>
+    <ClInclude Include="src\CallistoEditor\Panels\SceneHierarchyPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CallistoEditor\ApplicationEntryPoint.cpp" />
@@ -17,5 +18,6 @@
     <ClCompile Include="src\CallistoEditor\Layers\EditorLayer.cpp">
       <Filter>Layers</Filter>
     </ClCompile>
+    <ClCompile Include="src\CallistoEditor\Panels\SceneHierarchyPanel.cpp" />
   </ItemGroup>
 </Project>

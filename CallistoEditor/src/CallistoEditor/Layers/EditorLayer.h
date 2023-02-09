@@ -4,6 +4,8 @@
 
 #include <entt.hpp>
 
+#include "CallistoEditor/Panels/SceneHierarchyPanel.h"
+
 namespace Callisto
 {
 	class EditorLayer : public Layer
@@ -21,7 +23,7 @@ namespace Callisto
 		bool m_ViewPortFocused = false;
 		float m_CubeRotation = 0.0f;
 		Ref<Texture2D> m_CheckerTexture;
-		glm::vec4 m_Color;
+		glm::vec4 m_Color{0};
 		Ref<FrameBuffer> m_FrameBuffer;
 		glm::vec2 m_ViewPortSize{0.0f, 0.0f};
 		OrthographicCameraController m_CameraController;
@@ -33,5 +35,9 @@ namespace Callisto
 
 		Ref<Scene> m_Scene;
 		Entity m_SquareEntity;
+
+
+		/* Panels */
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 }

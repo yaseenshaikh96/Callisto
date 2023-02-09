@@ -24,8 +24,8 @@ namespace Callisto
 		specs.Height = static_cast<uint32_t>(720.0f);
 		m_FrameBuffer = FrameBuffer::Create(specs);		
 
-
 		m_Scene = CreateRef<Scene>();
+		m_SceneHierarchyPanel.SetContext(m_Scene);
 
 		m_SquareEntity = m_Scene->CreateEntity("Square");
 		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
@@ -44,11 +44,9 @@ namespace Callisto
 		public:
 			virtual void OnCreate() override
 			{
-				CALLISTO_CORE_INFO("Created!");
 			}
 			virtual void OnUpdate(TimeStep timeStep) override
 			{
-				CALLISTO_CORE_INFO("TimeStep: {0}", timeStep);
 				auto& transform = GetComponent<TransformComponent>().Transform;
 				float speed = 2;
 				if (Input::IsKeyPressed(CALLISTO_KEY_A))
@@ -122,6 +120,8 @@ namespace Callisto
 			ImGui::EndMenuBar();
 		}
 
+		m_SceneHierarchyPanel.OnImGuiRender();
+
 		ImGui::Begin("Settings");
 
 		auto stats = Renderer2D::GetStatistics();
@@ -163,8 +163,12 @@ namespace Callisto
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		m_ViewPortSize = { viewportPanelSize.x, viewportPanelSize.y };
 		uint32_t frameBuffer = m_FrameBuffer->GetColorAttachmentID();
-		ImGui::Image((void*)frameBuffer, ImVec2{ m_ViewPortSize.x, m_ViewPortSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
+#pragma warning(push)
+#pragma warning(disable : 4312)
+		ImGui::Image((void*)frameBuffer, ImVec2{ m_ViewPortSize.x, m_ViewPortSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+#pragma warning(pop)
+		
 		ImGui::End();
 		ImGui::PopStyleVar(); // viewport
 

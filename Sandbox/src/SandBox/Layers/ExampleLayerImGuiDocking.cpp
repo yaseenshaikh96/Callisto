@@ -20,8 +20,8 @@ namespace MyApp
 		m_CheckerTexture = Callisto::Texture2D::Create("./Assets/Checkerboard.png");
 
 		Callisto::FrameBufferSpecification specs;
-		specs.Width = 1280.0f;
-		specs.Height = 720.0f;
+		specs.Width = 1280;
+		specs.Height = 720;
 		m_FrameBuffer = Callisto::FrameBuffer::Create(specs);		
 	}
 	void ExampleLayerImGuiDocking::OnDetach()
@@ -94,7 +94,12 @@ namespace MyApp
 		float height = (float)m_FrameBuffer->GetSpecifications().Height;
 
 		//#pragma warning(suppress : 4312)
+
+#pragma warning(push)
+#pragma warning(disable : 4312)
 		ImGui::Image((void*)frameBuffer, ImVec2(320.0f, 280.0f));
+#pragma warning(pop)
+
 		ImGui::End();
 
 		ImGui::End();
