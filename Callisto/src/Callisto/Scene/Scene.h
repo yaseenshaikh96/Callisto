@@ -14,9 +14,15 @@ namespace Callisto
 		Scene();
 		~Scene();
 		Entity CreateEntity(const std::string& name = std::string());
+		void DestroyEntity(Entity entity);
+
 		void OnUpdate(TimeStep timeStep);
 
 		void OnViewPortResize(uint32_t width, uint32_t height);
+
+	private:
+		template<typename t_Type>
+		void OnComponentAdded(Entity entity, t_Type& component);
 
 	private:
 		entt::registry m_Registry;

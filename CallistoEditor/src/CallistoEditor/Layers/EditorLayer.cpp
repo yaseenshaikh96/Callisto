@@ -26,7 +26,8 @@ namespace Callisto
 
 		m_Scene = CreateRef<Scene>();
 		m_SceneHierarchyPanel.SetContext(m_Scene);
-
+		
+		/*
 		m_SquareEntity = m_Scene->CreateEntity("Square");
 		m_SquareEntity.GetComponent<TransformComponent>().Position = glm::vec3(-1.0f, 0.0f, 0.0f);
 		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
@@ -40,6 +41,7 @@ namespace Callisto
 
 		m_SecondaryCameraEntity = m_Scene->CreateEntity("Secondary Camera Entity");
 		m_SecondaryCameraEntity.AddComponent<CameraComponent>().Primary = false;
+		*/
 
 		class CameraController : public ScriptableEntity
 		{
@@ -64,8 +66,10 @@ namespace Callisto
 			virtual void OnDestroy() override
 			{}
 		};
+		/*
 		m_SecondaryCameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+		*/
 
 	}
 	void EditorLayer::OnDetach()
@@ -173,7 +177,7 @@ namespace Callisto
 			Renderer2D::ResetStatistics();
 			
 			m_FrameBuffer->Bind();
-			RenderCommand::SetClearColor({ 0.4f, 0.01f, 0.5f, 1.0f }); // good purple
+			RenderCommand::SetClearColor({ 0.2f, 0.1f, 0.2f, 1.0f });
 			RenderCommand::Clear();
 			m_Scene->OnUpdate(timeStep);
 			m_FrameBuffer->UnBind();

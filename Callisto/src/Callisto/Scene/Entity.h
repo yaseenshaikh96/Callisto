@@ -23,7 +23,9 @@ namespace Callisto
 		t_Type& AddComponent(Args&&... args)
 		{
 			CALLISTO_CORE_ASSERT(!HasComponent<t_Type>(), "Entity already has Component!");
-			return m_Scene->m_Registry.emplace<t_Type>(m_EntityHandle, std::forward<Args>(args)...);
+			t_Type& component = m_Scene->m_Registry.emplace<t_Type>(m_EntityHandle, std::forward<Args>(args)...);
+			m_Scene->OnComponentAdded<t_Type>(*this, component);
+			return component;
 		}
 
 		template<typename t_Type>
@@ -37,10 +39,13 @@ namespace Callisto
 		void RemoveComponent()
 		{
 			CALLISTO_CORE_ASSERT(HasComponent<t_Type>(), "Entity does not have Component!");
-			return m_Scene->m_Registry.remove<t_Type>(m_EntityHandle);
+			m_Scene->m_Registry.remove<t_Type>(m_EntityHandle);
 		}
+
+
 		operator bool() const { return m_EntityHandle != entt::null; }
 		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
+		operator entt::entity() const { return m_EntityHandle; }
 
 		bool operator==(const Entity& other) const 
 		{ 

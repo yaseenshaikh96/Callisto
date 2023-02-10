@@ -98,10 +98,23 @@ namespace Callisto
 
 		m_Context->m_Registry.each([&](auto enttEntity)
 		{
-
 			Entity e(enttEntity, m_Context.get());
 			DrawEntityNode(e);
 		});
+
+		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+			m_SelectionContext = {};
+
+		// Right-click blank space menu
+		ImGuiPopupFlags popupFlags = ImGuiPopupFlags_NoOpenOverItems | ImGuiPopupFlags_MouseButtonRight;
+		if (ImGui::BeginPopupContextWindow(0, popupFlags))
+		{
+			if (ImGui::MenuItem("Create Empty Entity"))
+			{
+				m_Context->CreateEntity("Empty Entity");
+			}
+			ImGui::EndPopup();
+		}
 
 		ImGui::End();
 
@@ -109,6 +122,26 @@ namespace Callisto
 		if (m_SelectionContext)
 		{
 			DrawEntityProperties(m_SelectionContext);
+
+			if (ImGui::Button("Add Component"))
+			{
+				ImGui::OpenPopup("Add Component Popup Menu");
+			}
+
+			if (ImGui::BeginPopup("Add Component Popup Menu"))
+			{
+				if (ImGui::MenuItem("Camera"))
+				{
+					m_SelectionContext.AddComponent<CameraComponent>();
+					ImGui::CloseCurrentPopup();
+				}				
+				if (ImGui::MenuItem("Sprite Renderer"))
+				{
+					m_SelectionContext.AddComponent<SpriteRendererComponent>();
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+			}
 		}
 		ImGui::End();
 	}
@@ -128,9 +161,29 @@ namespace Callisto
 			m_SelectionContext = entity;
 		}
 
+		bool entityDeleted = false;
+		ImGuiPopupFlags popupFlags = ImGuiPopupFlags_MouseButtonRight;
+		if (ImGui::BeginPopupContextItem(0, popupFlags))
+		{
+			if (ImGui::MenuItem("Delete Entity"))
+			{
+				entityDeleted = true;
+			}
+			ImGui::EndPopup();
+		}
+
 		if (open)
 		{
 			ImGui::TreePop();
+		}
+
+		if (entityDeleted)
+		{
+			m_Context->DestroyEntity(entity);
+			if (entity == m_SelectionContext)
+			{
+				m_SelectionContext = {};
+			}
 		}
 	}
 
@@ -150,11 +203,15 @@ namespace Callisto
 			}
 		}
 
+		const ImGuiTreeNodeFlags treeNodeFlags = 
+			ImGuiTreeNodeFlags_DefaultOpen |
+			ImGuiTreeNodeFlags_AllowItemOverlap;
+
 		if (entity.HasComponent<TransformComponent>())
 		{
-			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
-
-			if (ImGui::TreeNodeEx((void*)(typeid(TransformComponent).hash_code()), flags, "Transform Component"))
+			bool open = ImGui::TreeNodeEx((void*)(typeid(TransformComponent).hash_code()), treeNodeFlags, "Transform Component");
+			
+			if (open)
 			{
 				auto& tc = entity.GetComponent<TransformComponent>();
 				DrawVec3Control("Position", tc.Position);
@@ -166,6 +223,8 @@ namespace Callisto
 				DrawVec3Control("Scale", tc.Scale, 1.0f);
 				ImGui::TreePop();
 			}		
+			
+
 		}
 
 		if (entity.HasComponent<CameraComponent>())
@@ -173,14 +232,11 @@ namespace Callisto
 			auto& cc = entity.GetComponent<CameraComponent>();
 			auto& camera = cc.Camera;
 
-			if (ImGui::Checkbox("Primary", &cc.Primary))
+			if (ImGui::TreeNodeEx((void*)(typeid(CameraComponent).hash_code()), treeNodeFlags, "Camera Component"))
 			{
-
-			}
-
-			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
-			if (ImGui::TreeNodeEx((void*)(typeid(CameraComponent).hash_code()), flags, "Camera Component"))
-			{
+				if (ImGui::Checkbox("Primary", &cc.Primary))
+				{
+				}
 				const char* projectionTypeString[] = { "Projection", "Orthographics" };
 				const char* currentProjectionTypeString = projectionTypeString[(int)camera.GetProjectionType()];
 
@@ -256,13 +312,32 @@ namespace Callisto
 
 		if (entity.HasComponent<SpriteRendererComponent>())
 		{
-			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen;
-
-			if (ImGui::TreeNodeEx((void*)(typeid(SpriteRendererComponent).hash_code()), flags, "SpriteRenderer Component"))
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4.0f, 4.0f });
+			bool open = ImGui::TreeNodeEx((void*)(typeid(SpriteRendererComponent).hash_code()), treeNodeFlags, "SpriteRenderer Component");
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+			if (ImGui::Button("+", ImVec2{20.0f, 20.0f}))
+			{
+				ImGui::OpenPopup("Component Settings");
+			}
+			ImGui::PopStyleVar();
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("Component Settings"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+				{
+					removeComponent = true;
+				}
+				ImGui::EndPopup();
+			}
+			if (open)
 			{
 				auto& color = entity.GetComponent<SpriteRendererComponent>().Color;
-				ImGui::ColorEdit4("Color: ", glm::value_ptr(color), 0.5f);
+				ImGui::ColorEdit4("Color: ", glm::value_ptr(color));
 				ImGui::TreePop();
+			}
+			if (removeComponent)
+			{
+				entity.RemoveComponent<TransformComponent>();
 			}
 		}
 
