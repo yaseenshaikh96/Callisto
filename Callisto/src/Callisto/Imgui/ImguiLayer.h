@@ -21,6 +21,10 @@ namespace Callisto
 
 		void Begin();
 		void End();
+	
+	private:
+		void SetImGuiDarkTheme();
+
 	private:
 		bool m_BlockImGuiEvent = true;
 	};

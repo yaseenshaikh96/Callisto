@@ -20,14 +20,13 @@ namespace Callisto
 		m_CheckerTexture = Texture2D::Create("./Assets/Checkerboard.png");
 
 		FrameBufferSpecification specs;
-		specs.Width = static_cast<uint32_t>(1280.0f);
-		specs.Height = static_cast<uint32_t>(720.0f);
+		specs.Width = 1600;
+		specs.Height = 900;
 		m_FrameBuffer = FrameBuffer::Create(specs);		
 
 		m_Scene = CreateRef<Scene>();
 		m_SceneHierarchyPanel.SetContext(m_Scene);
 		
-		/*
 		m_SquareEntity = m_Scene->CreateEntity("Square");
 		m_SquareEntity.GetComponent<TransformComponent>().Position = glm::vec3(-1.0f, 0.0f, 0.0f);
 		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
@@ -41,7 +40,6 @@ namespace Callisto
 
 		m_SecondaryCameraEntity = m_Scene->CreateEntity("Secondary Camera Entity");
 		m_SecondaryCameraEntity.AddComponent<CameraComponent>().Primary = false;
-		*/
 
 		class CameraController : public ScriptableEntity
 		{
@@ -110,11 +108,16 @@ namespace Callisto
 
 		// DockSpace
 		ImGuiIO& io = ImGui::GetIO();
+		ImGuiStyle& style = ImGui::GetStyle();
+		float previousWindowMinSizeX = style.WindowMinSize.x;
+		style.WindowMinSize.x = 270.0f;
+
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 		{
 			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
+		style.WindowMinSize.x = previousWindowMinSizeX;
 
 		ImGui::BeginMenuBar();
 		if(ImGui::BeginMenu("File"))

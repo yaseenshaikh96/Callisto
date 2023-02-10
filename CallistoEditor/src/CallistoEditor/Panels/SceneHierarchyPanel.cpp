@@ -8,6 +8,10 @@ namespace Callisto
 {
 	static bool DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f)
 	{
+		ImGuiIO& io = ImGui::GetIO();
+		auto& boldFont = io.Fonts->Fonts[0];
+
+
 		bool isChanged = false;
 		ImGui::PushID(label.c_str());
 		ImGui::Columns(2);
@@ -25,11 +29,13 @@ namespace Callisto
 		ImGui::PushStyleColor(ImGuiCol_Button,			ImVec4{ 0.8f, 0.1f, 0.1f, 1.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered,	ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive,	ImVec4{ 0.8f, 0.1f, 0.1f, 1.0f });
+		ImGui::PushFont(boldFont);
 		if (ImGui::Button("x", buttonSize))
 		{
 			values.x = resetValue;
 			isChanged = true;
 		}
+		ImGui::PopFont();
 		ImGui::SameLine();
 		if (ImGui::DragFloat("##X", &(values.x), 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
@@ -42,11 +48,13 @@ namespace Callisto
 		ImGui::PushStyleColor(ImGuiCol_Button,			ImVec4{ 0.1f, 0.7f, 0.1f, 1.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered,	ImVec4{ 0.2f, 0.8f, 0.2f, 1.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive,	ImVec4{ 0.1f, 0.8f, 0.1f, 1.0f });
+		ImGui::PushFont(boldFont);
 		if (ImGui::Button("y", buttonSize))
 		{
 			values.y = resetValue;
 			isChanged = true;
 		}
+		ImGui::PopFont();
 		ImGui::SameLine();
 		if(ImGui::DragFloat("##Y", &(values.y), 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
@@ -59,11 +67,13 @@ namespace Callisto
 		ImGui::PushStyleColor(ImGuiCol_Button,			ImVec4{ 0.1f, 0.2f, 0.8f, 1.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered,	ImVec4{ 0.2f, 0.3f, 0.9f, 1.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive,	ImVec4{ 0.1f, 0.2f, 0.9f, 1.0f });
+		ImGui::PushFont(boldFont);
 		if (ImGui::Button("z", buttonSize))
 		{
 			values.z = resetValue;
 			isChanged = true;
 		}
+		ImGui::PopFont();
 		ImGui::SameLine();
 		if (ImGui::DragFloat("##Z", &(values.z), 0.1f, 0.0f, 0.0f, "%.2f"))
 		{
@@ -79,6 +89,54 @@ namespace Callisto
 		return isChanged;
 	}
 
+	template<typename t_ComponentType, typename UIFunction>
+	static void DrawComponent(const std::string& componentName, Entity entity, UIFunction uiFunction)
+	{
+		if (!entity.HasComponent<t_ComponentType>())
+		{
+			return;
+		}
+		t_ComponentType& component = entity.GetComponent<t_ComponentType>();
+
+		const ImGuiTreeNodeFlags treeNodeFlags =
+			ImGuiTreeNodeFlags_DefaultOpen |
+			ImGuiTreeNodeFlags_AllowItemOverlap |
+			ImGuiTreeNodeFlags_Framed |
+			ImGuiTreeNodeFlags_FramePadding | 
+			ImGuiTreeNodeFlags_SpanAvailWidth;
+
+		ImVec2 contentAvailRegion = ImGui::GetContentRegionAvail();
+
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4.0f, 4.0f });
+		float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2;
+		bool open = ImGui::TreeNodeEx((void*)(typeid(t_ComponentType).hash_code()), treeNodeFlags, componentName.c_str());
+		ImGui::PopStyleVar();
+		
+		ImGui::SameLine(contentAvailRegion.x - (lineHeight * 0.5f));
+		
+		if (ImGui::Button("...", ImVec2{ lineHeight, lineHeight}))
+		{
+			ImGui::OpenPopup("Component Settings");
+		}
+		bool removeComponent = false;
+		if (ImGui::BeginPopup("Component Settings"))
+		{
+			if (ImGui::MenuItem("Remove Component"))
+			{
+				removeComponent = true;
+			}
+			ImGui::EndPopup();
+		}
+		if (open)
+		{
+			uiFunction(component);
+			ImGui::TreePop();
+		}
+		if (removeComponent)
+		{
+			entity.RemoveComponent<t_ComponentType>();
+		}
+	}
 	/************************************************************************************************************************************/
 	/* SceneHierarchyPanel */
 	/************************************************************************************************************************************/
@@ -122,26 +180,6 @@ namespace Callisto
 		if (m_SelectionContext)
 		{
 			DrawEntityProperties(m_SelectionContext);
-
-			if (ImGui::Button("Add Component"))
-			{
-				ImGui::OpenPopup("Add Component Popup Menu");
-			}
-
-			if (ImGui::BeginPopup("Add Component Popup Menu"))
-			{
-				if (ImGui::MenuItem("Camera"))
-				{
-					m_SelectionContext.AddComponent<CameraComponent>();
-					ImGui::CloseCurrentPopup();
-				}				
-				if (ImGui::MenuItem("Sprite Renderer"))
-				{
-					m_SelectionContext.AddComponent<SpriteRendererComponent>();
-					ImGui::CloseCurrentPopup();
-				}
-				ImGui::EndPopup();
-			}
 		}
 		ImGui::End();
 	}
@@ -150,9 +188,9 @@ namespace Callisto
 	{
 		auto& tag = entity.GetComponent<TagComponent>().Tag;
 
-		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
+		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 		if(m_SelectionContext == entity)
-			flags = flags | ImGuiTreeNodeFlags_Selected;
+			flags |= ImGuiTreeNodeFlags_Selected;
 
 		bool open = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
 
@@ -197,46 +235,53 @@ namespace Callisto
 			memset(buffer, 0, sizeof(buffer));
 			strcpy_s(buffer, sizeof(buffer), tag.c_str());
 
-			if (ImGui::InputText("Tag", buffer, sizeof(buffer)))
+			if (ImGui::InputText("##Tag", buffer, sizeof(buffer)))
 			{
 				tag = std::string(buffer);
 			}
 		}
 
-		const ImGuiTreeNodeFlags treeNodeFlags = 
-			ImGuiTreeNodeFlags_DefaultOpen |
-			ImGuiTreeNodeFlags_AllowItemOverlap;
-
-		if (entity.HasComponent<TransformComponent>())
+		ImGui::SameLine();
+		ImGui::PushItemWidth(-1);
+		if (ImGui::Button("Add Component"))
 		{
-			bool open = ImGui::TreeNodeEx((void*)(typeid(TransformComponent).hash_code()), treeNodeFlags, "Transform Component");
-			
-			if (open)
-			{
-				auto& tc = entity.GetComponent<TransformComponent>();
-				DrawVec3Control("Position", tc.Position);
-				glm::vec3 rotation = glm::degrees(tc.Rotation);
-				if(DrawVec3Control("Rotation", rotation))
-				{
-					tc.Rotation = glm::radians(rotation);
-				}
-				DrawVec3Control("Scale", tc.Scale, 1.0f);
-				ImGui::TreePop();
-			}		
-			
-
+			ImGui::OpenPopup("Add Component Popup Menu");
 		}
 
-		if (entity.HasComponent<CameraComponent>())
+		if (ImGui::BeginPopup("Add Component Popup Menu"))
 		{
-			auto& cc = entity.GetComponent<CameraComponent>();
-			auto& camera = cc.Camera;
-
-			if (ImGui::TreeNodeEx((void*)(typeid(CameraComponent).hash_code()), treeNodeFlags, "Camera Component"))
+			if (ImGui::MenuItem("Camera"))
 			{
-				if (ImGui::Checkbox("Primary", &cc.Primary))
+				m_SelectionContext.AddComponent<CameraComponent>();
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::MenuItem("Sprite Renderer"))
+			{
+				m_SelectionContext.AddComponent<SpriteRendererComponent>();
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+		ImGui::PopItemWidth();
+
+		DrawComponent<TransformComponent>("Transform", entity,
+			[](auto& component)
+			{
+				DrawVec3Control("Position", component.Position);
+				glm::vec3 rotation = glm::degrees(component.Rotation);
+				if (DrawVec3Control("Rotation", rotation))
 				{
+					component.Rotation = glm::radians(rotation);
 				}
+				DrawVec3Control("Scale", component.Scale, 1.0f);
+			});
+
+		DrawComponent<CameraComponent>("Camera", entity,
+			[](auto& component)
+			{
+				auto& camera = component.Camera;
+				ImGui::Checkbox("Primary", &component.Primary);
+				
 				const char* projectionTypeString[] = { "Projection", "Orthographics" };
 				const char* currentProjectionTypeString = projectionTypeString[(int)camera.GetProjectionType()];
 
@@ -275,7 +320,7 @@ namespace Callisto
 					float PerspectiveFarClip = camera.GetPerspectiveFarClip();
 					ImGui::DragFloat("Far Clip", &PerspectiveFarClip, 0.1f);
 					{
-	
+
 						camera.SetPerspectiveFarClip(PerspectiveFarClip);
 					}
 				}
@@ -286,7 +331,7 @@ namespace Callisto
 					{
 						camera.SetOrthographicSize(orthoSize);
 					}
-					
+
 					float orthoNearClip = camera.GetOrthoGraphicNearClip();
 					ImGui::DragFloat("Near Clip", &orthoNearClip, 0.1f);
 					{
@@ -299,49 +344,18 @@ namespace Callisto
 						camera.SetOrthoGraphicFarClip(orthoFarClip);
 					}
 
-					if (ImGui::Checkbox("Fixed Aspect Ratio", &cc.FixedAspectRatio))
+					if (ImGui::Checkbox("Fixed Aspect Ratio", &component.FixedAspectRatio))
 					{
 
 					}
 				}
+			});
 
-				ImGui::TreePop();
-			}
-		}
-
-
-		if (entity.HasComponent<SpriteRendererComponent>())
-		{
-			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4.0f, 4.0f });
-			bool open = ImGui::TreeNodeEx((void*)(typeid(SpriteRendererComponent).hash_code()), treeNodeFlags, "SpriteRenderer Component");
-			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
-			if (ImGui::Button("+", ImVec2{20.0f, 20.0f}))
+		DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, 
+			[](auto& component)
 			{
-				ImGui::OpenPopup("Component Settings");
-			}
-			ImGui::PopStyleVar();
-			bool removeComponent = false;
-			if (ImGui::BeginPopup("Component Settings"))
-			{
-				if (ImGui::MenuItem("Remove Component"))
-				{
-					removeComponent = true;
-				}
-				ImGui::EndPopup();
-			}
-			if (open)
-			{
-				auto& color = entity.GetComponent<SpriteRendererComponent>().Color;
-				ImGui::ColorEdit4("Color: ", glm::value_ptr(color));
-				ImGui::TreePop();
-			}
-			if (removeComponent)
-			{
-				entity.RemoveComponent<TransformComponent>();
-			}
-		}
+				ImGui::ColorEdit4("Color: ", glm::value_ptr(component.Color));
+			});
 
 	}
-
-
 }
