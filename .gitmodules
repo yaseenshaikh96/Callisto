@@ -13,3 +13,6 @@
 [submodule "Callisto/vendor/glad"]
 	path = Callisto/vendor/glad
 	url = https://github.com/yaseenshaikh96/glad.git
+[submodule "Callisto/vendor/ymal-cpp"]
+	path = Callisto/vendor/yaml-cpp
+	url = https://github.com/yaseenshaikh96/yaml-cpp.git
