@@ -24,6 +24,7 @@ group "Core-Dependencies"
 	include "Callisto/vendor/GLFW"
 	include "Callisto/vendor/glad"
 	include "Callisto/vendor/imgui"
+	include "Callisto/vendor/yaml-cpp"
 	group ""
 
 

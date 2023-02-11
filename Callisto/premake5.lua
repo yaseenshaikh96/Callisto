@@ -26,19 +26,21 @@ project "Callisto"
 	defines
 	{
 		"GLFW_INCLUDE_NONE",
-		"_CRT_SECURE_NO_WARNINGS"
+		"_CRT_SECURE_NO_WARNINGS",
+		"YAML_CPP_STATIC_DEFINE"
 	}
 
 	includedirs
 	{
 		"src",
-		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludedDirs.spdlog}",
 		"%{IncludedDirs.glad}",
 		"%{IncludedDirs.GLFW}",
 		"%{IncludedDirs.imgui}",
 		"%{IncludedDirs.glm}",
 		"%{IncludedDirs.stb_image}",
-		"%{IncludedDirs.entt}"
+		"%{IncludedDirs.entt}",
+		"%{IncludedDirs.yaml_cpp}"
 	}
 
 	links
@@ -46,6 +48,7 @@ project "Callisto"
 		"glad",
 		"GLFW",
 		"imgui",
+		"yaml-cpp",
 		"opengl32.lib"
 	}
 

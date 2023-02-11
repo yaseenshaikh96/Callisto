@@ -192,6 +192,9 @@
     <ClInclude Include="src\Callisto\Scene\SceneCamera.h">
       <Filter>src\Callisto\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Callisto\Scene\SceneSerializer.h">
+      <Filter>src\Callisto\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Callisto\Scene\ScriptableEntity.h">
       <Filter>src\Callisto\Scene</Filter>
     </ClInclude>
@@ -1542,6 +1545,9 @@
       <Filter>src\Callisto\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Callisto\Scene\SceneCamera.cpp">
+      <Filter>src\Callisto\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Callisto\Scene\SceneSerializer.cpp">
       <Filter>src\Callisto\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\CallistoPCH.cpp">

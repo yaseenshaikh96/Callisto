@@ -4,6 +4,7 @@
 #include <glm/gtc/type_ptr.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Callisto/Scene/SceneSerializer.h"
 
 namespace Callisto
 {
@@ -27,6 +28,7 @@ namespace Callisto
 		m_Scene = CreateRef<Scene>();
 		m_SceneHierarchyPanel.SetContext(m_Scene);
 		
+		/*
 		m_SquareEntity = m_Scene->CreateEntity("Square");
 		m_SquareEntity.GetComponent<TransformComponent>().Position = glm::vec3(-1.0f, 0.0f, 0.0f);
 		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
@@ -64,16 +66,16 @@ namespace Callisto
 			virtual void OnDestroy() override
 			{}
 		};
-		/*
 		m_SecondaryCameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		*/
-
 	}
+
 	void EditorLayer::OnDetach()
 	{
 
 	}
+	
 	void EditorLayer::OnImGuiRender()
 	{
 		CALLISTO_PROFILE_FUNCTION();
@@ -122,7 +124,21 @@ namespace Callisto
 		ImGui::BeginMenuBar();
 		if(ImGui::BeginMenu("File"))
 		{
+			
+			
+			if (ImGui::MenuItem("Serialize"))
+			{
+				SceneSerializer sceneSerializer(m_Scene);
+				sceneSerializer.Serialize("Assets/Scenes/Example.callisto");
+			}
+			if (ImGui::MenuItem("Deserialize"))
+			{
+				SceneSerializer sceneSerializer(m_Scene);
+				sceneSerializer.DeSerialize("Assets/Scenes/Example.callisto");
+			}
+
 			if (ImGui::MenuItem("Exit")) Application::Get().Close();
+
 			ImGui::EndMenu();
 		}
 		ImGui::EndMenuBar();
