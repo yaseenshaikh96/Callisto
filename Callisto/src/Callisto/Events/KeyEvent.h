@@ -53,7 +53,7 @@ namespace Callisto
 			ss << "KeyReleaseEvent: " << m_KeyCode;
 			return ss.str();
 		}
-		EVENT_CLASS_TYPE(KeyPressed)
+		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
 	class CALLISTO_API KeyTypedEvent : public KeyEvent

@@ -6,6 +6,15 @@
 
 namespace Callisto
 {
+
+	bool Input::IsKeyPressed(Key key)
+	{
+		return Input::IsKeyPressed((int)key);
+	}
+	bool Input::IsMouseButtonPressed(MouseButton mouseButton)
+	{
+		return Input::IsMouseButtonPressed((int)mouseButton);
+	}
 	bool Input::IsKeyPressed(int keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());

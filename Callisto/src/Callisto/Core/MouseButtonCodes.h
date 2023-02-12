@@ -1,15 +1,23 @@
 #pragma once
 
-/* from glfw3.h */
-#define CALLISTO_MOUSE_BUTTON_1         0
-#define CALLISTO_MOUSE_BUTTON_2         1
-#define CALLISTO_MOUSE_BUTTON_3         2
-#define CALLISTO_MOUSE_BUTTON_4         3
-#define CALLISTO_MOUSE_BUTTON_5         4
-#define CALLISTO_MOUSE_BUTTON_6         5
-#define CALLISTO_MOUSE_BUTTON_7         6
-#define CALLISTO_MOUSE_BUTTON_8         7
-#define CALLISTO_MOUSE_BUTTON_LAST      CALLISTO_MOUSE_BUTTON_8
-#define CALLISTO_MOUSE_BUTTON_LEFT      CALLISTO_MOUSE_BUTTON_1
-#define CALLISTO_MOUSE_BUTTON_RIGHT     CALLISTO_MOUSE_BUTTON_2
-#define CALLISTO_MOUSE_BUTTON_MIDDLE    CALLISTO_MOUSE_BUTTON_3
+
+namespace Callisto
+{
+	enum class MouseButton : uint16_t
+	{
+		// From glfw3.h
+		Button0 = 0,
+		Button1 = 1,
+		Button2 = 2,
+		Button3 = 3,
+		Button4 = 4,
+		Button5 = 5,
+		Button6 = 6,
+		Button7 = 7,
+
+		ButtonLast = Button7,
+		ButtonLeft = Button0,
+		ButtonRight = Button1,
+		ButtonMiddle = Button2
+	};
+}

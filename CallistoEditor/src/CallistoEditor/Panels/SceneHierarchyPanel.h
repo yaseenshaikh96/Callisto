@@ -20,6 +20,7 @@ namespace Callisto
 		void OnImGuiRender();
 
 	private:
+
 		void DrawEntityNode(Entity entity);
 		void DrawEntityProperties(Entity entity);
 	private:

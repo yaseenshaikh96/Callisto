@@ -106,7 +106,7 @@ namespace MyApp
 			Callisto::Renderer2D::EndScene();
 		}
 
-		if (Callisto::Input::IsMouseButtonPressed(CALLISTO_MOUSE_BUTTON_LEFT))
+		if (Callisto::Input::IsMouseButtonPressed((int)Callisto::MouseButton::Button0))
 		{
 			auto [x, y] = Callisto::Input::GetMousePosition();
 			auto width = Callisto::Application::Get().GetWindow().GetWidth();

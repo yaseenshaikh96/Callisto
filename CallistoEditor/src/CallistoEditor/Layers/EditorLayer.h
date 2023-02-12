@@ -20,6 +20,13 @@ namespace Callisto
 		virtual void OnDetach() override;
 
 	private:
+		bool OnKeyPressedEvent(KeyPressedEvent& e);
+
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+
+	private:
 		bool m_ViewPortFocused = false;
 		float m_CubeRotation = 0.0f;
 		Ref<Texture2D> m_CheckerTexture;

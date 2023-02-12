@@ -20,22 +20,22 @@ namespace Callisto
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
-		if (Input::IsKeyPressed(CALLISTO_KEY_W))
+		if (Input::IsKeyPressed((int)Key::W))
 			m_CamPos.y += m_CamMoveSpeed * timeStep;
-		else if (Input::IsKeyPressed(CALLISTO_KEY_S))
+		else if (Input::IsKeyPressed((int)Key::S))
 			m_CamPos.y -= m_CamMoveSpeed * timeStep;
-		if (Input::IsKeyPressed(CALLISTO_KEY_A))
+		if (Input::IsKeyPressed((int)Key::A))
 			m_CamPos.x -= m_CamMoveSpeed * timeStep;
-		else if (Input::IsKeyPressed(CALLISTO_KEY_D))
+		else if (Input::IsKeyPressed((int)Key::D))
 			m_CamPos.x += m_CamMoveSpeed * timeStep;
 		
 		m_Camera.SetPosition(m_CamPos);
 
 		if(m_Rotation)
 		{
-			if (Input::IsKeyPressed(CALLISTO_KEY_Q))
+			if (Input::IsKeyPressed((int)Key::Q))
 				m_CamRot += m_CamRotSpeed * timeStep;
-			else if (Input::IsKeyPressed(CALLISTO_KEY_E))
+			else if (Input::IsKeyPressed((int)Key::E))
 				m_CamRot -= m_CamRotSpeed * timeStep;
 			m_Camera.SetRotation(m_CamRot);
 		}

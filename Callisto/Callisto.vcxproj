@@ -192,6 +192,7 @@
     <ClInclude Include="src\Callisto\Scene\SceneCamera.h" />
     <ClInclude Include="src\Callisto\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Callisto\Scene\ScriptableEntity.h" />
+    <ClInclude Include="src\Callisto\Utils\PlatformUtils.h" />
     <ClInclude Include="src\Callisto\Utils\Timer.h" />
     <ClInclude Include="src\CallistoPCH.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -628,6 +629,7 @@
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Callisto\Platforms\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Callisto\Platforms\Windows\WindowsInput.cpp" />
+    <ClCompile Include="src\Callisto\Platforms\Windows\WindowsPlatformUtils.cpp" />
     <ClCompile Include="src\Callisto\Platforms\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Camera.cpp" />

@@ -5,6 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Callisto/Scene/SceneSerializer.h"
+#include "Callisto/Utils/PlatformUtils.h"
 
 namespace Callisto
 {
@@ -125,19 +126,23 @@ namespace Callisto
 		if(ImGui::BeginMenu("File"))
 		{
 			
-			
-			if (ImGui::MenuItem("Serialize"))
+			if (ImGui::MenuItem("New", "Ctrl+N"))
 			{
-				SceneSerializer sceneSerializer(m_Scene);
-				sceneSerializer.Serialize("Assets/Scenes/Example.callisto");
+				NewScene();
 			}
-			if (ImGui::MenuItem("Deserialize"))
+			if (ImGui::MenuItem("Open...", "Ctrl+O"))
 			{
-				SceneSerializer sceneSerializer(m_Scene);
-				sceneSerializer.DeSerialize("Assets/Scenes/Example.callisto");
+				OpenScene();
+			}
+			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
+			{
+				SaveSceneAs();
 			}
 
-			if (ImGui::MenuItem("Exit")) Application::Get().Close();
+			if (ImGui::MenuItem("Exit")) 
+			{
+				Application::Get().Close();
+			}
 
 			ImGui::EndMenu();
 		}
@@ -207,5 +212,83 @@ namespace Callisto
 	void EditorLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
+		EventDispacther dispatcher(e);
+		dispatcher.Dispatch<KeyPressedEvent>(CALLISTO_BIND_EVENT_FN(EditorLayer::OnKeyPressedEvent));
+	}
+
+	bool EditorLayer::OnKeyPressedEvent(KeyPressedEvent& e)
+	{
+		if (e.GetRepeatCount() > 0)
+		{
+			return false;
+		}
+
+		bool ctrlPressed = Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl);
+		bool shiftPressed = Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift);
+		
+
+		switch ((Key)e.GetKeyCode())
+		{
+		case Key::N:
+		{
+			if (ctrlPressed)
+			{
+				NewScene();
+			}
+			break;
+		}
+		case Key::O:
+		{
+			if (ctrlPressed)
+			{
+				OpenScene();
+			}
+			break;
+		}
+		case Key::S:
+		{
+			if (ctrlPressed && shiftPressed)
+			{
+				SaveSceneAs();
+			}
+			break;
+		}
+
+		default:
+			break;
+		}
+		return false;
+	}
+
+	/*****************************************************************************************************************************************/
+	/* Save Scene Commands */
+	/*****************************************************************************************************************************************/
+	void EditorLayer::NewScene()
+	{
+		m_Scene = CreateRef<Scene>();
+		m_Scene->OnViewPortResize((uint32_t)m_ViewPortSize.x, (uint32_t)m_ViewPortSize.y);
+		m_SceneHierarchyPanel.SetContext(m_Scene);
+	}
+	void EditorLayer::OpenScene()
+	{
+		std::string filePath = FileDialogs::OpenFile("Callisto Scene (*.callisto)\0*.callisto\0");
+		if (!filePath.empty())
+		{
+			m_Scene = CreateRef<Scene>();
+			m_Scene->OnViewPortResize((uint32_t)m_ViewPortSize.x, (uint32_t)m_ViewPortSize.y);
+			m_SceneHierarchyPanel.SetContext(m_Scene);
+
+			SceneSerializer sceneSerializer(m_Scene);
+			sceneSerializer.DeSerialize(filePath);
+		}
+	}
+	void EditorLayer::SaveSceneAs()
+	{
+		std::string filePath = FileDialogs::OpenFile("Callisto Scene (*.callisto)\0*.callisto\0");
+		if (!filePath.empty())
+		{
+			SceneSerializer sceneSerializer(m_Scene);
+			sceneSerializer.Serialize(filePath);
+		}
 	}
 }
