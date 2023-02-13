@@ -4,9 +4,72 @@
 
 namespace Callisto
 {
+	static bool IsDepthFormat(FrameBufferTextureFormat format)
+	{
+		switch (format)
+		{
+		case FrameBufferTextureFormat::DEPTH_24_STENCIL_8:
+			return true;
+		default:
+			return false;
+		}
+		return false;
+	}
+
+	static GLenum TextureTarget(bool multiSample)
+	{
+		return multiSample ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D;
+	}
+
+	static void BindTexture(bool multiSample, uint32_t id)
+	{
+		glBindTexture(TextureTarget(multiSample), id);
+	}
+
+	static bool CreateTextures(bool multiSample, uint32_t* outTextureIDs, size_t count)
+	{
+		glGenTextures(count, outTextureIDs);
+		for (size_t i = 0; i < count; i++)
+		{
+			BindTexture(TextureTarget(multiSample),outTextureIDs[i]);
+		}
+		
+	}
+
+	static void AttachColorTexture(uint32_t id, uint32_t sampleCount, GLenum format, uint32_t width, uint32_t height)
+	{
+		bool multiSample = sampleCount > 1;
+		if (multiSample)
+		{
+			glTexImage2DMultisample(id, sampleCount, format, width, height, GL_FALSE);
+		}
+		else
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+			
+		}
+	}
+
+
+	/******************************************************************************************************************************************************/
+	/* OpenGLFrameBuffer */
+	/******************************************************************************************************************************************************/
 	OpenGLFrameBuffer::OpenGLFrameBuffer(FrameBufferSpecification specs)
 		: m_Specs(specs)
 	{
+
+		for (auto spec : m_Specs.Attachments.Attachments)
+		{
+			if (!IsDepthFormat(spec.TextureFormat))
+			{
+				m_ColorAttachmentSpecs.push_back(spec);
+			}
+			else
+			{
+				m_DepthAttachmentSpecs = spec;
+			}
+		}
+
 		Invalidate();
 	}
 
@@ -35,6 +98,28 @@ namespace Callisto
 
 		glGenFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
+
+		bool multiSample = m_Specs.SampleCount > 1;
+		//Attachments
+		if (m_ColorAttachmentSpecs.size())
+		{
+			m_ColorAttachmentIDs.resize(m_ColorAttachmentSpecs.size());
+			CreateTextures(multiSample, m_ColorAttachmentIDs.data(), m_ColorAttachmentIDs.size());
+
+			for (size_t i = 0; i < m_ColorAttachmentIDs.size(); i++)
+			{
+				BindTexture(multiSample, m_ColorAttachmentIDs[i]);
+				switch (m_ColorAttachmentSpecs[i].TextureFormat)
+				{
+				case FrameBufferTextureFormat::RGBA_8:
+					AttachColorTexture(m_ColorAttachmentIDs[i], m_Specs.SampleCount, GL_RGBA8, m_Specs.Width, m_Specs.Height);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
 
 		glGenTextures(1, &m_ColorAttachment);
 		glBindTexture(GL_TEXTURE_2D, m_ColorAttachment);

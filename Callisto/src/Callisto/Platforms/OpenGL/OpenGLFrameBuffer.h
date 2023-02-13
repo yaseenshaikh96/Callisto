@@ -27,5 +27,10 @@ namespace Callisto
 		uint32_t m_RendererID = 0;
 		uint32_t m_ColorAttachment = 0;
 		uint32_t m_DepthAttachment = 0;
+
+		std::vector<uint32_t> m_ColorAttachmentIDs;
+		uint32_t m_DepthAttachmentIDs;
+		std::vector<FrameBufferTextureSpecification> m_ColorAttachmentSpecs;
+		FrameBufferTextureSpecification m_DepthAttachmentSpecs;
 	};
 }
