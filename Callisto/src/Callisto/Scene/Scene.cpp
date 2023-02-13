@@ -14,8 +14,20 @@ namespace Callisto
 	Scene::~Scene()
 	{
 	}
-	
-	void Scene::OnUpdate(TimeStep timeStep)
+	void Scene::OnUpdateEditor(TimeStep timeStep, const EditorCamera& editorCamera)
+	{
+
+		Renderer2D::BeginScene(editorCamera);
+		auto view = m_Registry.view<TransformComponent, SpriteRendererComponent>();
+		for (auto entity : view)
+		{
+			auto [transform, sprite] = view.get<TransformComponent, SpriteRendererComponent>(entity);
+
+			Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+		}
+		Renderer2D::EndScene();
+	}
+	void Scene::OnUpdateRuntime(TimeStep timeStep)
 	{
 		// script update
 		{

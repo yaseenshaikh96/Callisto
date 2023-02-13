@@ -177,6 +177,7 @@
     <ClInclude Include="src\Callisto\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Callisto\Renderer\Buffer.h" />
     <ClInclude Include="src\Callisto\Renderer\Camera.h" />
+    <ClInclude Include="src\Callisto\Renderer\EditorCamera.h" />
     <ClInclude Include="src\Callisto\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Callisto\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Callisto\Renderer\RenderCommand.h" />
@@ -636,6 +637,7 @@
     <ClCompile Include="src\Callisto\Platforms\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Callisto\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\Callisto\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Callisto\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Callisto\Renderer\Renderer.cpp" />

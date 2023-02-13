@@ -2,6 +2,7 @@
 
 #include <Callisto.h>
 
+#include <Callisto/Renderer/EditorCamera.h>
 #include <entt.hpp>
 
 #include "CallistoEditor/Panels/SceneHierarchyPanel.h"
@@ -35,18 +36,18 @@ namespace Callisto
 		glm::vec4 m_Color{0};
 		Ref<FrameBuffer> m_FrameBuffer;
 		glm::vec2 m_ViewPortSize{0.0f, 0.0f};
-		OrthographicCameraController m_CameraController;
+		//OrthographicCameraController m_CameraController;
 
 		Entity m_CameraEntity;
 		Entity m_SecondaryCameraEntity;
 
 		bool m_PrimaryCamera = true;
 
+		EditorCamera m_EditorCamera;
 		Ref<Scene> m_Scene;
 		Entity m_SquareEntity;
 
 		int m_ImGuizmoType = 0;
-		/* Panels */
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 }

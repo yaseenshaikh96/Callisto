@@ -4,6 +4,7 @@
 
 #include "Callisto/Core/TimeStep.h"
 #include "Callisto/Scene/Components.h"
+#include "Callisto/Renderer/EditorCamera.h"
 
 namespace Callisto
 {
@@ -16,7 +17,8 @@ namespace Callisto
 		Entity CreateEntity(const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
-		void OnUpdate(TimeStep timeStep);
+		void OnUpdateRuntime(TimeStep timeStep);
+		void OnUpdateEditor(TimeStep timeStep, const EditorCamera& editorCamera);
 
 		void OnViewPortResize(uint32_t width, uint32_t height);
 

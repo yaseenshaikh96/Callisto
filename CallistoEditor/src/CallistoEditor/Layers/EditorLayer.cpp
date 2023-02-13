@@ -15,7 +15,8 @@ namespace Callisto
 	EditorLayer::EditorLayer()
 		:
 		Layer("EditorLayer"),
-		m_CameraController(1280.0f / 720.0f, true)
+		//m_CameraController(1.77f, true)
+		m_EditorCamera()
 	{
 		
 	}
@@ -30,49 +31,11 @@ namespace Callisto
 		m_FrameBuffer = FrameBuffer::Create(specs);		
 
 		m_Scene = CreateRef<Scene>();
+
+		m_EditorCamera = EditorCamera(30, (float)specs.Width / specs.Height, 0.01f, 1000.0f);
+
 		m_SceneHierarchyPanel.SetContext(m_Scene);
 		
-		/*
-		m_SquareEntity = m_Scene->CreateEntity("Square");
-		m_SquareEntity.GetComponent<TransformComponent>().Position = glm::vec3(-1.0f, 0.0f, 0.0f);
-		m_SquareEntity.AddComponent<SpriteRendererComponent>(glm::vec4(0.8f, 0.2f, 0.2f, 1.0f));
-
-		Entity SquareEntity2 = m_Scene->CreateEntity("Square2");
-		SquareEntity2.GetComponent<TransformComponent>().Position = glm::vec3(1.0f, 0.0f, 0.0f);
-		SquareEntity2.AddComponent<SpriteRendererComponent>(glm::vec4(0.2f, 0.2f, 0.8f, 1.0f));
-
-		m_CameraEntity = m_Scene->CreateEntity("Camera Entity");
-		m_CameraEntity.AddComponent<CameraComponent>();
-
-		m_SecondaryCameraEntity = m_Scene->CreateEntity("Secondary Camera Entity");
-		m_SecondaryCameraEntity.AddComponent<CameraComponent>().Primary = false;
-
-		class CameraController : public ScriptableEntity
-		{
-		public:
-			virtual void OnCreate() override
-			{
-			}
-			virtual void OnUpdate(TimeStep timeStep) override
-			{
-				auto& position = GetComponent<TransformComponent>().Position;
-				float speed = 2;
-				if (Input::IsKeyPressed(CALLISTO_KEY_A))
-					position.x -= speed * timeStep;
-				if (Input::IsKeyPressed(CALLISTO_KEY_D))
-					position.x += speed * timeStep;
-				if (Input::IsKeyPressed(CALLISTO_KEY_W))
-					position.y += speed * timeStep;
-				if (Input::IsKeyPressed(CALLISTO_KEY_S))
-					position.y -= speed * timeStep;
-
-			}
-			virtual void OnDestroy() override
-			{}
-		};
-		m_SecondaryCameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
-		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
-		*/
 	}
 
 	void EditorLayer::OnDetach()
@@ -185,55 +148,58 @@ namespace Callisto
 			float windowWidth = ImGui::GetWindowWidth();
 			float windowHeight = ImGui::GetWindowHeight();
 			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
-			
-			Entity cameraEntity = m_Scene->GetPrimaryCameraEntity();
-			if (cameraEntity)
+
+
+			bool snapping = Input::IsKeyPressed((int)Key::LeftControl);
+			float snapValue = 0.5f;
+			if (m_ImGuizmoType == (int)ImGuizmo::OPERATION::ROTATE)
 			{
-				bool snapping = Input::IsKeyPressed((int)Key::LeftControl);
-				float snapValue = 0.5f;
-				if (m_ImGuizmoType == (int)ImGuizmo::OPERATION::ROTATE)
-				{
-					snapValue = 45.0f;
-				}
-				float snapValues[3] = { snapValue, snapValue, snapValue };
-
-				//camera
-				SceneCamera& camera = cameraEntity.GetComponent<CameraComponent>().Camera;
-				TransformComponent& tc = cameraEntity.GetComponent<TransformComponent>();
-				glm::mat4 cameraView = glm::inverse(tc.GetTransform());
-				const glm::mat4& cameraProjection = camera.GetProjection();
-			
-				//entity
-				TransformComponent& entityTc = selectedEntity.GetComponent<TransformComponent>();
-				glm::mat4 entityTransform = entityTc.GetTransform();
-
-				ImGuizmo::Manipulate(
-					glm::value_ptr(cameraView), 
-					glm::value_ptr(cameraProjection),
-					(ImGuizmo::OPERATION)m_ImGuizmoType,
-					ImGuizmo::LOCAL,
-					glm::value_ptr(entityTransform),
-					nullptr,
-					snapping ? snapValues : nullptr);
-				
-				if (ImGuizmo::IsUsing())
-				{
-					glm::vec3 position, rotation, scale;
-					Math::DecomposeTransform(
-						entityTransform, 
-						position,
-						rotation,
-						scale);
-					
-					entityTc.Position = position;
-					
-					glm::vec3 deltaRotation = rotation - entityTc.Rotation;
-					entityTc.Rotation += deltaRotation;
-
-					entityTc.Scale = scale;
-				
-				}
+				snapValue = 45.0f;
 			}
+			float snapValues[3] = { snapValue, snapValue, snapValue };
+
+			//Runtime Camera
+			//Entity cameraEntity = m_Scene->GetPrimaryCameraEntity();
+			//SceneCamera& camera = cameraEntity.GetComponent<CameraComponent>().Camera;
+			//TransformComponent& tc = cameraEntity.GetComponent<TransformComponent>();
+			//glm::mat4 cameraView = glm::inverse(tc.GetTransform());
+			//const glm::mat4& cameraProjection = camera.GetProjection();
+			
+			//Editor Camera
+			const glm::mat4& cameraProjection = m_EditorCamera.GetProjection();
+			const glm::mat4& cameraView = m_EditorCamera.GetViewMatrix();
+
+			//entity
+			TransformComponent& entityTc = selectedEntity.GetComponent<TransformComponent>();
+			glm::mat4 entityTransform = entityTc.GetTransform();
+
+			ImGuizmo::Manipulate(
+				glm::value_ptr(cameraView), 
+				glm::value_ptr(cameraProjection),
+				(ImGuizmo::OPERATION)m_ImGuizmoType,
+				ImGuizmo::LOCAL,
+				glm::value_ptr(entityTransform),
+				nullptr,
+				snapping ? snapValues : nullptr);
+			
+			if (ImGuizmo::IsUsing())
+			{
+				glm::vec3 position, rotation, scale;
+				Math::DecomposeTransform(
+					entityTransform, 
+					position,
+					rotation,
+					scale);
+				
+				entityTc.Position = position;
+				
+				glm::vec3 deltaRotation = rotation - entityTc.Rotation;
+				entityTc.Rotation += deltaRotation;
+
+				entityTc.Scale = scale;
+			
+			}
+			
 
 		}
 		
@@ -253,15 +219,16 @@ namespace Callisto
 			(spec.Width != m_ViewPortSize.x || spec.Height != m_ViewPortSize.y))
 		{
 			m_FrameBuffer->Resize((uint32_t)m_ViewPortSize.x, (uint32_t)m_ViewPortSize.y);
-			m_CameraController.OnResize(m_ViewPortSize.x, m_ViewPortSize.y);
+			//m_CameraController.OnResize(m_ViewPortSize.x, m_ViewPortSize.y);
+			m_EditorCamera.SetViewportSize(m_ViewPortSize.x, m_ViewPortSize.y);
 			m_Scene->OnViewPortResize((uint32_t)m_ViewPortSize.x, (uint32_t)m_ViewPortSize.y);
 		}
 
 		if(m_ViewPortFocused)
 		{
-			m_CameraController.OnUpdate(timeStep);
+			m_EditorCamera.OnUpdate(timeStep);
+			//m_CameraController.OnUpdate(timeStep);
 		}
-		
 		{
 			CALLISTO_PROFILE_SCOPE("Render");
 			Renderer2D::ResetStatistics();
@@ -269,7 +236,9 @@ namespace Callisto
 			m_FrameBuffer->Bind();
 			RenderCommand::SetClearColor({ 0.2f, 0.1f, 0.2f, 1.0f });
 			RenderCommand::Clear();
-			m_Scene->OnUpdate(timeStep);
+
+			m_Scene->OnUpdateEditor(timeStep, m_EditorCamera);
+			//m_Scene->OnUpdateRuntime(timeStep);
 			m_FrameBuffer->UnBind();
 		}
 
@@ -277,7 +246,8 @@ namespace Callisto
 
 	void EditorLayer::OnEvent(Event& e)
 	{
-		m_CameraController.OnEvent(e);
+		m_EditorCamera.OnEvent(e);
+		
 		EventDispacther dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(CALLISTO_BIND_EVENT_FN(EditorLayer::OnKeyPressedEvent));
 	}

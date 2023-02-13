@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Callisto/Renderer/Camera.h"
+#include "Callisto/Renderer/EditorCamera.h"
 #include "Callisto/Renderer/Texture.h"
 #include "Callisto/Renderer/SubTexture2D.h"
 
@@ -24,6 +25,7 @@ namespace Callisto
 
 		static void BeginScene(const OrthographicCamera& camera);
 		static void BeginScene(const Camera& camera, glm::mat4 transform);
+		static void BeginScene(const EditorCamera& editorCamera);
 		static void EndScene();
 
 		static void Flush();
