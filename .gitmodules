@@ -16,3 +16,6 @@
 [submodule "Callisto/vendor/ymal-cpp"]
 	path = Callisto/vendor/yaml-cpp
 	url = https://github.com/yaseenshaikh96/yaml-cpp.git
+[submodule "Callisto/vendor/ImGuizmo"]
+	path = Callisto/vendor/ImGuizmo
+	url = https://github.com/yaseenshaikh96/ImGuizmo.git
