@@ -125,6 +125,7 @@ namespace Callisto
 		ImGui::Text("Indices: %d", stats.GetTotalIndicesCount());
 		ImGui::End(); // Renderer2D Stats
 
+		//ImGui::height
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 		ImGui::Begin("ViewPort");
@@ -132,6 +133,9 @@ namespace Callisto
 		m_ViewPortHovered = ImGui::IsWindowHovered();
 		Application::Get().GetImGuiLayer()->SetBlockImGuiEvent(!m_ViewPortFocused && !m_ViewPortHovered);
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+
+		//viewportPanelSize.y -= ImGui::GetTextLineHeightWithSpacing();
+		
 		m_ViewPortSize = { viewportPanelSize.x, viewportPanelSize.y };
 		uint32_t frameBuffer = m_FrameBuffer->GetColorAttachmentID();
 		#pragma warning(push)
@@ -145,9 +149,13 @@ namespace Callisto
 		{
 			ImGuizmo::SetOrthographic(false);
 			ImGuizmo::SetDrawlist();
-			float windowWidth = ImGui::GetWindowWidth();
-			float windowHeight = ImGui::GetWindowHeight();
-			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+			
+			ImGuizmo::SetRect(
+				ImGui::GetWindowPos().x,
+				ImGui::GetWindowPos().y + ImGui::GetTextLineHeightWithSpacing(),
+				ImGui::GetWindowSize().x, 
+				ImGui::GetWindowSize().y - ImGui::GetTextLineHeightWithSpacing()
+			);
 
 
 			bool snapping = Input::IsKeyPressed((int)Key::LeftControl);
@@ -177,7 +185,7 @@ namespace Callisto
 				glm::value_ptr(cameraView), 
 				glm::value_ptr(cameraProjection),
 				(ImGuizmo::OPERATION)m_ImGuizmoType,
-				ImGuizmo::LOCAL,
+				ImGuizmo::MODE::LOCAL,
 				glm::value_ptr(entityTransform),
 				nullptr,
 				snapping ? snapValues : nullptr);
