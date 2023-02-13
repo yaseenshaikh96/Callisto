@@ -15,7 +15,7 @@ namespace Callisto
 		void SetContext(const Ref<Scene>& context);
 
 		void SetSelectionContext(Entity selectionContext) { m_SelectionContext = selectionContext; }
-		Entity GetSelectionContext() { return m_SelectionContext; }
+		Entity GetSelectionContext() const { return m_SelectionContext; }
 
 		void OnImGuiRender();
 

@@ -20,6 +20,8 @@ namespace Callisto
 
 		void OnViewPortResize(uint32_t width, uint32_t height);
 
+		Entity GetPrimaryCameraEntity();
+
 	private:
 		template<typename t_Type>
 		void OnComponentAdded(Entity entity, t_Type& component);

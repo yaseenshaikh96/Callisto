@@ -4,12 +4,12 @@
 #include <imgui.h>
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
-
-#include <Callisto/Core/Application.h>
+#include "ImGuizmo.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Callisto/Core/Application.h"
 
 namespace Callisto
 {
@@ -27,6 +27,7 @@ namespace Callisto
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+		ImGuizmo::BeginFrame();
 	}
 
 	void ImGuiLayer::End()

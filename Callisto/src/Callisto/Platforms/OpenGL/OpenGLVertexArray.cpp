@@ -58,7 +58,8 @@ namespace Callisto
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
 
-
+#pragma warning(push)
+#pragma warning(disable : 4312)
 		uint32_t index = 0;
 		const auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
@@ -72,6 +73,7 @@ namespace Callisto
 				(const void*)element.Offset);
 			index++;
 		}
+#pragma warning(pop)
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)

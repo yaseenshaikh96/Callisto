@@ -96,6 +96,20 @@ namespace Callisto
 		m_Registry.destroy(entity);
 	}
 
+	Entity Scene::GetPrimaryCameraEntity()
+	{
+		auto view = m_Registry.view<CameraComponent>();
+		for (entt::entity enttEntity : view)
+		{
+			const auto& cc = view.get<CameraComponent>(enttEntity);
+			if (cc.Primary)
+			{
+				return Entity(enttEntity, this);
+			}
+		}
+		return Entity();
+	}
+
 	/********************************************************************************************************************************************************/
 	template<typename t_Type>
 	void Scene::OnComponentAdded(Entity entity, t_Type& component)

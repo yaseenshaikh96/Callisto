@@ -132,8 +132,10 @@ namespace Callisto
 	void Renderer2D::EndScene()
 	{
 		CALLISTO_PROFILE_FUNCTION();
-
+#pragma warning(push)
+#pragma warning(disable: 4244)
 		uint32_t dataSize = (uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase;
+#pragma warning(pop)
 		s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
 
 		Flush();

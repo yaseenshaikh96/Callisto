@@ -20,7 +20,8 @@ project "CallistoEditor"
 		"%{wks.location}/Callisto/src",
 		"%{wks.location}/Callisto/vendor",
 		"%{IncludedDirs.glm}",
-		"%{IncludedDirs.entt}"
+		"%{IncludedDirs.entt}",
+		"%{IncludedDirs.ImGuizmo}"
 	}
 
 	links

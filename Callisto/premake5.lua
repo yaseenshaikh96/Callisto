@@ -19,7 +19,10 @@ project "Callisto"
 		"%{wks.location}/%{prj.name}/vendor/glm/glm/**.inl",
 
 		"%{wks.location}/%{prj.name}/vendor/stb_image/**.cpp",
-		"%{wks.location}/%{prj.name}/vendor/stb_image/**.h"
+		"%{wks.location}/%{prj.name}/vendor/stb_image/**.h",
+
+		"%{wks.location}/%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp",
+		"%{wks.location}/%{prj.name}/vendor/ImGuizmo/ImGuizmo.h"
 
 	}
 
@@ -37,6 +40,7 @@ project "Callisto"
 		"%{IncludedDirs.glad}",
 		"%{IncludedDirs.GLFW}",
 		"%{IncludedDirs.imgui}",
+		"%{IncludedDirs.ImGuizmo}",
 		"%{IncludedDirs.glm}",
 		"%{IncludedDirs.stb_image}",
 		"%{IncludedDirs.entt}",
@@ -51,6 +55,12 @@ project "Callisto"
 		"yaml-cpp",
 		"opengl32.lib"
 	}
+
+	filter "files:vendor/ImGuizmo/**.cpp"
+		flags 
+		{ 
+			"NoPCH" 
+		}
 
 	filter "system:windows"
 		systemversion "latest"

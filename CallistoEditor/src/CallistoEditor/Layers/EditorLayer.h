@@ -28,6 +28,8 @@ namespace Callisto
 
 	private:
 		bool m_ViewPortFocused = false;
+		bool m_ViewPortHovered = false;
+		
 		float m_CubeRotation = 0.0f;
 		Ref<Texture2D> m_CheckerTexture;
 		glm::vec4 m_Color{0};
@@ -43,7 +45,7 @@ namespace Callisto
 		Ref<Scene> m_Scene;
 		Entity m_SquareEntity;
 
-
+		int m_ImGuizmoType = 0;
 		/* Panels */
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};

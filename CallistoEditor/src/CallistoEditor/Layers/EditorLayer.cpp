@@ -4,6 +4,9 @@
 #include <glm/gtc/type_ptr.hpp> 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "ImGuizmo.h"
+
+#include "Callisto/Math/Math.h"
 #include "Callisto/Scene/SceneSerializer.h"
 #include "Callisto/Utils/PlatformUtils.h"
 
@@ -163,7 +166,8 @@ namespace Callisto
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 		ImGui::Begin("ViewPort");
 		m_ViewPortFocused = ImGui::IsWindowFocused();
-		Application::Get().GetImGuiLayer()->SetBlockImGuiEvent(!m_ViewPortFocused);
+		m_ViewPortHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->SetBlockImGuiEvent(!m_ViewPortFocused && !m_ViewPortHovered);
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		m_ViewPortSize = { viewportPanelSize.x, viewportPanelSize.y };
 		uint32_t frameBuffer = m_FrameBuffer->GetColorAttachmentID();
@@ -171,6 +175,68 @@ namespace Callisto
 		#pragma warning(disable : 4312)
 		ImGui::Image((void*)frameBuffer, ImVec2{ m_ViewPortSize.x, m_ViewPortSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		#pragma warning(pop)
+		
+		//Gizmos
+		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectionContext();
+		if (selectedEntity && m_ImGuizmoType != -1)
+		{
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			float windowWidth = ImGui::GetWindowWidth();
+			float windowHeight = ImGui::GetWindowHeight();
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+			
+			Entity cameraEntity = m_Scene->GetPrimaryCameraEntity();
+			if (cameraEntity)
+			{
+				bool snapping = Input::IsKeyPressed((int)Key::LeftControl);
+				float snapValue = 0.5f;
+				if (m_ImGuizmoType == (int)ImGuizmo::OPERATION::ROTATE)
+				{
+					snapValue = 45.0f;
+				}
+				float snapValues[3] = { snapValue, snapValue, snapValue };
+
+				//camera
+				SceneCamera& camera = cameraEntity.GetComponent<CameraComponent>().Camera;
+				TransformComponent& tc = cameraEntity.GetComponent<TransformComponent>();
+				glm::mat4 cameraView = glm::inverse(tc.GetTransform());
+				const glm::mat4& cameraProjection = camera.GetProjection();
+			
+				//entity
+				TransformComponent& entityTc = selectedEntity.GetComponent<TransformComponent>();
+				glm::mat4 entityTransform = entityTc.GetTransform();
+
+				ImGuizmo::Manipulate(
+					glm::value_ptr(cameraView), 
+					glm::value_ptr(cameraProjection),
+					(ImGuizmo::OPERATION)m_ImGuizmoType,
+					ImGuizmo::LOCAL,
+					glm::value_ptr(entityTransform),
+					nullptr,
+					snapping ? snapValues : nullptr);
+				
+				if (ImGuizmo::IsUsing())
+				{
+					glm::vec3 position, rotation, scale;
+					Math::DecomposeTransform(
+						entityTransform, 
+						position,
+						rotation,
+						scale);
+					
+					entityTc.Position = position;
+					
+					glm::vec3 deltaRotation = rotation - entityTc.Rotation;
+					entityTc.Rotation += deltaRotation;
+
+					entityTc.Scale = scale;
+				
+				}
+			}
+
+		}
+		
 		ImGui::End();
 		ImGui::PopStyleVar(); // viewport
 
@@ -251,6 +317,28 @@ namespace Callisto
 			{
 				SaveSceneAs();
 			}
+			break;
+		}
+
+		//ImGuizmo
+		case Key::Q:
+		{
+			m_ImGuizmoType = -1;
+			break;
+		}
+		case Key::W:
+		{
+			m_ImGuizmoType = (int)ImGuizmo::OPERATION::TRANSLATE;
+			break;
+		}
+		case Key::E:
+		{
+			m_ImGuizmoType = (int)ImGuizmo::OPERATION::ROTATE;
+			break;
+		}
+		case Key::R:
+		{
+			m_ImGuizmoType = (int)ImGuizmo::OPERATION::SCALE;
 			break;
 		}
 
