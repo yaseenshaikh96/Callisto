@@ -28,9 +28,10 @@ namespace Callisto
 		FrameBufferSpecification specs;
 		specs.Width = 1600;
 		specs.Height = 900;
+		specs.SampleCount = 0;
 		specs.Attachments = {
-			FrameBufferTextureFormat::Color,
-			FrameBufferTextureFormat::Depth
+			{ FrameBufferTextureFormat::RGBA_8 },
+			{ FrameBufferTextureFormat::DEPTH_24_STENCIL_8 }
 		};
 
 		m_FrameBuffer = FrameBuffer::Create(specs);		

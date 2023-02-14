@@ -18,18 +18,20 @@ namespace Callisto
 
 		virtual void Resize(uint32_t width, uint32_t height) override;
 
-		virtual uint32_t GetColorAttachmentID() const override { return m_ColorAttachment; }
+		virtual uint32_t GetColorAttachmentID(uint32_t index = 0) const override 
+		{  
+			CALLISTO_CORE_ASSERT(index < m_ColorAttachmentIDs.size(), "IndexOutOfBound!");
+			return m_ColorAttachmentIDs[index]; 
+		}
 
 		virtual const FrameBufferSpecification& GetSpecifications() const override { return m_Specs; }
 
 	private:
 		FrameBufferSpecification m_Specs;
 		uint32_t m_RendererID = 0;
-		uint32_t m_ColorAttachment = 0;
-		uint32_t m_DepthAttachment = 0;
 
 		std::vector<uint32_t> m_ColorAttachmentIDs;
-		uint32_t m_DepthAttachmentIDs;
+		uint32_t m_DepthAttachmentID;
 		std::vector<FrameBufferTextureSpecification> m_ColorAttachmentSpecs;
 		FrameBufferTextureSpecification m_DepthAttachmentSpecs;
 	};
