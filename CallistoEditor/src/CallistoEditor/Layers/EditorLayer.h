@@ -47,6 +47,8 @@ namespace Callisto
 		Ref<Scene> m_Scene;
 		Entity m_SquareEntity;
 
+		glm::vec2 m_viewPortBounds[2];
+
 		int m_ImGuizmoType = 0;
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};

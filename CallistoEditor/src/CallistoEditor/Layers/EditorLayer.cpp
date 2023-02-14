@@ -31,6 +31,7 @@ namespace Callisto
 		specs.SampleCount = 0;
 		specs.Attachments = {
 			{ FrameBufferTextureFormat::RGBA_8 },
+			{ FrameBufferTextureFormat::RED_INTEGER },
 			{ FrameBufferTextureFormat::DEPTH_24_STENCIL_8 }
 		};
 
@@ -133,22 +134,34 @@ namespace Callisto
 
 		//ImGui::height
 
+		//ImGuiTableColumnFlags tableFlags = ImGui::TableGetColumnFlags();
+
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 		ImGui::Begin("ViewPort");
+
+		ImVec2 viewPortOffset = ImGui::GetCursorPos(); // tab bar included
+
 		m_ViewPortFocused = ImGui::IsWindowFocused();
 		m_ViewPortHovered = ImGui::IsWindowHovered();
 		Application::Get().GetImGuiLayer()->SetBlockImGuiEvent(!m_ViewPortFocused && !m_ViewPortHovered);
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-
-		//viewportPanelSize.y -= ImGui::GetTextLineHeightWithSpacing();
-		
 		m_ViewPortSize = { viewportPanelSize.x, viewportPanelSize.y };
-		uint32_t frameBuffer = m_FrameBuffer->GetColorAttachmentID();
+		uint32_t frameBuffer = m_FrameBuffer->GetColorAttachmentID(0);
 		#pragma warning(push)
 		#pragma warning(disable : 4312)
 		ImGui::Image((void*)frameBuffer, ImVec2{ m_ViewPortSize.x, m_ViewPortSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		#pragma warning(pop)
-		
+
+		ImVec2 windowSize = ImGui::GetWindowSize();
+		ImVec2 minBound = ImGui::GetWindowPos();
+		minBound.x += viewPortOffset.x;
+		minBound.y += viewPortOffset.y;
+		ImVec2 maxBound;
+		maxBound.x = minBound.x + windowSize.x;
+		maxBound.y = minBound.y + windowSize.y;
+		m_viewPortBounds[0] = glm::vec2(minBound.x, minBound.y);
+		m_viewPortBounds[1] = glm::vec2(maxBound.x, maxBound.y);
+
 		//Gizmos
 		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectionContext();
 		if (selectedEntity && m_ImGuizmoType != -1)
@@ -162,8 +175,7 @@ namespace Callisto
 				ImGui::GetWindowSize().x, 
 				ImGui::GetWindowSize().y - ImGui::GetTextLineHeightWithSpacing()
 			);
-
-
+				
 			bool snapping = Input::IsKeyPressed((int)Key::LeftControl);
 			float snapValue = 0.5f;
 			if (m_ImGuizmoType == (int)ImGuizmo::OPERATION::ROTATE)
@@ -252,7 +264,23 @@ namespace Callisto
 			RenderCommand::Clear();
 
 			m_Scene->OnUpdateEditor(timeStep, m_EditorCamera);
-			//m_Scene->OnUpdateRuntime(timeStep);
+
+			auto [mX, mY] = ImGui::GetMousePos();
+			mX -= m_viewPortBounds[0].x;
+			mY -= m_viewPortBounds[0].y;
+			glm::vec2 viewPortSize(m_viewPortBounds[1] - m_viewPortBounds[0]);
+			mY = viewPortSize.y - mY - ImGui::GetTextLineHeightWithSpacing();
+
+			int mouseX = (int)mX;
+			int mouseY = (int)mY;
+
+			if (mouseX >= 0 && mouseX < viewPortSize.x
+				&& mouseY >= 0 && mouseY < viewPortSize.y)
+			{
+				int id = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
+				CALLISTO_CORE_INFO("pixelData: {0}", id);
+			}
+
 			m_FrameBuffer->UnBind();
 		}
 

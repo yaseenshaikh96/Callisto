@@ -2,6 +2,8 @@
 #include "OpenGLFrameBuffer.h"
 #include <glad/glad.h>
 
+#pragma warning(disable : 4267)
+
 namespace Callisto
 {
 	static bool IsDepthFormat(FrameBufferTextureFormat format)
@@ -31,7 +33,7 @@ namespace Callisto
 		glGenTextures(count, outTextureIDs);
 	}
 
-	static void AttachColorTexture(uint32_t id, uint32_t sampleCount, GLenum format, uint32_t width, uint32_t height, uint32_t index)
+	static void AttachColorTexture(uint32_t id, uint32_t sampleCount, GLenum internalFormat, GLenum format, uint32_t width, uint32_t height, uint32_t index)
 	{
 		bool multiSample = sampleCount > 1;
 		if (multiSample)
@@ -41,7 +43,7 @@ namespace Callisto
 		else
 		{
 			BindTexture(multiSample, id);
-			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, NULL);
 			glGenerateMipmap(GL_TEXTURE_2D);
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -148,7 +150,10 @@ namespace Callisto
 				switch (m_ColorAttachmentSpecs[i].TextureFormat)
 				{
 				case FrameBufferTextureFormat::RGBA_8:
-					AttachColorTexture(m_ColorAttachmentIDs[i], m_Specs.SampleCount, GL_RGBA8, m_Specs.Width, m_Specs.Height, i);
+					AttachColorTexture(m_ColorAttachmentIDs[i], m_Specs.SampleCount, GL_RGBA8, GL_RGBA, m_Specs.Width, m_Specs.Height, i);
+					break;
+				case FrameBufferTextureFormat::RED_INTEGER:
+					AttachColorTexture(m_ColorAttachmentIDs[i], m_Specs.SampleCount, GL_R32I, GL_RED_INTEGER, m_Specs.Width, m_Specs.Height, i);
 					break;
 				default:
 					break;
@@ -216,4 +221,13 @@ namespace Callisto
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
+
+	int OpenGLFrameBuffer::ReadPixel(uint32_t attachmentIndex, int x, int y)
+	{
+		CALLISTO_CORE_ASSERT(attachmentIndex < m_ColorAttachmentIDs.size(), "IndexOutOfBound");
+		glReadBuffer(GL_COLOR_ATTACHMENT0 + attachmentIndex);
+		int pixelData;
+		glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
+		return pixelData;
+	}
 }
