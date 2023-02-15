@@ -23,7 +23,7 @@ namespace Callisto
 		{
 			auto [transform, sprite] = view.get<TransformComponent, SpriteRendererComponent>(entity);
 
-			Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+			Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)(entity));
 		}
 		Renderer2D::EndScene();
 	}
@@ -71,7 +71,9 @@ namespace Callisto
 			{
 				auto [transform, sprite] = view.get<TransformComponent, SpriteRendererComponent>(entity);
 			
-				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+				//Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+				Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
+				
 			}
 			Renderer2D::EndScene();
 		}

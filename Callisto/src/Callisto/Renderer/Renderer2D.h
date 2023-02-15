@@ -4,7 +4,7 @@
 #include "Callisto/Renderer/EditorCamera.h"
 #include "Callisto/Renderer/Texture.h"
 #include "Callisto/Renderer/SubTexture2D.h"
-
+#include "Callisto/Scene/Components.h"
 namespace Callisto
 {
 	class Renderer2D
@@ -30,6 +30,7 @@ namespace Callisto
 
 		static void Flush();
 		
+		static void DrawSprite(const glm::mat4& transform, SpriteRendererComponent& src, int entityId);
 		
 		static void DrawAxisAlignedQuadFilled(const glm::vec2& position, const glm::vec2& size, glm::vec4 color = glm::vec4(0.0f));
 		static void DrawAxisAlignedQuadFilled(const glm::vec3& position, const glm::vec2& size, glm::vec4 color = glm::vec4(0.0f));
@@ -40,7 +41,7 @@ namespace Callisto
 		static void DrawAxisAlignedQuadFilled(const glm::vec2& position, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor);
 		static void DrawAxisAlignedQuadFilled(const glm::vec3& position, const glm::vec2& size, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor);
 
-		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color);
+		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color, int entityId = 0);
 		static void DrawQuad(const glm::mat4& transform, const Ref<Texture2D>& texture, const glm::vec2& texScale, const glm::vec4& tintColor);
 		static void DrawQuad(const glm::mat4& transform, const Ref<SubTexture2D>& subTexture, const glm::vec2& texScale, const glm::vec4& tintColor);
 
@@ -65,6 +66,7 @@ namespace Callisto
 			float TexIndex;
 			glm::vec2 TexCoord;
 			glm::vec2 TexScale;
+			int EntityId = 0;
 			// normal, texture id, etc
 		};
 

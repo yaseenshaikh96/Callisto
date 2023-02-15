@@ -63,6 +63,8 @@ namespace Callisto
 
 		virtual const FrameBufferSpecification& GetSpecifications() const = 0;
 
+		virtual void ClearColorAttacment(uint32_t attachmentIndex, const void* value) = 0;
+
 		virtual void Bind() = 0;
 		virtual void UnBind() = 0;
 

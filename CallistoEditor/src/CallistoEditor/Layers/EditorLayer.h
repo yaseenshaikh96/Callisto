@@ -40,6 +40,7 @@ namespace Callisto
 
 		Entity m_CameraEntity;
 		Entity m_SecondaryCameraEntity;
+		Entity m_HoveredEntity;
 
 		bool m_PrimaryCamera = true;
 
@@ -47,7 +48,7 @@ namespace Callisto
 		Ref<Scene> m_Scene;
 		Entity m_SquareEntity;
 
-		glm::vec2 m_viewPortBounds[2];
+		glm::vec2 m_viewPortBounds[2] = { {0, 0} , {0, 0} };
 
 		int m_ImGuizmoType = 0;
 		SceneHierarchyPanel m_SceneHierarchyPanel;

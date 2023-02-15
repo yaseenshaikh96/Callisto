@@ -49,7 +49,8 @@ namespace Callisto
 			{ShaderDataType::Float4, "a_Color"},
 			{ShaderDataType::Float, "a_TexIndex"},
 			{ShaderDataType::Float2, "a_TexCoord"},
-			{ShaderDataType::Float2, "a_TexScale"}
+			{ShaderDataType::Float2, "a_TexScale"},
+			{ShaderDataType::Int, "a_EntityId"}
 		};
 		s_Data.QuadVertexBuffer->SetLayout(quadLayout);
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
@@ -261,7 +262,7 @@ namespace Callisto
 		DrawQuad(transform, subTexture, texScale, tintColor);
 	}
 
-	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color)
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color, int entityId)
 	{
 		CALLISTO_PROFILE_FUNCTION();
 
@@ -288,6 +289,7 @@ namespace Callisto
 			s_Data.QuadVertexBufferPtr->TexCoord = textureCoords[i];
 			s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
 			s_Data.QuadVertexBufferPtr->TexScale = texScale;
+			s_Data.QuadVertexBufferPtr->EntityId = entityId;
 			s_Data.QuadVertexBufferPtr++;
 		}
 
@@ -384,6 +386,11 @@ namespace Callisto
 
 		s_Data.QuadIndexCount += 6;
 		s_Data.stats.QuadCount++;
+	}
+	
+	void Renderer2D::DrawSprite(const glm::mat4& transform, SpriteRendererComponent& src, int entityId)
+	{
+		DrawQuad(transform, src.Color, entityId);
 	}
 
 	void Renderer2D::ResetStatistics()

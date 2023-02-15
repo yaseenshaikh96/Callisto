@@ -124,6 +124,15 @@ namespace Callisto
 		m_SceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::Begin("Renderer2D Stats");
+		
+		std::string name = "None";
+		if (m_HoveredEntity)
+		{
+			CALLISTO_CORE_INFO("id:  {0}", (int)m_HoveredEntity);
+			name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+		}
+		ImGui::Text("Hovered Entity: %s", name.c_str());
+		
 		auto stats = Renderer2D::GetStatistics();
 		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
@@ -171,9 +180,9 @@ namespace Callisto
 			
 			ImGuizmo::SetRect(
 				ImGui::GetWindowPos().x,
-				ImGui::GetWindowPos().y + ImGui::GetTextLineHeightWithSpacing(),
+				ImGui::GetWindowPos().y,//+ ImGui::GetTextLineHeightWithSpacing(),
 				ImGui::GetWindowSize().x, 
-				ImGui::GetWindowSize().y - ImGui::GetTextLineHeightWithSpacing()
+				ImGui::GetWindowSize().y// - ImGui::GetTextLineHeightWithSpacing()
 			);
 				
 			bool snapping = Input::IsKeyPressed((int)Key::LeftControl);
@@ -260,8 +269,10 @@ namespace Callisto
 			Renderer2D::ResetStatistics();
 			
 			m_FrameBuffer->Bind();
-			RenderCommand::SetClearColor({ 0.2f, 0.1f, 0.2f, 1.0f });
+
+			RenderCommand::SetClearColor({ 0.0f, 0.1f, 0.2f, 1.0f });
 			RenderCommand::Clear();
+
 
 			m_Scene->OnUpdateEditor(timeStep, m_EditorCamera);
 
@@ -277,9 +288,10 @@ namespace Callisto
 			if (mouseX >= 0 && mouseX < viewPortSize.x
 				&& mouseY >= 0 && mouseY < viewPortSize.y)
 			{
-				int id = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
-				CALLISTO_CORE_INFO("pixelData: {0}", id);
+				int pixelData = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
+				m_HoveredEntity = pixelData == 0 || pixelData > 10000 || pixelData < 0? Entity() : Entity((entt::entity)pixelData, m_Scene.get());
 			}
+
 
 			m_FrameBuffer->UnBind();
 		}

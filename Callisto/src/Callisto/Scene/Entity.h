@@ -45,6 +45,7 @@ namespace Callisto
 
 		operator bool() const { return m_EntityHandle != entt::null; }
 		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
+		operator int() const { return (int)m_EntityHandle; }
 		operator entt::entity() const { return m_EntityHandle; }
 
 		bool operator==(const Entity& other) const 
